@@ -13,8 +13,10 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "bcrypt": "^4.0.1",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.5",
     "core-js": "^3.6.5",
+    "cuid": "^2.1.8",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",

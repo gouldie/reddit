@@ -2,7 +2,13 @@ import 'dotenv/config'
 import mongoose from 'mongoose'
 import express from 'express'
 import path from 'path'
+import cookieParser from 'cookie-parser'
 import routes from './routes'
+
+if (!process.env.SECRET) {
+  console.log('SECRET is required')
+  process.exit()
+}
 
 const PORT = process.env.PORT || 8080
 
@@ -19,6 +25,7 @@ const app = express()
 app.use(express.json({ limit: '3mb', type: 'application/json' }))
 app.use(express.static('dist'))
 app.use(express.static('public'))
+app.use(cookieParser())
 
 // Routes
 routes(app)

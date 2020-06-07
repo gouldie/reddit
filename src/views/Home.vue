@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <h1>This is a home page</h1>
+    <p>isAuthenticated: {{ isAuthenticated }}</p>
     <router-link to='/about'>Go to about</router-link>
   </div>
 </template>
@@ -13,6 +14,11 @@ export default {
   name: 'Home',
   components: {
     // HelloWorld
+  },
+  computed: {
+    isAuthenticated () {
+      return this.$store.state.isAuthenticated
+    }
   }
 }
 </script>

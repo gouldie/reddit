@@ -1,6 +1,7 @@
 var mongoose = require('mongoose')
 
 var UserSchema = new mongoose.Schema({
+  _id: String,
   email: {
     type: String,
     unique: true,
@@ -17,7 +18,7 @@ var UserSchema = new mongoose.Schema({
     trim: true,
     unique: true
   }
-})
+}, { versionKey: false })
 var User = mongoose.model('User', UserSchema)
 
 module.exports = User

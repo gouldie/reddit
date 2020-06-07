@@ -45,6 +45,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data () {
     return {
@@ -57,6 +59,13 @@ export default {
   methods: {
     submit () {
       console.log('submit log in')
+      axios.post('/login', {
+        username: this.username,
+        password: this.password
+      })
+        .then(res => {
+          window.location.href = '/'
+        })
     }
   }
 }
