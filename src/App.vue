@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <v-app id="inspire">
     <Header />
     <v-content>
       <router-view></router-view>
     </v-content>
     <Footer />
-  </div>
+  </v-app>
 </template>
 
 <script>
@@ -25,3 +25,9 @@ export default {
   })
 }
 </script>
+
+<style>
+  html {
+    overflow-y: auto !important;
+  }
+</style>
