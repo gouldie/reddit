@@ -4,17 +4,18 @@
 
     <v-spacer></v-spacer>
 
-    <v-btn class='log-in-button'>Log In</v-btn>
-    <!-- <v-btn>Sign Up</v-btn> -->
+    <LogIn />
     <SignUp />
   </v-app-bar>
 </template>
 
 <script>
+import LogIn from './LogIn'
 import SignUp from './SignUp'
 
 export default {
   components: {
+    LogIn,
     SignUp
   },
   methods: {

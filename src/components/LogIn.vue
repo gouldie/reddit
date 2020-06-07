@@ -5,22 +5,21 @@
       width="500"
     >
       <template v-slot:activator="{ on }">
-        <v-btn color="red lighten-2" dark v-on="on">
-          Sign Up
+        <v-btn class='log-in-button' color="red lighten-2" dark v-on="on">
+          Log In
         </v-btn>
       </template>
 
       <v-card>
         <v-card-title class="headline grey lighten-2" primary-title>
-          Sign Up
+          Log In
         </v-card-title>
 
         <v-card-text>
-          By having a Reddit account, you can join, vote, and comment on all your favorite Reddit content.
+          Log in to a Reddit account to join, vote, and comment on all your favorite Reddit content.
         </v-card-text>
 
         <div class='input-container'>
-          <v-text-field v-model="email" label="Email"></v-text-field>
           <v-text-field v-model="username" label="Username"></v-text-field>
           <v-text-field v-model="password" label="Password"></v-text-field>
         </div>
@@ -37,7 +36,7 @@
             Back
           </v-btn>
           <v-btn color="primary" text @click="submit">
-            Sign Up
+            Log In
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -50,7 +49,6 @@ export default {
   data () {
     return {
       dialog: false,
-      email: '',
       username: '',
       password: '',
       error: null
@@ -58,7 +56,7 @@ export default {
   },
   methods: {
     submit () {
-      console.log('submit sign up')
+      console.log('submit log in')
     }
   }
 }
@@ -76,5 +74,8 @@ export default {
   }
   .error-text {
     padding-top: 0 !important;
+  }
+  .log-in-button {
+    margin-right: 20px;
   }
 </style>
