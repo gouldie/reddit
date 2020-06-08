@@ -4,23 +4,31 @@
 
     <v-spacer></v-spacer>
 
-    <LogIn />
-    <SignUp />
+    <LogOut v-if='isAuthenticated' />
+    <LogIn v-if='!isAuthenticated' />
+    <SignUp v-if='!isAuthenticated' />
   </v-app-bar>
 </template>
 
 <script>
 import LogIn from './LogIn'
 import SignUp from './SignUp'
+import LogOut from './LogOut'
 
 export default {
   components: {
     LogIn,
-    SignUp
+    SignUp,
+    LogOut
   },
   methods: {
     redirect () {
       window.location.href = '/'
+    }
+  },
+  computed: {
+    isAuthenticated () {
+      return this.$store.state.isAuthenticated
     }
   }
 }
