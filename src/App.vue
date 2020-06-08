@@ -1,23 +1,20 @@
 <template>
-  <v-app id="inspire">
+  <v-app light color='blue'>
     <Header />
-    <v-content>
+    <v-content color='blue'>
       <router-view></router-view>
     </v-content>
-    <Footer />
   </v-app>
 </template>
 
 <script>
 import Header from './components/Header'
-import Footer from './components/Footer'
 
 export default {
   name: 'App',
 
   components: {
-    Header,
-    Footer
+    Header
   },
 
   data: () => ({
@@ -26,8 +23,11 @@ export default {
 }
 </script>
 
-<style>
+<style lang='scss'>
   html {
     overflow-y: auto !important;
+  }
+  .v-content {
+    background-color: #dae0e7;
   }
 </style>

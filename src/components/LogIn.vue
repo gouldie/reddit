@@ -5,7 +5,7 @@
       width="500"
     >
       <template v-slot:activator="{ on }">
-        <v-btn class='log-in-button' color="red lighten-2" dark v-on="on">
+        <v-btn class='log-in-button' color="white" dark v-on="on">
           Log In
         </v-btn>
       </template>
@@ -20,8 +20,8 @@
         </v-card-text>
 
         <div class='input-container'>
-          <v-text-field v-model="username" label="Username"></v-text-field>
-          <v-text-field v-model="password" label="Password"></v-text-field>
+          <v-text-field color='grey' v-model="username" label="Username"></v-text-field>
+          <v-text-field color='grey' v-model="password" label="Password"></v-text-field>
         </div>
 
         <v-card-text class='error-text' v-if='error'>
@@ -32,10 +32,10 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="dialog = false">
+          <v-btn color="blue" text @click="dialog = false">
             Back
           </v-btn>
-          <v-btn color="primary" text @click="submit">
+          <v-btn color="blue" text @click="submit">
             Log In
           </v-btn>
         </v-card-actions>
@@ -58,7 +58,6 @@ export default {
   },
   methods: {
     submit () {
-      console.log('submit log in')
       axios.post('/login', {
         username: this.username,
         password: this.password
@@ -86,5 +85,6 @@ export default {
   }
   .log-in-button {
     margin-right: 20px;
+    color: black !important;
   }
 </style>

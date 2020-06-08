@@ -5,7 +5,7 @@
       width="500"
     >
       <template v-slot:activator="{ on }">
-        <v-btn color="red lighten-2" dark v-on="on">
+        <v-btn color="blue" dark v-on="on">
           Sign Up
         </v-btn>
       </template>
@@ -20,9 +20,9 @@
         </v-card-text>
 
         <div class='input-container'>
-          <v-text-field v-model="email" label="Email"></v-text-field>
-          <v-text-field v-model="username" label="Username"></v-text-field>
-          <v-text-field v-model="password" label="Password"></v-text-field>
+          <v-text-field color='grey' v-model="email" label="Email"></v-text-field>
+          <v-text-field color='grey' v-model="username" label="Username"></v-text-field>
+          <v-text-field color='grey' v-model="password" label="Password"></v-text-field>
         </div>
 
         <v-card-text class='error-text' v-if='error'>
@@ -33,10 +33,10 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="dialog = false">
+          <v-btn color="blue" text @click="dialog = false">
             Back
           </v-btn>
-          <v-btn color="primary" text @click="submit">
+          <v-btn color="blue" text @click="submit">
             Sign Up
           </v-btn>
         </v-card-actions>
