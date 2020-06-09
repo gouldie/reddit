@@ -1,16 +1,15 @@
 import jwt from 'jsonwebtoken'
 import cuid from 'cuid'
 import User from '../models/User'
+import { Register, LogIn } from '../validators/users'
 
 const user = async (req, res) => {
-  // TODO: validation
-
   const token = req.cookies.token
 
   if (!token) return res.json({ success: true, user: null })
 
   jwt.verify(token, process.env.SECRET, async function (err, decoded) {
-    if (err) return res.status(500).json({ success: false, message: 'Failed to authenticate token.' })
+    if (err) return res.status(500).json({ success: false, message: 'Failed to authenticate token' })
 
     const user = await User.findById(decoded.id, { password: 0 })
 
@@ -21,7 +20,11 @@ const user = async (req, res) => {
 }
 
 const register = async (req, res) => {
-  // TODO: validation
+  const { error } = Register.validate(req.body, { abortEarly: true })
+
+  if (error) {
+    return res.json({ success: false, message: error.details[0].message })
+  }
 
   const user = await User.create({ _id: cuid(), ...req.body })
 
@@ -32,12 +35,16 @@ const register = async (req, res) => {
 }
 
 const login = async (req, res) => {
-  // TODO: validation
+  const { error } = LogIn.validate(req.body, { abortEarly: true })
+
+  if (error) {
+    return res.json({ success: false, message: error.details[0].message })
+  }
 
   const user = await User.findOne({ username: req.body.username })
 
-  if (!user) return res.status(404).send({ success: false, message: 'No user found.' })
-  if (!user.matchesPassword(req.body.password)) return res.status(401).json({ success: false, message: 'Incorrect password' })
+  if (!user) return res.json({ success: false, message: 'No user found' })
+  if (!user.matchesPassword(req.body.password)) return res.json({ success: false, message: 'Incorrect password' })
 
   const token = jwt.sign({ id: user._id }, process.env.SECRET, { expiresIn: 86400 })
 

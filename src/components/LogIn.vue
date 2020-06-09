@@ -20,8 +20,8 @@
         </v-card-text>
 
         <div class='input-container'>
-          <v-text-field color='grey' v-model="username" label="Username"></v-text-field>
-          <v-text-field color='grey' v-model="password" label="Password"></v-text-field>
+          <v-text-field color='grey' v-model="username" @keydown='error = null' label="Username"></v-text-field>
+          <v-text-field color='grey' v-model="password" @keydown='error = null' label="Password"></v-text-field>
         </div>
 
         <v-card-text class='error-text' v-if='error'>
@@ -63,6 +63,11 @@ export default {
         password: this.password
       })
         .then(res => {
+          if (!res.data.success) {
+            this.error = res.data.message
+            return
+          }
+
           window.location.href = '/'
         })
     }
@@ -82,6 +87,7 @@ export default {
   }
   .error-text {
     padding-top: 0 !important;
+    color: red !important;
   }
   .log-in-button {
     margin-right: 20px;
