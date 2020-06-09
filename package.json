@@ -12,6 +12,7 @@
     "server-dev": "NODE_ENV=development nodemon server/start.js"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.10.1",
     "axios": "^0.19.2",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.5",
@@ -19,6 +20,7 @@
     "cuid": "^2.1.8",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.18",
     "vue": "^2.6.11",
@@ -28,6 +30,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
+    "@babel/plugin-transform-modules-commonjs": "^7.10.1",
     "@babel/preset-env": "^7.10.2",
     "@babel/register": "^7.10.1",
     "@vue/cli-plugin-babel": "~4.4.0",

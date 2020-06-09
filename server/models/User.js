@@ -1,6 +1,7 @@
-var mongoose = require('mongoose')
+import { model, Schema } from 'mongoose'
+import { hashSync, compareSync } from 'bcryptjs'
 
-var UserSchema = new mongoose.Schema({
+var UserSchema = new Schema({
   _id: String,
   email: {
     type: String,
@@ -19,6 +20,21 @@ var UserSchema = new mongoose.Schema({
     unique: true
   }
 }, { versionKey: false })
-var User = mongoose.model('User', UserSchema)
 
-module.exports = User
+UserSchema.pre('save', function () {
+  if (this.isModified('password')) {
+    this.password = User.hash(this.password)
+  }
+})
+
+UserSchema.statics.hash = (password) => {
+  return hashSync(password, 10)
+}
+
+UserSchema.methods.matchesPassword = function (password) {
+  return compareSync(password, this.password)
+}
+
+var User = model('User', UserSchema)
+
+export default User

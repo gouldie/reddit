@@ -30,6 +30,16 @@ app.use(cookieParser())
 // Routes
 routes(app)
 
+// Error handler
+app.use(function (err, req, res, next) {
+  console.log(err)
+
+  res.json({
+    success: false,
+    message: 'internal'
+  })
+})
+
 // Fallback
 app.get('*', function (req, res) {
   console.log('server')
