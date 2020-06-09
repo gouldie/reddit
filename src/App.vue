@@ -27,6 +27,9 @@ export default {
   html {
     overflow-y: auto !important;
   }
+  .container {
+    padding-top: 30px;
+  }
   .v-content {
     background-color: #dae0e7;
   }

@@ -1,9 +1,7 @@
 <template>
-  <div class="home">
-    <h1>This is a home page</h1>
-    <p>isAuthenticated: {{ isAuthenticated }}</p>
-    <router-link to='/about'>Go to about</router-link>
-  </div>
+  <v-container>
+    <p>Popular posts</p>
+  </v-container>
 </template>
 
 <script>
