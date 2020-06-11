@@ -32,7 +32,15 @@ routes(app)
 
 // Error handler
 app.use(function (err, req, res, next) {
-  console.log(err)
+  // Mongoose validator error
+  if (err.name === 'ValidationError') {
+    const field = Object.keys(err.errors)[0]
+
+    return res.json({
+      success: false,
+      message: err.errors[field].message
+    })
+  }
 
   res.json({
     success: false,

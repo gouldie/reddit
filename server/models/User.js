@@ -7,7 +7,12 @@ var UserSchema = new Schema({
     type: String,
     unique: true,
     required: true,
-    trim: true
+    trim: true,
+    validate: [
+      async email =>
+        !(await User.exists({ email })),
+      'Email is already taken.'
+    ]
   },
   password: {
     type: String,
@@ -17,7 +22,12 @@ var UserSchema = new Schema({
     type: String,
     required: true,
     trim: true,
-    unique: true
+    unique: true,
+    validate: [
+      async username =>
+        !(await User.exists({ username })),
+      'Username is already taken.'
+    ]
   }
 }, { versionKey: false })
 

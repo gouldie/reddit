@@ -33,7 +33,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue" text @click="dialog = false">
-            Back
+            Close
           </v-btn>
           <v-btn color="blue" text @click="submit">
             Log In
