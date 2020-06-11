@@ -19,10 +19,25 @@
           Log in to a Reddit account to join, vote, and comment on all your favorite Reddit content.
         </v-card-text>
 
-        <div class='input-container'>
-          <v-text-field color='grey' v-model="username" @keydown='error = null' label="Username"></v-text-field>
-          <v-text-field color='grey' v-model="password" @keydown='error = null' label="Password"></v-text-field>
-        </div>
+        <v-form ref="form" v-model="valid" lazy-validation>
+          <v-text-field
+            label="Username"
+            v-model="username"
+            :rules="usernameRules"
+            color='grey'
+            @keydown='error = null'
+          >
+          </v-text-field>
+          <v-text-field
+            label="Password"
+            v-model="password"
+            :rules='passwordRules'
+            color='grey'
+            @keydown='error = null'
+            type='password'
+            >
+          </v-text-field>
+        </v-form>
 
         <v-card-text class='error-text' v-if='error'>
           {{ error }}
@@ -51,13 +66,25 @@ export default {
   data () {
     return {
       dialog: false,
+      valid: true,
       username: '',
+      usernameRules: [
+        v => !!v || 'Username is required',
+        v => (v && v.length >= 3 && v.length <= 15) || 'Username must be between 3 and 15 characters'
+      ],
       password: '',
+      passwordRules: [
+        v => !!v || 'Password is required',
+        v => (v && v.length >= 6 && v.length <= 30) || 'Password must be between 6 and 30 characters'
+      ],
       error: null
     }
   },
   methods: {
     submit () {
+      if (!this.$refs.form.validate()) {
+        return
+      }
       axios.post('/login', {
         username: this.username,
         password: this.password
@@ -79,11 +106,8 @@ export default {
   .v-card__text {
     padding: 20px 24px !important;
   }
-  .v-text-field {
-    padding-top: 0 !important;
-  }
-  .input-container {
-    padding: 12px 24px;
+  form {
+    padding: 0 24px 20px;
   }
   .error-text {
     padding-top: 0 !important;

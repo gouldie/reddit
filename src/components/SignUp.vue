@@ -83,7 +83,7 @@ export default {
       ],
       username: '',
       usernameRules: [
-        v => !!v || 'Name is required',
+        v => !!v || 'Username is required',
         v => (v && v.length >= 3 && v.length <= 15) || 'Username must be between 3 and 15 characters'
       ],
       password: '',
