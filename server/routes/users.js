@@ -1,8 +1,10 @@
-import UserController from '../controllers/users'
+import { user, register, login, logout } from '../controllers/users'
+
+const root = '/api/users'
 
 export default (app) => {
-  app.get('/user', UserController.user)
-  app.post('/register', UserController.register)
-  app.post('/login', UserController.login)
-  app.get('/logout', UserController.logout)
+  app.get(`${root}/me`, user)
+  app.post(`${root}/register`, register)
+  app.post(`${root}/login`, login)
+  app.get(`${root}/logout`, logout)
 }

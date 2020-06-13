@@ -85,7 +85,7 @@ export default {
       if (!this.$refs.form.validate()) {
         return
       }
-      axios.post('/login', {
+      axios.post('/api/users/login', {
         username: this.username,
         password: this.password
       })

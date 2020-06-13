@@ -10,7 +10,7 @@ import axios from 'axios'
 export default {
   methods: {
     submit () {
-      axios.get('/logout')
+      axios.get('/api/users/logout')
         .then(() => {
           window.location.href = '/'
         })

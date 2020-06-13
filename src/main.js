@@ -7,7 +7,7 @@ import axios from 'axios'
 
 Vue.config.productionTip = false
 
-axios.get('/user')
+axios.get('/api/users/me')
   .then(res => {
     new Vue({
       router,

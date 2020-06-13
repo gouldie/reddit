@@ -99,7 +99,7 @@ export default {
       if (!this.$refs.form.validate()) {
         return
       }
-      axios.post('/register', {
+      axios.post('/api/users/register', {
         email: this.email,
         username: this.username,
         password: this.password

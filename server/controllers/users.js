@@ -3,7 +3,7 @@ import cuid from 'cuid'
 import User from '../models/User'
 import { Register, LogIn } from '../validators/users'
 
-const user = async (req, res) => {
+export const user = async (req, res) => {
   const token = req.cookies.token
 
   if (!token) return res.json({ success: true, user: null })
@@ -19,7 +19,7 @@ const user = async (req, res) => {
   })
 }
 
-const register = async (req, res) => {
+export const register = async (req, res) => {
   const { error } = Register.validate(req.body, { abortEarly: true })
 
   if (error) {
@@ -34,7 +34,7 @@ const register = async (req, res) => {
   return res.status(200).send({ success: true, token: token })
 }
 
-const login = async (req, res) => {
+export const login = async (req, res) => {
   const { error } = LogIn.validate(req.body, { abortEarly: true })
 
   if (error) {
@@ -52,14 +52,7 @@ const login = async (req, res) => {
   return res.status(200).json({ success: true, token: token })
 }
 
-const logout = (req, res) => {
+export const logout = (req, res) => {
   res.clearCookie('token')
   return res.status(200).json({ success: true })
-}
-
-export default {
-  user,
-  register,
-  login,
-  logout
 }
