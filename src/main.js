@@ -9,9 +9,11 @@ Vue.config.productionTip = false
 
 axios.get('/api/users/me')
   .then(res => {
+    store.state.isAuthenticated = !!res.data.user
+
     new Vue({
       router,
-      store: store(!!res.data.user),
+      store,
       vuetify,
       render: h => h(App)
     }).$mount('#app')

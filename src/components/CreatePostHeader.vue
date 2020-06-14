@@ -4,12 +4,14 @@
       <v-card-actions>
         <router-link to='/settings'><v-icon large>face</v-icon></router-link>
       </v-card-actions>
-      <v-text-field
-        placeholder="Create Post"
-        dense
-        hide-details
-        outlined
-      ></v-text-field>
+      <router-link to='/posts/create' style='flex: 1'>
+        <v-text-field
+          placeholder="Create Post"
+          dense
+          hide-details
+          outlined
+        ></v-text-field>
+      </router-link>
       <v-card-actions>
         <v-icon large>add_photo_alternate</v-icon>
         <v-icon large>link</v-icon>
@@ -24,7 +26,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
   .create-post-container {
     display: flex;
     justify-content: space-between;
