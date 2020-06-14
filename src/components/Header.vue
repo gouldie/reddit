@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app color='primary'>
+  <v-app-bar app color='#fff'>
     <img id='logo' @click='redirect' src='https://1000logos.net/wp-content/uploads/2017/05/Reddit-logo.png' />
 
     <v-spacer></v-spacer>

@@ -6,6 +6,7 @@
       </v-card-actions>
       <router-link to='/posts/create' style='flex: 1'>
         <v-text-field
+          color='rgba(150, 150, 150, 55)'
           placeholder="Create Post"
           dense
           hide-details
@@ -40,13 +41,16 @@ export default {
       margin-left: 10px;
     }
   }
+  a {
+    text-decoration: none;
+  }
   // v-text-field outline
-  .v-application div.primary--text {
-    color: rgba(150, 150, 150, 55) !important;
-    caret-color: rgba(150, 150, 150, 55) !important;
-  }
-  fieldset {
-    border-width: 1px !important;
-    color: rgba(150, 150, 150, 55) !important;
-  }
+  // .v-application div.primary--text {
+  //   color: rgba(150, 150, 150, 55) !important;
+  //   caret-color: rgba(150, 150, 150, 55) !important;
+  // }
+  // fieldset {
+  //   border-width: 1px !important;
+  //   color: rgba(150, 150, 150, 55) !important;
+  // }
 </style>
