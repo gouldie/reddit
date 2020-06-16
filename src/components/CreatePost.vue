@@ -42,7 +42,7 @@
           </v-card-actions>
 
           <v-card-actions>
-            {{ item }}
+            <wysiwyg v-model="editor" />
           </v-card-actions>
 
           <v-card-actions class='action-buttons'>
@@ -73,7 +73,8 @@ export default {
         'Image & Video',
         'Link',
         'Poll'
-      ]
+      ],
+      editor: null
     }
   }
 }
