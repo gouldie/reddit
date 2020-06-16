@@ -9,7 +9,7 @@ export const user = async (req, res) => {
   if (!token) return res.json({ success: true, user: null })
 
   jwt.verify(token, process.env.SECRET, async function (err, decoded) {
-    if (err) return res.status(500).json({ success: false, message: 'Failed to authenticate token' })
+    if (err) return res.json({ success: false, message: 'Failed to authenticate token' })
 
     const user = await User.findById(decoded.id, { password: 0 })
 
