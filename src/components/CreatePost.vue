@@ -3,7 +3,7 @@
     <h3>Create a post</h3>
     <v-divider />
     <v-select
-      :items="communities"
+      :items="prefixedCommunities"
       item-text='name'
       item-value='id'
       label="Choose a community"
@@ -44,7 +44,7 @@
           </v-card-actions>
 
           <v-card-actions>
-            <wysiwyg v-if='tab === 0 && $vuetify.breakpoint.smAndUp' v-model='text' style='margin-top: -10px;' />
+            <wysiwyg v-if='tab === 0 && $vuetify.breakpoint.smAndUp' v-model='text' style='margin-top: -10px;' placeholder='Text (optional)' />
             <v-textarea
               v-if='tab === 0 && !$vuetify.breakpoint.smAndUp'
               outlined
@@ -57,7 +57,7 @@
             <v-btn width='100' @click='back()'>
               Cancel
             </v-btn>
-            <v-btn color='primary' width='80' @click="submit">
+            <v-btn color='primary' width='80' @click="submit" :disabled='!communityId || !title'>
               Post
             </v-btn>
           </v-card-actions>
@@ -86,6 +86,11 @@ export default {
       ],
       title: '',
       text: ''
+    }
+  },
+  computed: {
+    prefixedCommunities () {
+      return this.communities.map(e => ({ ...e, name: `r/${e.name}` }))
     }
   },
   methods: {
