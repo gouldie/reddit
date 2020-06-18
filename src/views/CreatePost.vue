@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col cols='12' :md='8'>
-        <CreatePost :subreddits='subreddits' />
+        <CreatePost :communities='communities' />
       </v-col>
       <v-col cols='0' :md='4'>
         <div>
@@ -15,6 +15,7 @@
 
 <script>
 import CreatePost from '@/components/CreatePost.vue'
+import communities from '@/assets/json/communities.json'
 
 export default {
   components: {
@@ -22,11 +23,7 @@ export default {
   },
   data: function () {
     return {
-      subreddits: [
-        'gaming',
-        'science',
-        'cats'
-      ]
+      communities
     }
   }
 }

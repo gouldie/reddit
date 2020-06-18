@@ -3,12 +3,14 @@
     <h3>Create a post</h3>
     <v-divider />
     <v-select
-      :items="subreddits"
+      :items="communities"
+      item-text='name'
+      item-value='id'
       label="Choose a community"
       outlined
       dense
       color='grey'
-      v-model='subreddit'
+      v-model='communityId'
     ></v-select>
     <v-tabs
       fixed-tabs
@@ -37,19 +39,25 @@
               dense
               counter='300'
               placeholder='Title'
-            >
-            </v-text-field>
+              v-model='title'
+            ></v-text-field>
           </v-card-actions>
 
           <v-card-actions>
-            <wysiwyg v-model="editor" />
+            <wysiwyg v-if='tab === 0 && $vuetify.breakpoint.smAndUp' v-model='text' style='margin-top: -10px;' />
+            <v-textarea
+              v-if='tab === 0 && !$vuetify.breakpoint.smAndUp'
+              outlined
+              v-model='text'
+              label="Text (optional)"
+            ></v-textarea>
           </v-card-actions>
 
           <v-card-actions class='action-buttons'>
-            <v-btn>
+            <v-btn width='100' @click='back()'>
               Cancel
             </v-btn>
-            <v-btn color='primary'>
+            <v-btn color='primary' width='80' @click="submit">
               Post
             </v-btn>
           </v-card-actions>
@@ -60,13 +68,15 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   props: [
-    'subreddits'
+    'communities'
   ],
   data: function () {
     return {
-      subreddit: null,
+      communityId: null,
       tab: 0,
       items: [
         'Post',
@@ -74,7 +84,35 @@ export default {
         'Link',
         'Poll'
       ],
-      editor: null
+      title: '',
+      text: ''
+    }
+  },
+  methods: {
+    back () {
+      if (window.history.length > 2) {
+        this.$router.back()
+      } else {
+        this.$router.push('/')
+      }
+    },
+    submit () {
+      let route, fields
+
+      if (this.tab === 0) {
+        route = 'text'
+        fields = { text: this.text }
+      }
+
+      axios.post(`/api/posts/${route}`, {
+        title: this.title,
+        communityId: this.communityId,
+        ...fields
+      })
+        .then(res => {
+          // todo: redirect to submitted post
+          window.location.href = '/'
+        })
     }
   }
 }
@@ -98,5 +136,11 @@ export default {
   }
   button {
     margin-left: 15px;
+  }
+  .v-textarea, .editr {
+    margin-top: -10px;
+  }
+  .v-textarea {
+    margin-bottom: -20px;
   }
 </style>

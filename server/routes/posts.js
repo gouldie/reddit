@@ -1,5 +1,7 @@
-import { create } from '../controllers/posts'
+import { createTextPost } from '../controllers/posts'
+
+const root = '/api/posts'
 
 export default (app) => {
-  app.get('/posts', create)
+  app.post(`${root}/text`, createTextPost)
 }

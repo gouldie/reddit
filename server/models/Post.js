@@ -3,7 +3,8 @@ import { model, Schema } from 'mongoose'
 var PostSchema = new Schema({
   _id: String,
   title: String,
-  content: String,
+  text: String,
+  communityId: String,
   userId: String
 }, { versionKey: false })
 

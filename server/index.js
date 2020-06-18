@@ -42,6 +42,8 @@ app.use(function (err, req, res, next) {
     })
   }
 
+  console.log('err', err)
+
   res.json({
     success: false,
     message: 'internal'

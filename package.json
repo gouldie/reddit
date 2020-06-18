@@ -9,7 +9,7 @@
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
     "server": "node server/start.js",
-    "server-dev": "NODE_ENV=development nodemon server/start.js"
+    "server-dev": "NODE_ENV=development nodemon --watch server server/start.js"
   },
   "dependencies": {
     "@babel/polyfill": "^7.10.1",
