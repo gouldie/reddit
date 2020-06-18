@@ -4,7 +4,7 @@
       <v-col cols='12' :md='8'>
         <CreatePost :communities='communities' />
       </v-col>
-      <v-col cols='0' :md='4'>
+      <v-col :md='4' v-if='$vuetify.breakpoint.mdAndUp'>
         <div>
           <p>Posting to reddit</p>
         </div>

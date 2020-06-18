@@ -5,7 +5,7 @@
         <CreatePostHeader v-if='isAuthenticated' />
         <p v-else>Popular posts</p>
       </v-col>
-      <v-col cols='0' :md='4'>
+      <v-col :md='4' v-if='$vuetify.breakpoint.mdAndUp'>
         <div>
           <p>Today's Top Growing Communities</p>
         </div>
