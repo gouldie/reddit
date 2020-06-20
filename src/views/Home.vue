@@ -4,7 +4,7 @@
       <v-col cols='12' :md='8'>
         <CreatePostHeader v-if='isAuthenticated' />
         <p v-else>Popular posts</p>
-        <PostFilter :filter='filter' v-on:selectFilter='selectFilter' />
+        <PostFilter :filter='filter' @selectFilter='selectFilter' />
       </v-col>
       <v-col :md='4' v-if='$vuetify.breakpoint.mdAndUp'>
         <div>

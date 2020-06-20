@@ -29,9 +29,6 @@ export default {
     selectFilter (filter) {
       this.$emit('selectFilter', filter)
     }
-  },
-  mounted () {
-    console.log(this.filter)
   }
 }
 </script>
