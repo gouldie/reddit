@@ -76,7 +76,7 @@ export default {
   ],
   data: function () {
     return {
-      communityId: null,
+      communityId: this.$route.params.community ? this.communities.find(e => e.name === this.$route.params.community).id : null,
       tab: 0,
       items: [
         'Post',
@@ -118,6 +118,12 @@ export default {
           // todo: redirect to submitted post
           window.location.href = '/'
         })
+    }
+  },
+  watch: {
+    communityId (id) {
+      const name = this.communities.find(e => e.id === id).name
+      this.$router.push(`/posts/create/${name}`)
     }
   }
 }

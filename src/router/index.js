@@ -26,6 +26,12 @@ const routes = [
     name: 'Create Post',
     component: () => import('../views/CreatePost.vue'),
     beforeEnter: requireAuth
+  },
+  {
+    path: '/posts/create/:community',
+    name: 'Create Post',
+    component: () => import('../views/CreatePost.vue'),
+    beforeEnter: requireAuth
   }
 ]
 
