@@ -8,7 +8,7 @@
     <div>
       <v-card-text class='post-header'>
         <span class='post-community'>{{ `r/${post.communityName}` }}</span>
-        <span class='post-user'>Posted by u/matt</span>
+        <span class='post-user'>Posted by u/{{ post.user.username }}</span>
         <span class='post-time'>6 hours ago</span>
       </v-card-text>
       <v-card-title class='post-title'>
