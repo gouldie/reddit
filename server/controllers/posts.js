@@ -2,6 +2,15 @@ import cuid from 'cuid'
 import Post from '../models/Post'
 import { CreateTextPost } from '../validators/posts'
 
+export const getPosts = async (req, res) => {
+  const posts = await Post.find()
+
+  return res.json({
+    success: true,
+    posts
+  })
+}
+
 export const createTextPost = async (req, res) => {
   const { error } = CreateTextPost.validate(req.body, { abortEarly: true })
 

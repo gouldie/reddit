@@ -45,7 +45,7 @@ export default {
     >div {
       margin-right: 15px;
       display: flex;
-      padding: 3px 6px 3px 3px;
+      padding: 3px 9px 3px 6px;
       border-radius: 10px;
       cursor: pointer;
     }

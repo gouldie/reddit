@@ -5,6 +5,7 @@
         <CreatePostHeader v-if='isAuthenticated' />
         <p v-else>Popular posts</p>
         <PostFilter :filter='filter' @selectFilter='selectFilter' />
+        <PostList :posts='posts' />
       </v-col>
       <v-col :md='4' v-if='$vuetify.breakpoint.mdAndUp'>
         <div>
@@ -19,19 +20,20 @@
 // @ is an alias to /src
 import CreatePostHeader from '@/components/CreatePostHeader.vue'
 import PostFilter from '@/components/PostFilter.vue'
+import PostList from '@/components/PostList.vue'
+import axios from 'axios'
 
 export default {
   name: 'Home',
   components: {
     CreatePostHeader,
-    PostFilter
+    PostFilter,
+    PostList
   },
   data: function () {
     return {
       filter: 'Best',
-      posts: [
-
-      ]
+      posts: []
     }
   },
   methods: {
@@ -43,6 +45,14 @@ export default {
     isAuthenticated () {
       return this.$store.state.isAuthenticated
     }
+  },
+  mounted () {
+    axios.get('/api/posts')
+      .then(res => {
+        if (res.data.success) {
+          this.posts = res.data.posts
+        }
+      })
   }
 }
 </script>
