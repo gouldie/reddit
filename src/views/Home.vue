@@ -21,6 +21,7 @@
 import CreatePostHeader from '@/components/CreatePostHeader.vue'
 import PostFilter from '@/components/PostFilter.vue'
 import PostList from '@/components/PostList.vue'
+import communities from '@/assets/json/communities.json'
 import axios from 'axios'
 
 export default {
@@ -32,6 +33,7 @@ export default {
   },
   data: function () {
     return {
+      communities,
       filter: 'Best',
       posts: []
     }
@@ -50,7 +52,14 @@ export default {
     axios.get('/api/posts')
       .then(res => {
         if (res.data.success) {
-          this.posts = res.data.posts
+          this.posts = res.data.posts.map(e => {
+            const community = this.communities.find(c => c.id === e.communityId)
+
+            return {
+              ...e,
+              communityName: community.name
+            }
+          })
         }
       })
   }

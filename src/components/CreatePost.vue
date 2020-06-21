@@ -53,6 +53,8 @@
             ></v-textarea>
           </v-card-actions>
 
+          <v-card-text class='error-text' v-if='error'>{{ error }}</v-card-text>
+
           <v-card-actions class='action-buttons'>
             <v-btn width='100' @click='back()'>
               Cancel
@@ -85,7 +87,8 @@ export default {
         'Poll'
       ],
       title: '',
-      text: ''
+      text: '',
+      error: null
     }
   },
   computed: {
@@ -115,8 +118,14 @@ export default {
         ...fields
       })
         .then(res => {
-          // todo: redirect to submitted post
-          window.location.href = '/'
+          console.log('res', res)
+          if (res.data.success) {
+            // todo: redirect to submitted post
+            window.location.href = '/'
+            return
+          }
+
+          this.error = res.data.message
         })
     }
   },
@@ -153,5 +162,8 @@ export default {
   }
   .v-textarea {
     margin-bottom: -20px;
+  }
+  .error-text {
+    color: red !important;
   }
 </style>
