@@ -9,7 +9,7 @@
       <v-card-text class='post-header'>
         <span class='post-community'>{{ `r/${post.communityName}` }}</span>
         <span class='post-user'>Posted by u/{{ post.user.username }}</span>
-        <span class='post-time'>6 hours ago</span>
+        <span class='post-time'>{{ formattedTime(post.createdAt) }}</span>
       </v-card-text>
       <v-card-title class='post-title'>
         {{ post.title }}
@@ -22,10 +22,16 @@
 </template>
 
 <script>
+import timeago from 'time-ago'
 export default {
   props: [
     'post'
-  ]
+  ],
+  methods: {
+    formattedTime (timestamp) {
+      return timeago.ago(timestamp)
+    }
+  }
 }
 </script>
 
