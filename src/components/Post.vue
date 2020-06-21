@@ -59,7 +59,7 @@ export default {
     font-weight: lighter;
   }
   .post-title {
-    padding-top: 10px;
+    padding-top: 5px;
     padding-bottom: 10px;
   }
   i {
