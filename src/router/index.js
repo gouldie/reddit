@@ -32,6 +32,11 @@ const routes = [
     name: 'Create Post',
     component: () => import('../views/CreatePost.vue'),
     beforeEnter: requireAuth
+  },
+  {
+    path: '/post/:id',
+    name: 'View Post',
+    component: () => import('../views/Post.vue')
   }
 ]
 

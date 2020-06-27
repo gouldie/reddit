@@ -14,8 +14,8 @@
       <v-card-title class='post-title'>
         {{ post.title }}
       </v-card-title>
-      <v-card-text class='post-text'>
-        {{ post.text }}
+      <v-card-text class='post-text' v-html='post.text'>
+
       </v-card-text>
     </div>
   </div>

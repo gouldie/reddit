@@ -1,6 +1,6 @@
 <template>
   <div class='post-list-container'>
-    <v-card v-for='post in posts' :key='post.id'>
+    <v-card v-for='post in posts' :key='post.id' @click='$router.push(`/post/${post._id}`)'>
       <Post :post='post' />
     </v-card>
   </div>

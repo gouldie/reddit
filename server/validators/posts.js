@@ -3,6 +3,10 @@ import Joi from '@hapi/joi'
 // In a production app this would be retrieved from the database / validated at the model
 const validCommunityIds = ['1', '2', '3']
 
+const postId = Joi.string()
+  .required()
+  .max(300)
+
 const communityId = Joi.string()
   .allow(...validCommunityIds)
   .only()
@@ -26,4 +30,8 @@ export const CreateTextPost = Joi.object().keys({
   communityId,
   title,
   text
+})
+
+export const GetPost = Joi.object().keys({
+  postId
 })
