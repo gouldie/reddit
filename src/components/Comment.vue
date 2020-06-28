@@ -1,5 +1,5 @@
 <template>
-  <div class='post-container'>
+  <div class='comment-container'>
     <div class='vote-panel' v-if='$vuetify.breakpoint.smAndUp'>
       <v-icon dense>arrow_upward</v-icon>
       <span>67</span>
@@ -7,14 +7,13 @@
     </div>
     <div>
       <v-card-text class='post-header'>
-        <span class='post-community'>{{ `r/${post.communityName}` }}</span>
-        <span class='post-user'>Posted by u/{{ post.user.username }}</span>
-        <span class='post-time'>{{ formattedTime(post.createdAt) }}</span>
+        <span class='post-user'>{{ comment.user.username }}</span>
+        <span class='post-time'>{{ formattedTime(comment.createdAt) }}</span>
       </v-card-text>
-      <v-card-title class='post-title'>
-        {{ post.title }}
-      </v-card-title>
-      <v-card-text class='post-text' v-html='post.text'>
+      <!-- <v-card-title class='post-title'>
+        {{ comment.title }}
+      </v-card-title> -->
+      <v-card-text class='post-text' v-html='comment.text'>
 
       </v-card-text>
     </div>
@@ -26,7 +25,7 @@ import timeago from 'time-ago'
 
 export default {
   props: [
-    'post'
+    'comment'
   ],
   methods: {
     formattedTime (timestamp) {
@@ -37,7 +36,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .post-container {
+  .comment-container {
     display: flex;
     margin-bottom: 20px;
   }
@@ -47,10 +46,6 @@ export default {
   }
   .post-header {
     padding-bottom: 0;
-  }
-  .post-community {
-    font-weight: 500;
-    margin-right: 10px;
   }
   .post-user {
     font-weight: lighter;
