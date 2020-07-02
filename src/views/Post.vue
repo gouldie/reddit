@@ -57,36 +57,42 @@ export default {
       post: null,
       error: null,
       comment: '',
-      comments: [
-        {
-          user: {
-            _id: '123',
-            username: 'matt'
-          },
-          createdAt: Date.now(),
-          text: 'text adsadsads adsads d'
-        }
-      ]
+      comments: []
     }
   },
   methods: {
     submit () {
-
+      axios.post('/api/comments', {
+        postId: this.$route.params.id,
+        text: this.comment
+      })
+        .then(res => {
+          window.location.reload()
+        })
     }
   },
   mounted () {
-    axios.get(`/api/posts/${this.$route.params.id}`)
-      .then(res => {
-        if (!res.data.success) {
-          this.error = res.data.message
-          return
-        }
+    axios.all([
+      axios.get(`/api/posts/${this.$route.params.id}`),
+      axios.get(`/api/comments/${this.$route.params.id}`)
+    ]).then(res => {
+      const [postRes, commentRes] = res
 
-        const community = communities.find(c => c.id === res.data.post.communityId)
+      if (!postRes.data.success) {
+        this.error = postRes.data.message
+        return
+      }
+      if (!commentRes.data.success) {
+        this.error = commentRes.data.message
+        return
+      }
 
-        res.data.post.communityName = community.name
-        this.post = res.data.post
-      })
+      const community = communities.find(c => c.id === postRes.data.post.communityId)
+
+      postRes.data.post.communityName = community.name
+      this.post = postRes.data.post
+      this.comments = commentRes.data.comments
+    })
   }
 }
 </script>
@@ -102,9 +108,6 @@ export default {
       padding: 0 10px 10px;
     }
   }
-  // .comment-as {
-  //   padding: 0 50px 10px;
-  // }
   .action-buttons {
     display: flex;
     justify-content: flex-end;
@@ -113,7 +116,4 @@ export default {
   button {
     margin-left: 15px;
   }
-  // .v-card__actions {
-  //   padding: 8px 50px !important;
-  // }
 </style>

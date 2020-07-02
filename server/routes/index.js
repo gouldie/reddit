@@ -1,5 +1,6 @@
 import users from '../routes/users'
 import posts from '../routes/posts'
+import comments from '../routes/comments'
 
 require('express-async-errors') // handles errors within async functions without the need for try/catch
 
@@ -10,4 +11,5 @@ export default (app) => {
 
   users(app)
   posts(app)
+  comments(app)
 }
