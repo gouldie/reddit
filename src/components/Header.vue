@@ -4,26 +4,40 @@
 
     <v-spacer></v-spacer>
 
-    <LogOut v-if='isAuthenticated' />
-    <LogIn v-if='!isAuthenticated' />
-    <SignUp v-if='!isAuthenticated' />
+    <v-btn v-if='!isAuthenticated' class='log-in-button' color="white" dark @click.stop="$store.commit('setModal', 'log-in')">
+      Log In
+    </v-btn>
+    <v-btn v-if='!isAuthenticated' color="blue" dark @click.stop="$store.commit('setModal', 'sign-up')">
+      Sign Up
+    </v-btn>
+    <v-btn v-if='isAuthenticated' color="blue" dark @click="logout">
+      Log Out
+    </v-btn>
+
+    <SignUp />
+    <LogIn />
   </v-app-bar>
 </template>
 
 <script>
 import LogIn from './LogIn'
 import SignUp from './SignUp'
-import LogOut from './LogOut'
+import axios from 'axios'
 
 export default {
   components: {
     LogIn,
-    SignUp,
-    LogOut
+    SignUp
   },
   methods: {
     redirect () {
       window.location.href = '/'
+    },
+    logout () {
+      axios.get('/api/users/logout')
+        .then(() => {
+          window.location.href = '/'
+        })
     }
   },
   computed: {
@@ -41,5 +55,6 @@ export default {
   }
   .log-in-button {
     margin-right: 20px;
+    color: black !important;
   }
 </style>

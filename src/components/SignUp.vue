@@ -4,12 +4,6 @@
       v-model="dialog"
       width="500"
     >
-      <template v-slot:activator="{ on }">
-        <v-btn color="blue" dark v-on="on">
-          Sign Up
-        </v-btn>
-      </template>
-
       <v-card>
         <v-card-title class="headline grey lighten-2" primary-title>
           Sign Up
@@ -73,7 +67,6 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      dialog: false,
       valid: true,
       email: '',
       emailRules: [
@@ -112,6 +105,16 @@ export default {
 
           window.location.href = '/'
         })
+    }
+  },
+  computed: {
+    dialog: {
+      get () {
+        return this.$store.state.modal === 'sign-up'
+      },
+      set () {
+        this.$store.commit('setModal', null)
+      }
     }
   }
 }

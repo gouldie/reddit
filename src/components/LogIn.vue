@@ -1,15 +1,9 @@
 <template>
   <div class="text-center">
     <v-dialog
-      v-model="dialog"
+      v-model='dialog'
       width="500"
     >
-      <template v-slot:activator="{ on }">
-        <v-btn class='log-in-button' color="white" dark v-on="on">
-          Log In
-        </v-btn>
-      </template>
-
       <v-card>
         <v-card-title class="headline grey lighten-2" primary-title>
           Log In
@@ -65,7 +59,6 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      dialog: false,
       valid: true,
       username: '',
       usernameRules: [
@@ -97,6 +90,16 @@ export default {
 
           window.location.href = '/'
         })
+    }
+  },
+  computed: {
+    dialog: {
+      get () {
+        return this.$store.state.modal === 'log-in'
+      },
+      set () {
+        this.$store.commit('setModal', null)
+      }
     }
   }
 }

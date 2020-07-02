@@ -6,9 +6,13 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isAuthenticated: false,
-    username: null
+    username: null,
+    modal: null
   },
   mutations: {
+    setModal (state, modal) {
+      state.modal = modal
+    }
   },
   actions: {
   },
