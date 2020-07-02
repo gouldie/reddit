@@ -3,8 +3,8 @@ import Vuetify from 'vuetify'
 
 import { mount, createLocalVue } from '@vue/test-utils'
 
-import PostList from '@/components/PostList.vue'
-import Post from '@/components/Post.vue'
+import PostList from '@/components/Posts/PostList.vue'
+import Post from '@/components/Posts/Post.vue'
 
 Vue.use(Vuetify)
 

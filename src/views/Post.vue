@@ -18,9 +18,9 @@
 </template>
 
 <script>
-import Post from '@/components/Post.vue'
-import LeaveComment from '@/components/LeaveComment.vue'
-import Comments from '@/components/Comments.vue'
+import Post from '@/components/Posts/Post.vue'
+import LeaveComment from '@/components/Comments/LeaveComment.vue'
+import Comments from '@/components/Comments/Comments.vue'
 
 import axios from 'axios'
 import communities from '@/assets/json/communities.json'

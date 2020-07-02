@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Comment from '@/components/Comment.vue'
+import Comment from '@/components/Comments/Comment.vue'
 
 export default {
   props: [

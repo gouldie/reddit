@@ -18,9 +18,9 @@
 
 <script>
 // @ is an alias to /src
-import CreatePostHeader from '@/components/CreatePostHeader.vue'
-import PostFilter from '@/components/PostFilter.vue'
-import PostList from '@/components/PostList.vue'
+import CreatePostHeader from '@/components/Posts/CreatePostHeader.vue'
+import PostFilter from '@/components/Posts/PostFilter.vue'
+import PostList from '@/components/Posts/PostList.vue'
 import communities from '@/assets/json/communities.json'
 import axios from 'axios'
 

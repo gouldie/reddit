@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import CreatePost from '@/components/CreatePost.vue'
+import CreatePost from '@/components/Posts/CreatePost.vue'
 import communities from '@/assets/json/communities.json'
 
 export default {
