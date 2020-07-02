@@ -2,12 +2,13 @@
   <div class='comment-container'>
     <div class='vote-panel' v-if='$vuetify.breakpoint.smAndUp'>
       <v-icon dense>arrow_upward</v-icon>
-      <span>67</span>
+      <!-- <span>67</span> -->
       <v-icon dense>arrow_downward</v-icon>
     </div>
     <div>
       <v-card-text class='post-header'>
         <span class='post-user'>{{ comment.user.username }}</span>
+        <span class='post-points'>55 points</span>
         <span class='post-time'>{{ formattedTime(comment.createdAt) }}</span>
       </v-card-text>
       <!-- <v-card-title class='post-title'>
@@ -38,7 +39,7 @@ export default {
 <style scoped lang="scss">
   .comment-container {
     display: flex;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
   }
   .vote-panel {
     width: 36px;
@@ -48,6 +49,10 @@ export default {
     padding-bottom: 0;
   }
   .post-user {
+    font-weight: 300;
+    margin-right: 10px;
+  }
+  .post-points {
     font-weight: lighter;
     margin-right: 10px;
   }
@@ -57,6 +62,9 @@ export default {
   .post-title {
     padding-top: 5px;
     padding-bottom: 10px;
+  }
+  .post-text {
+    padding: 5px 16px;
   }
   i {
     cursor: pointer;
