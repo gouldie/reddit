@@ -3,13 +3,13 @@
     <v-row>
       <v-col cols='12' :md='8'>
         <v-card>
-          <Post v-if='post' :post='post' />
+          <Post v-if='post' :post='post' :showCommunity='true' />
           <LeaveComment />
           <Comments :comments='comments' />
         </v-card>
       </v-col>
       <v-col :md='4' v-if='$vuetify.breakpoint.mdAndUp'>
-        <CommunityInfo :community='community' />
+        <CommunityInfo v-if='community' :community='community' />
       </v-col>
     </v-row>
   </v-container>

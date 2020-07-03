@@ -4,10 +4,10 @@
       <v-col cols='12' :md='8'>
         <CreatePostHeader v-if='isAuthenticated' />
         <PostFilter :filter='filter' @selectFilter='selectFilter' />
-        <PostList :posts='posts' :showCommunity='true' />
+        <PostList :posts='posts' />
       </v-col>
       <v-col :md='4' v-if='$vuetify.breakpoint.mdAndUp'>
-        <TopGrowing :communities='communities.slice(0, 5)' />
+        <CommunityInfo :community='community' />
       </v-col>
     </v-row>
   </v-container>
@@ -15,7 +15,7 @@
 
 <script>
 // @ is an alias to /src
-import TopGrowing from '@/components/Communities/TopGrowing.vue'
+import CommunityInfo from '@/components/Communities/Info.vue'
 import CreatePostHeader from '@/components/Posts/CreatePostHeader.vue'
 import PostFilter from '@/components/Posts/PostFilter.vue'
 import PostList from '@/components/Posts/PostList.vue'
@@ -28,7 +28,7 @@ export default {
     CreatePostHeader,
     PostFilter,
     PostList,
-    TopGrowing
+    CommunityInfo
   },
   data: function () {
     return {
@@ -45,6 +45,9 @@ export default {
   computed: {
     isAuthenticated () {
       return this.$store.state.isAuthenticated
+    },
+    community () {
+      return communities.find(e => e.name === this.$route.params.community)
     }
   },
   mounted () {

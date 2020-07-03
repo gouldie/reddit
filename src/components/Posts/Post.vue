@@ -7,7 +7,7 @@
     </div>
     <div>
       <v-card-text class='post-header'>
-        <span class='post-community'>{{ `r/${post.communityName}` }}</span>
+        <a v-if='showCommunity' @click.stop='$router.push("/r/" + post.communityName)'><span class='post-community'>{{ `r/${post.communityName}` }}</span></a>
         <span class='post-user'>Posted by u/{{ post.user.username }}</span>
         <span class='post-time'>{{ formattedTime(post.createdAt) }}</span>
       </v-card-text>
@@ -26,7 +26,8 @@ import timeago from 'time-ago'
 
 export default {
   props: [
-    'post'
+    'post',
+    'showCommunity'
   ],
   methods: {
     formattedTime (timestamp) {
@@ -65,5 +66,10 @@ export default {
   }
   i {
     cursor: pointer;
+  }
+  a {
+    text-decoration: none;
+    color: black !important;
+    z-index: 99999;
   }
 </style>

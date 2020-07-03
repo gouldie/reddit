@@ -33,6 +33,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     padding: 3px 0;
+    margin-bottom: 20px;
   }
   i {
     cursor: pointer;

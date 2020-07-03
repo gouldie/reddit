@@ -6,9 +6,11 @@
       </v-card-title>
     </div>
     <v-list>
-      <v-list-item v-for='(community, i) in prefixedCommunities' :key='community.id'>
-        <span>{{ i+1 }}</span> {{ community.name }}
-      </v-list-item>
+      <router-link v-for='(community, i) in prefixedCommunities' :key='community.id' :to='community.name'>
+        <v-list-item>
+          <span>{{ i+1 }}</span> {{ community.name }}
+        </v-list-item>
+      </router-link>
     </v-list>
     <v-btn color='blue' width='80%'>
       VIEW ALL
@@ -52,6 +54,9 @@ export default {
     color: #fff;
     display: flex;
     margin: 10px auto;
+  }
+  a {
+    text-decoration: none;
   }
   @media screen and (max-width: 1300px) {
     .v-card__title {

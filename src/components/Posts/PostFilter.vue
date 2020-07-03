@@ -39,7 +39,7 @@ export default {
     justify-content: flex-start;
     align-items: center;
     padding: 3px 0;
-    margin: 20px 0;
+    margin-bottom: 20px;
   }
   .v-card__actions {
     >div {
