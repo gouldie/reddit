@@ -1,14 +1,17 @@
 [
   {
     "id": "1",
-    "name": "science"
+    "name": "science",
+    "description": "This community is a place to share and discuss new scientific research. Read about the latest advances in astronomy, biology, medicine, physics, social science, and more. Find and submit new publications and popular science coverage of current research."
   },
   {
     "id": "2",
-    "name": "gaming"
+    "name": "gaming",
+    "description": "A subreddit for (almost) anything related to games - video games, board games, card games, etc. (but not sports)."
   },
   {
     "id": "3",
-    "name": "cats"
+    "name": "cats",
+    "description": "Pictures, videos, articles and questions featuring and about cats."
   }
 ]

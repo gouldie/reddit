@@ -9,9 +9,7 @@
         </v-card>
       </v-col>
       <v-col :md='4' v-if='$vuetify.breakpoint.mdAndUp'>
-        <div>
-          <p>Community Information</p>
-        </div>
+        <CommunityInfo :community='community' />
       </v-col>
     </v-row>
   </v-container>
@@ -21,6 +19,7 @@
 import Post from '@/components/Posts/Post.vue'
 import LeaveComment from '@/components/Comments/LeaveComment.vue'
 import Comments from '@/components/Comments/Comments.vue'
+import CommunityInfo from '@/components/Communities/Info.vue'
 
 import axios from 'axios'
 import communities from '@/assets/json/communities.json'
@@ -29,13 +28,15 @@ export default {
   components: {
     Post,
     LeaveComment,
-    Comments
+    Comments,
+    CommunityInfo
   },
   data: function () {
     return {
       post: null,
       error: null,
-      comments: []
+      comments: [],
+      community: null
     }
   },
   mounted () {
@@ -59,6 +60,7 @@ export default {
       postRes.data.post.communityName = community.name
       this.post = postRes.data.post
       this.comments = commentRes.data.comments
+      this.community = community
     })
   }
 }
