@@ -56,7 +56,11 @@ export default {
     }
   },
   mounted () {
-    axios.get('/api/posts')
+    axios.get('/api/posts', {
+      params: {
+        communityId: this.community.id
+      }
+    })
       .then(res => {
         if (res.data.success) {
           this.posts = res.data.posts.map(e => {

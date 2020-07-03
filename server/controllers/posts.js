@@ -1,17 +1,17 @@
 import cuid from 'cuid'
 import Post from '../models/Post'
-import { CreateTextPost, GetPost } from '../validators/posts'
+import { CreateTextPost, GetPost, GetPosts } from '../validators/posts'
 
 export const getPosts = async (req, res) => {
-  const { error } = GetPost.validate(req.params, { abortEarly: true })
+  const { error } = GetPosts.validate(req.query, { abortEarly: true })
 
   if (error) {
     return res.json({ success: false, message: error.details[0].message })
   }
 
   const query = {}
-  if (req.params.communityId) {
-    query.communityId = req.params.communityId
+  if (req.query.communityId) {
+    query.communityId = req.query.communityId
   }
 
   const posts = await Post.find(query).populate('user', 'username')
