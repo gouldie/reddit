@@ -10,7 +10,6 @@ const postId = Joi.string()
 const communityId = Joi.string()
   .allow(...validCommunityIds)
   .only()
-  .required()
   .label('Community')
 
 const title = Joi.string()
@@ -29,11 +28,15 @@ const text = Joi.string()
   .label('Text')
 
 export const CreateTextPost = Joi.object().keys({
-  communityId,
+  communityId: communityId.required(),
   title,
   text
 })
 
 export const GetPost = Joi.object().keys({
   postId
+})
+
+export const GetPosts = Joi.object().keys({
+  communityId: communityId.optional()
 })

@@ -3,7 +3,18 @@ import Post from '../models/Post'
 import { CreateTextPost, GetPost } from '../validators/posts'
 
 export const getPosts = async (req, res) => {
-  const posts = await Post.find().populate('user', 'username')
+  const { error } = GetPost.validate(req.params, { abortEarly: true })
+
+  if (error) {
+    return res.json({ success: false, message: error.details[0].message })
+  }
+
+  const query = {}
+  if (req.params.communityId) {
+    query.communityId = req.params.communityId
+  }
+
+  const posts = await Post.find(query).populate('user', 'username')
 
   return res.json({
     success: true,
