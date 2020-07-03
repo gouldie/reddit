@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <div class='title-container'>
+    <div class='black-gradient'>
       <v-card-title>
         Today's Top Growing Communities
       </v-card-title>
@@ -32,9 +32,6 @@ export default {
 <style scoped lang='scss'>
   .v-card {
     padding-bottom: 10px;
-  }
-  .title-container {
-    background: linear-gradient(#484848, #252525);
   }
   .v-card__title {
     font-size: 18px;

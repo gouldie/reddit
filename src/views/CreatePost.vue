@@ -6,7 +6,7 @@
       </v-col>
       <v-col :md='4' v-if='$vuetify.breakpoint.mdAndUp'>
         <div>
-          <p>Posting to reddit</p>
+          <PostingRules />
         </div>
       </v-col>
     </v-row>
@@ -15,11 +15,13 @@
 
 <script>
 import CreatePost from '@/components/Posts/CreatePost.vue'
+import PostingRules from '@/components/Posts/PostingRules.vue'
 import communities from '@/assets/json/communities.json'
 
 export default {
   components: {
-    CreatePost
+    CreatePost,
+    PostingRules
   },
   data: function () {
     return {

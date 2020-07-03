@@ -33,4 +33,7 @@ export default {
   .v-content {
     background-color: #dae0e7;
   }
+  .black-gradient {
+    background: linear-gradient(#484848, #252525);
+  }
 </style>
