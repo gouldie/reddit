@@ -1,21 +1,25 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col cols='12' :md='8'>
-        <CreatePostHeader v-if='isAuthenticated' />
-        <PostFilter :filter='filter' @selectFilter='selectFilter' />
-        <PostList :posts='posts' />
-      </v-col>
-      <v-col :md='4' v-if='$vuetify.breakpoint.mdAndUp'>
-        <CommunityInfo :community='community' />
-      </v-col>
-    </v-row>
-  </v-container>
+  <div>
+    <CommunityHeader :community='community' />
+    <v-container>
+      <v-row>
+        <v-col cols='12' :md='8'>
+          <CreatePostHeader v-if='isAuthenticated' />
+          <PostFilter :filter='filter' @selectFilter='selectFilter' />
+          <PostList :posts='posts' />
+        </v-col>
+        <v-col :md='4' v-if='$vuetify.breakpoint.mdAndUp'>
+          <CommunityInfo :community='community' />
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import CommunityInfo from '@/components/Communities/Info.vue'
+import CommunityHeader from '@/components/Communities/Header.vue'
 import CreatePostHeader from '@/components/Posts/CreatePostHeader.vue'
 import PostFilter from '@/components/Posts/PostFilter.vue'
 import PostList from '@/components/Posts/PostList.vue'
@@ -28,7 +32,8 @@ export default {
     CreatePostHeader,
     PostFilter,
     PostList,
-    CommunityInfo
+    CommunityInfo,
+    CommunityHeader
   },
   data: function () {
     return {
