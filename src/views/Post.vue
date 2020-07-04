@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols='12' :md='8'>
         <v-card>
-          <Post v-if='post' :post='post' :showCommunity='true' />
+          <Post v-if='post' :post='post' :showCommunity='true' @vote='vote' />
           <LeaveComment />
           <Comments :comments='comments' />
         </v-card>
@@ -37,6 +37,32 @@ export default {
       error: null,
       comments: [],
       community: null
+    }
+  },
+  methods: {
+    vote (data) {
+      const { type } = data
+
+      if (this.post.userVote === 1 && type === 'upvote') return
+      if (this.post.userVote === -1 && type === 'downvote') return
+
+      let newCount = this.post.count
+
+      if (type === 'upvote') {
+        newCount++
+      } else {
+        newCount--
+      }
+
+      if (this.post.userVote === 1) {
+        newCount -= 1
+      }
+      if (this.post.userVote === -1) {
+        newCount += 1
+      }
+
+      this.post.count = newCount
+      this.post.userVote = type === 'upvote' ? 1 : -1
     }
   },
   mounted () {

@@ -9,6 +9,12 @@ var PostSchema = new Schema({
     type: String,
     ref: 'User'
   },
+  upvotes: [{
+    type: String
+  }],
+  downvotes: [{
+    type: String
+  }],
   createdAt: Number,
   updatedAt: Number
 }, { versionKey: false })

@@ -1,9 +1,21 @@
 <template>
   <div class='post-container'>
     <div class='vote-panel' v-if='$vuetify.breakpoint.smAndUp'>
-      <v-icon dense>arrow_upward</v-icon>
-      <span>67</span>
-      <v-icon dense>arrow_downward</v-icon>
+      <v-icon
+        dense
+        :color='post.userVote === 1 ? "green" : ""'
+        @click.stop='vote("upvote")'
+      >
+        arrow_upward
+      </v-icon>
+      <span>{{ post.count }}</span>
+      <v-icon
+        dense
+        :color='post.userVote === -1 ? "red" : ""'
+        @click.stop='vote("downvote")'
+      >
+        arrow_downward
+      </v-icon>
     </div>
     <div>
       <v-card-text class='post-header'>
@@ -23,6 +35,7 @@
 
 <script>
 import timeago from 'time-ago'
+import axios from 'axios'
 
 export default {
   props: [
@@ -32,6 +45,15 @@ export default {
   methods: {
     formattedTime (timestamp) {
       return timeago.ago(timestamp)
+    },
+    vote (type) {
+      axios.post(`/api/posts/${type}`, {
+        postId: this.post._id
+      })
+        .then(res => {
+          // emit to parent
+          this.$emit('vote', { postId: this.post._id, type })
+        })
     }
   }
 }
@@ -45,6 +67,9 @@ export default {
   .vote-panel {
     width: 36px;
     padding: 16px 0 16px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .post-header {
     padding-bottom: 0;

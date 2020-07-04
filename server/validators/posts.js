@@ -40,3 +40,7 @@ export const GetPost = Joi.object().keys({
 export const GetPosts = Joi.object().keys({
   communityId: communityId.optional()
 })
+
+export const Vote = Joi.object().keys({
+  postId
+})
