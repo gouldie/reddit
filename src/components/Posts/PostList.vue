@@ -1,6 +1,6 @@
 <template>
   <div class='post-list-container'>
-    <v-card v-for='post in posts' :key='post.id' @click='$router.push(`/post/${post._id}`)'>
+    <v-card v-for='post in posts' :key='post.id' @click.native.stop='$router.push(`/post/${post._id}`)'>
       <Post :post='post' :showCommunity='showCommunity' />
     </v-card>
   </div>
@@ -21,5 +21,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+  .v-card {
+    cursor: pointer;
+  }
 </style>
