@@ -1,7 +1,7 @@
 <template>
   <div class='post-list-container'>
     <v-card v-for='post in posts' :key='post.id' @click.native.stop='$router.push(`/post/${post._id}`)'>
-      <Post :post='post' :showCommunity='showCommunity' />
+      <Post :post='post' :showCommunity='showCommunity' v-on="$listeners" />
     </v-card>
   </div>
 </template>

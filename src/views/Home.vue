@@ -4,7 +4,7 @@
       <v-col cols='12' :md='8'>
         <CreatePostHeader v-if='isAuthenticated' />
         <PostFilter :filter='filter' @selectFilter='selectFilter' />
-        <PostList :posts='posts' :showCommunity='true' />
+        <PostList :posts='posts' :showCommunity='true' @vote='vote' />
       </v-col>
       <v-col :md='4' v-if='$vuetify.breakpoint.mdAndUp'>
         <TopGrowing :communities='communities.slice(0, 5)' />
@@ -21,6 +21,7 @@ import PostFilter from '@/components/Posts/PostFilter.vue'
 import PostList from '@/components/Posts/PostList.vue'
 import communities from '@/assets/json/communities.json'
 import axios from 'axios'
+import { calculateVote } from '@/utils.js'
 
 export default {
   name: 'Home',
@@ -40,6 +41,9 @@ export default {
   methods: {
     selectFilter (filter) {
       this.filter = filter
+    },
+    vote (data) {
+      calculateVote(this.posts.find(p => p._id === data.postId), data.type)
     }
   },
   computed: {

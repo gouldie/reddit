@@ -23,6 +23,7 @@ import CommunityInfo from '@/components/Communities/Info.vue'
 
 import axios from 'axios'
 import communities from '@/assets/json/communities.json'
+import { calculateVote } from '@/utils.js'
 
 export default {
   components: {
@@ -41,28 +42,7 @@ export default {
   },
   methods: {
     vote (data) {
-      const { type } = data
-
-      if (this.post.userVote === 1 && type === 'upvote') return
-      if (this.post.userVote === -1 && type === 'downvote') return
-
-      let newCount = this.post.count
-
-      if (type === 'upvote') {
-        newCount++
-      } else {
-        newCount--
-      }
-
-      if (this.post.userVote === 1) {
-        newCount -= 1
-      }
-      if (this.post.userVote === -1) {
-        newCount += 1
-      }
-
-      this.post.count = newCount
-      this.post.userVote = type === 'upvote' ? 1 : -1
+      calculateVote(this.post, data.type)
     }
   },
   mounted () {
