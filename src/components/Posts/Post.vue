@@ -6,7 +6,7 @@
         :color='post.userVote === 1 ? "green" : ""'
         @click.stop='vote("upvote")'
       >
-        arrow_upward
+        mdi-arrow-up-bold
       </v-icon>
       <span>{{ post.count }}</span>
       <v-icon
@@ -14,7 +14,7 @@
         :color='post.userVote === -1 ? "red" : ""'
         @click.stop='vote("downvote")'
       >
-        arrow_downward
+        mdi-arrow-down-bold
       </v-icon>
     </div>
     <div>
