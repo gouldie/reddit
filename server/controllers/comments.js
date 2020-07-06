@@ -1,7 +1,6 @@
 import cuid from 'cuid'
-import Post from '../models/Post'
 import Comment from '../models/Comment'
-import { GetComments, CreateComment } from '../validators/comments'
+import { GetComments, CreateComment, Vote } from '../validators/comments'
 
 export const getComments = async (req, res) => {
   const { error } = GetComments.validate(req.params, { abortEarly: true })
@@ -10,7 +9,21 @@ export const getComments = async (req, res) => {
     return res.json({ success: false, message: error.details[0].message })
   }
 
-  const comments = await Comment.find({ postId: req.params.postId }).populate('user')
+  let comments = await Comment.find({ postId: req.params.postId }).populate('user').lean()
+
+  comments = comments.map(e => {
+    const upvotes = e.upvotes ? e.upvotes.length : 0
+    const downvotes = e.downvotes ? e.downvotes.length : 0
+    const count = upvotes - downvotes
+    const userVote = e.upvotes && e.upvotes.includes(req.userId) ? 1 : e.downvotes && e.downvotes.includes(req.userId) ? -1 : 0
+
+    delete e.upvotes
+    delete e.downvotes
+    e.count = count
+    e.userVote = userVote
+
+    return e
+  })
 
   return res.json({
     success: true,
@@ -38,4 +51,28 @@ export const createComment = async (req, res) => {
   return res.json({
     success: true
   })
+}
+
+export const upvote = async (req, res) => {
+  const { error } = Vote.validate(req.body, { abortEarly: true })
+
+  if (error) {
+    return res.json({ success: false, message: error.details[0].message })
+  }
+
+  await Comment.updateOne({ _id: req.body.commentId }, { $addToSet: { upvotes: req.userId }, $pull: { downvotes: req.userId } })
+
+  return res.json({ success: true })
+}
+
+export const downvote = async (req, res) => {
+  const { error } = Vote.validate(req.body, { abortEarly: true })
+
+  if (error) {
+    return res.json({ success: false, message: error.details[0].message })
+  }
+
+  await Comment.updateOne({ _id: req.body.commentId }, { $addToSet: { downvotes: req.userId }, $pull: { upvotes: req.userId } })
+
+  return res.json({ success: true })
 }

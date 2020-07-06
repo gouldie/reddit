@@ -1,7 +1,10 @@
 import Joi from '@hapi/joi'
 
-// In a production app this would be retrieved from the database / validated at the model
 const postId = Joi.string()
+  .required()
+  .max(300)
+
+const commentId = Joi.string()
   .required()
   .max(300)
 
@@ -19,4 +22,8 @@ export const GetComments = Joi.object().keys({
 export const CreateComment = Joi.object().keys({
   postId,
   text
+})
+
+export const Vote = Joi.object().keys({
+  commentId
 })

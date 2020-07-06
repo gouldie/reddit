@@ -5,7 +5,7 @@
         <v-card>
           <Post v-if='post' :post='post' :showCommunity='true' @vote='vote' />
           <LeaveComment />
-          <Comments :comments='comments' />
+          <Comments :comments='comments' @vote='vote'/>
         </v-card>
       </v-col>
       <v-col :md='4' v-if='$vuetify.breakpoint.mdAndUp'>
@@ -42,6 +42,10 @@ export default {
   },
   methods: {
     vote (data) {
+      // check if commentId exists and if so use data.comments[i] instead
+      if (data.commentId) {
+        calculateVote(this.comments.find(e => e._id === data.commentId), data.type)
+      }
       calculateVote(this.post, data.type)
     }
   },

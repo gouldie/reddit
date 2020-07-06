@@ -7,6 +7,12 @@ var CommentSchema = new Schema({
     type: String,
     ref: 'User'
   },
+  upvotes: [{
+    type: String
+  }],
+  downvotes: [{
+    type: String
+  }],
   postId: String,
   createdAt: Number,
   updatedAt: Number

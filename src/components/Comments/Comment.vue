@@ -1,14 +1,25 @@
 <template>
   <div class='comment-container'>
     <div class='vote-panel' v-if='$vuetify.breakpoint.smAndUp'>
-      <v-icon dense>arrow_upward</v-icon>
-      <!-- <span>67</span> -->
-      <v-icon dense>arrow_downward</v-icon>
+      <v-icon
+        dense
+        :color='comment.userVote === 1 ? "green" : ""'
+        @click.stop='vote("upvote")'
+      >
+        mdi-arrow-up-bold
+      </v-icon>
+      <v-icon
+        dense
+        :color='comment.userVote === -1 ? "red" : ""'
+        @click.stop='vote("downvote")'
+      >
+        mdi-arrow-down-bold
+      </v-icon>
     </div>
     <div>
       <v-card-text class='post-header'>
         <span class='post-user'>{{ comment.user.username }}</span>
-        <span class='post-points'>55 points</span>
+        <span class='post-points'>{{ comment.count }} points</span>
         <span class='post-time'>{{ formattedTime(comment.createdAt) }}</span>
       </v-card-text>
       <!-- <v-card-title class='post-title'>
@@ -23,6 +34,7 @@
 
 <script>
 import timeago from 'time-ago'
+import axios from 'axios'
 
 export default {
   props: [
@@ -31,6 +43,20 @@ export default {
   methods: {
     formattedTime (timestamp) {
       return timeago.ago(timestamp)
+    },
+    vote (type) {
+      if (!this.$store.state.isAuthenticated) {
+        this.$store.commit('setModal', 'log-in')
+        return
+      }
+
+      axios.post(`/api/comments/${type}`, {
+        commentId: this.comment._id
+      })
+        .then(res => {
+          // emit to parent
+          this.$emit('vote', { commentId: this.comment._id, type })
+        })
     }
   }
 }
