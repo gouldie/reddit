@@ -47,6 +47,11 @@ export default {
       return timeago.ago(timestamp)
     },
     vote (type) {
+      if (!this.$store.state.isAuthenticated) {
+        this.$store.commit('setModal', 'log-in')
+        return
+      }
+
       axios.post(`/api/posts/${type}`, {
         postId: this.post._id
       })
