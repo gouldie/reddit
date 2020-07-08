@@ -1,20 +1,65 @@
 [
   {
     "id": "1",
-    "name": "science",
-    "title": "Reddit Science",
-    "description": "This community is a place to share and discuss new scientific research. Read about the latest advances in astronomy, biology, medicine, physics, social science, and more. Find and submit new publications and popular science coverage of current research."
+    "name": "space",
+    "title": "/r/space: news, articles, images, videos and discussion",
+    "description": "Share & discuss informative content on: * Astrophysics * Cosmology * Space Exploration * Planetary Science * Astrobiology",
+    "category": "Science"
   },
   {
     "id": "2",
-    "name": "gaming",
-    "title": "r/gaming",
-    "description": "A subreddit for (almost) anything related to games - video games, board games, card games, etc. (but not sports)."
+    "name": "environment",
+    "title": "environment",
+    "description": "Current news, information and issues related to the environment.",
+    "category": "Science"
   },
   {
     "id": "3",
-    "name": "cats",
-    "title": "Cats",
-    "description": "Pictures, videos, articles and questions featuring and about cats."
+    "name": "elonmusk",
+    "title": "r/ElonMusk, Updates and Discussion",
+    "description": "Welcome to r/elonmusk, a community focused on the industrial designer, technology entrepreneur, philanthropist and visionary Elon Musk. He is currently working to revolutionize many industries, including Space Travel, Transport, Artificial Intelligence, and Neurotechnology.",
+    "category": "Science"
+  },
+  {
+    "id": "4",
+    "name": "smashbros",
+    "title": "Super Smash Bros.",
+    "description": "Welcome to Reddit's finest Smash Bros community",
+    "category": "Gaming"
+  },
+  {
+    "id": "5",
+    "name": "wow",
+    "title": "World of Warcraft",
+    "description": "World of Warcraft on Reddit!",
+    "category": "Gaming"
+  },
+  {
+    "id": "6",
+    "name": "Overwatch",
+    "title": "Overwatch",
+    "description": "Subreddit for all things Overwatch™, the team-based shooter from Blizzard Entertainment.",
+    "category": "Gaming"
+  },
+  {
+    "id": "7",
+    "name": "bodybuilding",
+    "title": "Bodybuilding - everybody wants to be a bodybuilder",
+    "description": "News, articles, personal pictures, videos & advice on everything related to bodybuilding - nutrition, supplementation, training, contest preparation, and more.",
+    "category": "Health & Fitness"
+  },
+  {
+    "id": "8",
+    "name": "fasting",
+    "title": "willingly abstaining for a period of time",
+    "description": "The great comedian, Ed Wynn said, \"Without your health, riches, possessions and fame are all mud.\" With the high costs of health care, how can we *afford* not to keep ourselves well? Most fast for health, self-discipline and preparation and not for religious reasons. Perhaps no subject is less understood by the public and the \"healing\" professions than this oldest of means of caring for the sick body.",
+    "category": "Health & Fitness"
+  },
+  {
+    "id": "9",
+    "name": "backpacking",
+    "title": "World Travel Backpacking",
+    "description": "A subreddit for traveling backpacking and wilderness backpacking, not restricted to one or the other. All posts must be flaired \"Travel\" or \"Wilderness\"",
+    "category": "Health & Fitness"
   }
 ]
