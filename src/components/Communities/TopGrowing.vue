@@ -12,7 +12,7 @@
         </v-list-item>
       </router-link>
     </v-list>
-    <v-btn color='blue' width='80%'>
+    <v-btn color='blue' width='80%' @click='$router.push("/communities")'>
       VIEW ALL
     </v-btn>
   </v-card>

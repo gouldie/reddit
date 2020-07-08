@@ -42,6 +42,11 @@ const routes = [
     path: '/r/:community',
     name: 'Community',
     component: () => import('../views/Community.vue')
+  },
+  {
+    path: '/communities',
+    name: 'Communities',
+    component: () => import('../views/Communities.vue')
   }
 ]
 
