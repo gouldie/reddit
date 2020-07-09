@@ -18,10 +18,10 @@
         </v-card>
       </v-col>
       <v-col :md='6' :sm='9'>
-        <div>2</div>
+        <TopCommunities :communities='communities' :alt='true' :category='category' />
       </v-col>
       <v-col v-if='$vuetify.breakpoint.mdAndUp' :md='4'>
-        <TopCommunities :communities='communities' :category='randomCategory' />
+        <TopCommunities :communities='communities' :category='randomCategory' @selectCategory='selectCategory' />
       </v-col>
     </v-row>
   </v-container>

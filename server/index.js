@@ -52,7 +52,6 @@ app.use(function (err, req, res, next) {
 
 // Fallback
 app.get('*', function (req, res) {
-  console.log('server')
   res.sendFile(path.join(__dirname, '/../dist/index.html'))
 })
 

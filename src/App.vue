@@ -29,6 +29,7 @@ export default {
   }
   .container {
     padding-top: 30px;
+    max-width: 1185px;
   }
   .v-content {
     background-color: #dae0e7;

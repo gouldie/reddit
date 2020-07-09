@@ -1,7 +1,7 @@
 <template>
   <v-card>
-    <div class='black-gradient'>
-      <v-card-title>
+    <div :class='!alt && "black-gradient"'>
+      <v-card-title :class='alt && "alt blue-grey lighten-5"'>
         {{ title }}
       </v-card-title>
     </div>
@@ -12,8 +12,8 @@
         </v-list-item>
       </router-link>
     </v-list>
-    <v-btn color='blue' width='80%' @click='$router.push("/communities")'>
-      VIEW ALL
+    <v-btn v-if='!alt' color='blue' width='80%' @click='this.onClick'>
+      {{ category ? `SEE MORE ${category.toUpperCase()}` : "VIEW ALL" }}
     </v-btn>
   </v-card>
 </template>
@@ -22,15 +22,29 @@
 export default {
   props: [
     'category',
-    'communities'
+    'communities',
+    'alt' // alternative view, i.e. smaller header bar and no 'view all' button
   ],
   computed: {
     title () {
-      return this.category ? `Top ${this.category} Communities` : "Today's Top Growing Communities"
+      if (this.alt) {
+        return this.category ? `Today's Top Growing in ${this.category}` : "Today's Top Growing Communities"
+      } else {
+        return this.category ? `Top ${this.category} Communities` : "Today's Top Growing Communities"
+      }
     },
     prefixedCommunities () {
       // TODO: order by top growing
       return this.communities.filter(e => !this.category || (this.category === e.category)).map(e => ({ ...e, name: `r/${e.name}` })).slice(0, 5)
+    }
+  },
+  methods: {
+    onClick () {
+      if (!this.category) {
+        this.$router.push('/communities')
+      } else {
+        this.$emit('selectCategory', this.category)
+      }
     }
   }
 }
@@ -44,6 +58,10 @@ export default {
     font-size: 18px;
     color: #fff;
     padding-top: 50px;
+    &.alt {
+      padding: 5px 8px;
+      color: inherit;
+    }
   }
   .v-list {
     padding: 0;
