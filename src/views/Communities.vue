@@ -8,6 +8,12 @@
           </v-card-title>
           <v-divider />
           <v-card-text
+            :class='!category && "blue-grey lighten-5"'
+            @click='selectCategory(null)'
+          >
+            All Communities
+          </v-card-text>
+          <v-card-text
             v-for='c in categories'
             :key='c'
             :class='c === category && "blue-grey lighten-5"'

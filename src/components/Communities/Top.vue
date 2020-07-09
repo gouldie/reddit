@@ -51,9 +51,6 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-  .v-card {
-    padding-bottom: 10px;
-  }
   .v-card__title {
     font-size: 18px;
     color: #fff;
@@ -76,7 +73,7 @@ export default {
   .v-btn {
     color: #fff;
     display: flex;
-    margin: 10px auto;
+    margin: 10px auto 20px;
   }
   a {
     text-decoration: none;
