@@ -7,7 +7,7 @@
         <PostList :posts='posts' :showCommunity='true' @vote='vote' />
       </v-col>
       <v-col :md='4' v-if='$vuetify.breakpoint.mdAndUp'>
-        <TopGrowing :communities='communities.slice(0, 5)' />
+        <TopGrowing :communities='communities' />
       </v-col>
     </v-row>
   </v-container>
@@ -15,7 +15,7 @@
 
 <script>
 // @ is an alias to /src
-import TopGrowing from '@/components/Communities/TopGrowing.vue'
+import TopGrowing from '@/components/Communities/Top.vue'
 import CreatePostHeader from '@/components/Posts/CreatePostHeader.vue'
 import PostFilter from '@/components/Posts/PostFilter.vue'
 import PostList from '@/components/Posts/PostList.vue'

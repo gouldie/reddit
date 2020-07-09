@@ -21,7 +21,7 @@
         <div>2</div>
       </v-col>
       <v-col v-if='$vuetify.breakpoint.mdAndUp' :md='4'>
-        <div>3</div>
+        <TopCommunities :communities='communities' :category='randomCategory' />
       </v-col>
     </v-row>
   </v-container>
@@ -29,10 +29,15 @@
 
 <script>
 import communities from '@/assets/json/communities.json'
+import TopCommunities from '@/components/Communities/Top.vue'
 
 export default {
+  components: {
+    TopCommunities
+  },
   data: function () {
     return {
+      communities,
       category: null
     }
   },
@@ -42,6 +47,9 @@ export default {
         if (!accumulator.includes(currentValue.category)) accumulator.push(currentValue.category)
         return accumulator
       }, []).sort((a, b) => a < b ? -1 : 1)
+    },
+    randomCategory () {
+      return this.categories[Math.floor(Math.random() * this.categories.length)]
     }
   },
   methods: {

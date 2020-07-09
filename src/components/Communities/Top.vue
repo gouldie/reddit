@@ -2,7 +2,7 @@
   <v-card>
     <div class='black-gradient'>
       <v-card-title>
-        Today's Top Growing Communities
+        {{ title }}
       </v-card-title>
     </div>
     <v-list>
@@ -21,11 +21,16 @@
 <script>
 export default {
   props: [
+    'category',
     'communities'
   ],
   computed: {
+    title () {
+      return this.category ? `Top ${this.category} Communities` : "Today's Top Growing Communities"
+    },
     prefixedCommunities () {
-      return this.communities.map(e => ({ ...e, name: `r/${e.name}` }))
+      // TODO: order by top growing
+      return this.communities.filter(e => !this.category || (this.category === e.category)).map(e => ({ ...e, name: `r/${e.name}` })).slice(0, 5)
     }
   }
 }
