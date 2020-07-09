@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card :class='!alt && "padding-bot"'>
     <div :class='!alt && "black-gradient"'>
       <v-card-title :class='alt && "alt blue-grey lighten-5"'>
         {{ title }}
@@ -51,6 +51,9 @@ export default {
 </script>
 
 <style scoped lang='scss'>
+  .padding-bot {
+    padding-bottom: 10px;
+  }
   .v-card__title {
     font-size: 18px;
     color: #fff;
@@ -73,7 +76,7 @@ export default {
   .v-btn {
     color: #fff;
     display: flex;
-    margin: 10px auto 20px;
+    margin: 10px auto;
   }
   a {
     text-decoration: none;
