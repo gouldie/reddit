@@ -27,7 +27,8 @@
         <TopCommunities :communities='communities' :alt='true' :category='category' />
       </v-col>
       <v-col v-if='$vuetify.breakpoint.mdAndUp' :md='4'>
-        <TopCommunities :communities='communities' :category='randomCategory' @selectCategory='selectCategory' />
+        <TopCommunities :communities='communities' :category='randomCategory[0]' @selectCategory='selectCategory' />
+        <TopCommunities :communities='communities' :category='randomCategory[1]' @selectCategory='selectCategory' />
       </v-col>
     </v-row>
   </v-container>
@@ -54,8 +55,11 @@ export default {
         return accumulator
       }, []).sort((a, b) => a < b ? -1 : 1)
     },
-    randomCategory () {
-      return this.categories[Math.floor(Math.random() * this.categories.length)]
+    // two random categories
+    randomCategory (n) {
+      // return this.categories[Math.floor(Math.random() * this.categories.length)]
+      const cat = this.categories
+      return cat.sort(() => Math.random() - Math.random()).slice(0, 2)
     }
   },
   methods: {
@@ -67,6 +71,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .v-card {
+    margin-bottom: 20px;
+  }
   .col>div {
     min-height: 100px;
     border: 1px solid black;
