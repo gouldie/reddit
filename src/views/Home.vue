@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols='12' :md='8'>
         <CreatePostHeader v-if='isAuthenticated' />
-        <PostFilter :filter='filter' @selectFilter='selectFilter' />
+        <PostFilter :sort='sort' @selectSort='selectSort' />
         <PostList :posts='posts' :showCommunity='true' @vote='vote' />
       </v-col>
       <v-col :md='4' v-if='$vuetify.breakpoint.mdAndUp'>
@@ -34,16 +34,36 @@ export default {
   data: function () {
     return {
       communities,
-      filter: 'Best',
+      sort: 'Best',
       posts: []
     }
   },
   methods: {
-    selectFilter (filter) {
-      this.filter = filter
+    selectSort (sort) {
+      this.sort = sort
+      this.getPosts()
     },
     vote (data) {
       calculateVote(this.posts.find(p => p._id === data.postId), data.type)
+    },
+    getPosts () {
+      axios.get('/api/posts', {
+        params: {
+          sort: this.sort
+        }
+      })
+        .then(res => {
+          if (res.data.success) {
+            this.posts = res.data.posts.map(e => {
+              const community = this.communities.find(c => c.id === e.communityId)
+
+              return {
+                ...e,
+                communityName: community.name
+              }
+            })
+          }
+        })
     }
   },
   computed: {
@@ -52,19 +72,7 @@ export default {
     }
   },
   mounted () {
-    axios.get('/api/posts')
-      .then(res => {
-        if (res.data.success) {
-          this.posts = res.data.posts.map(e => {
-            const community = this.communities.find(c => c.id === e.communityId)
-
-            return {
-              ...e,
-              communityName: community.name
-            }
-          })
-        }
-      })
+    this.getPosts()
   }
 }
 </script>

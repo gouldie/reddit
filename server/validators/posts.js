@@ -2,6 +2,7 @@ import Joi from '@hapi/joi'
 
 // In a production app this would be retrieved from the database / validated at the model
 const validCommunityIds = ['1', '2', '3']
+const validSorts = ['Best', 'Hot', 'Top', 'New']
 
 const postId = Joi.string()
   .required()
@@ -27,6 +28,10 @@ const text = Joi.string()
   .optional()
   .label('Text')
 
+const sort = Joi.string()
+  .allow(...validSorts)
+  .only()
+
 export const CreateTextPost = Joi.object().keys({
   communityId: communityId.required(),
   title,
@@ -38,7 +43,8 @@ export const GetPost = Joi.object().keys({
 })
 
 export const GetPosts = Joi.object().keys({
-  communityId: communityId.optional()
+  communityId: communityId.optional(),
+  sort
 })
 
 export const Vote = Joi.object().keys({

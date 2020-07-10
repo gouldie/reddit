@@ -1,6 +1,7 @@
 import cuid from 'cuid'
 import Post from '../models/Post'
 import { CreateTextPost, GetPost, GetPosts, Vote } from '../validators/posts'
+import sortBy from '../utils/sort'
 
 export const getPosts = async (req, res) => {
   const { error } = GetPosts.validate(req.query, { abortEarly: true })
@@ -9,12 +10,17 @@ export const getPosts = async (req, res) => {
     return res.json({ success: false, message: error.details[0].message })
   }
 
+  const { sort, communityId } = req.query
+
   const query = {}
-  if (req.query.communityId) {
-    query.communityId = req.query.communityId
+  if (communityId) {
+    query.communityId = communityId
   }
 
   let posts = await Post.find(query).populate('user', 'username').lean()
+
+  // sort
+  posts = posts.sort(sortBy[sort])
 
   posts = posts.map(e => {
     const upvotes = e.upvotes ? e.upvotes.length : 0

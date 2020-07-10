@@ -1,9 +1,9 @@
 <template>
   <v-card>
-    <div class='post-filter-container'>
+    <div class='post-sort-container'>
       <v-card-actions>
-        <div :key='item' v-for='item in Object.keys(filters)' :class='filter === item && "selected"' @click='selectFilter(item)'>
-          <v-icon dense>{{ filters[item] }}</v-icon>{{ item }}
+        <div :key='item' v-for='item in Object.keys(sorts)' :class='sort === item && "selected"' @click='selectSort(item)'>
+          <v-icon dense>{{ sorts[item] }}</v-icon>{{ item }}
         </div>
       </v-card-actions>
     </div>
@@ -13,11 +13,11 @@
 <script>
 export default {
   props: [
-    'filter'
+    'sort'
   ],
   data: function () {
     return {
-      filters: {
+      sorts: {
         Best: 'keyboard_arrow_up',
         Hot: 'fireplace',
         New: 'fiber_new',
@@ -26,15 +26,15 @@ export default {
     }
   },
   methods: {
-    selectFilter (filter) {
-      this.$emit('selectFilter', filter)
+    selectSort (sort) {
+      this.$emit('selectSort', sort)
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-  .post-filter-container {
+  .post-sort-container {
     display: flex;
     justify-content: flex-start;
     align-items: center;
