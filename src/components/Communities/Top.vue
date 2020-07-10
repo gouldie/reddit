@@ -8,7 +8,7 @@
     <v-list>
       <router-link v-for='(community, i) in prefixedCommunities' :key='community.id' :to='community.name'>
         <v-list-item>
-          <span>{{ i+1 }}</span> {{ community.name }}
+          <span>{{ i+1 }}</span> <Icon /> <span class='community-name'>{{ community.name }}</span>
         </v-list-item>
       </router-link>
     </v-list>
@@ -19,7 +19,12 @@
 </template>
 
 <script>
+import Icon from '@/components/Communities/Icon.vue'
+
 export default {
+  components: {
+    Icon
+  },
   props: [
     'category',
     'communities',
@@ -70,7 +75,7 @@ export default {
     border-top: 1px solid #d0d0d0;
     cursor: pointer;
     span {
-      margin-right: 10px;
+      margin-right: 15px;
     }
   }
   .v-btn {

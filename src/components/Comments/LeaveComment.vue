@@ -70,7 +70,7 @@ export default {
     padding: 0 0 20px;
   }
   .leave-comment-container {
-    padding: 0 30px 10px;
+    padding: 0 30px 20px;
 
     .v-card {
       display: flex;

@@ -19,6 +19,7 @@
     </div>
     <div>
       <v-card-text class='post-header'>
+        <Icon v-if='showCommunity' />
         <a v-if='showCommunity' @click.stop='$router.push("/r/" + post.communityName)'><span class='post-community'>{{ `r/${post.communityName}` }}</span></a>
         <span class='post-user'>Posted by u/{{ post.user.username }}</span>
         <span class='post-time'>{{ formattedTime(post.createdAt) }}</span>
@@ -36,8 +37,12 @@
 <script>
 import timeago from 'time-ago'
 import axios from 'axios'
+import Icon from '@/components/Communities/Icon.vue'
 
 export default {
+  components: {
+    Icon
+  },
   props: [
     'post',
     'showCommunity'
@@ -78,6 +83,7 @@ export default {
   }
   .post-header {
     padding-bottom: 0;
+    display: flex;
   }
   .post-community {
     font-weight: 500;
