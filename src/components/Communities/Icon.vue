@@ -7,6 +7,7 @@
 import randomcolor from 'random-color'
 
 export default {
+  // functionality to add random color / letter to an icon. may use in future
   props: [
     'word',
     'large'
