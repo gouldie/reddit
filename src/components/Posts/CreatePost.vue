@@ -43,15 +43,16 @@
             ></v-text-field>
           </v-card-actions>
 
-          <v-card-actions>
-            <wysiwyg v-if='tab === 0 && $vuetify.breakpoint.smAndUp' v-model='text' style='margin-top: -10px;' placeholder='Text (optional)' />
+          <div v-if='tab === 0'>
+            <TextArea :value='text' @onChange='textOnChange' :dense='true' />
+            <!-- <wysiwyg v-if='tab === 0 && $vuetify.breakpoint.smAndUp' v-model='text' style='margin-top: -10px;' placeholder='Text (optional)' />
             <v-textarea
               v-if='tab === 0 && !$vuetify.breakpoint.smAndUp'
               outlined
               v-model='text'
               label="Text (optional)"
-            ></v-textarea>
-          </v-card-actions>
+            ></v-textarea> -->
+          </div>
 
           <v-card-text class='error-text' v-if='error'>{{ error }}</v-card-text>
 
@@ -71,11 +72,15 @@
 
 <script>
 import axios from 'axios'
+import TextArea from '@/components/Core/TextArea.vue'
 
 export default {
   props: [
     'communities'
   ],
+  components: {
+    TextArea
+  },
   data: function () {
     return {
       communityId: this.$route.params.community ? this.communities.find(e => e.name === this.$route.params.community).id : null,
@@ -118,7 +123,6 @@ export default {
         ...fields
       })
         .then(res => {
-          console.log('res', res)
           if (res.data.success) {
             // todo: redirect to submitted post
             window.location.href = '/'
@@ -127,6 +131,9 @@ export default {
 
           this.error = res.data.message
         })
+    },
+    textOnChange (e) {
+      this.text = e
     }
   },
   watch: {

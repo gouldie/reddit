@@ -4,25 +4,15 @@
       <v-col cols='12' :md='8'>
         <v-card>
           <Post v-if='post' :post='post' :showCommunity='true' @vote='vote' />
-          <div v-if='editing' :class='$vuetify.breakpoint.smAndUp ? "editing-container" : "editing-container responsive"'>
+          <TextArea v-if='editing' :value='editing' @onChange='editOnChange' />
+          <v-card-actions :class='!$vuetify.breakpoint.smAndUp && "responsive"'>
             <div>
-              <wysiwyg
-                v-if='$vuetify.breakpoint.smAndUp'
-                v-model='editing'
-                style='margin-top: -10px;'
-                placeholder='Text (optional)'
-              />
-              <v-textarea
-                v-if='!$vuetify.breakpoint.smAndUp'
-                outlined
-                v-model='editing'
-                label="Text (optional)"
-              ></v-textarea>
+              <v-card-text @click='toggleEdit'><v-icon small>edit</v-icon> Edit</v-card-text>
+              <v-card-text @click='deleting = true'><v-icon small>delete</v-icon> Delete</v-card-text>
             </div>
-          </div>
-          <v-card-actions>
-            <v-card-text @click='toggleEdit'><v-icon small>edit</v-icon> Edit</v-card-text>
-            <v-card-text @click='deleting = true'><v-icon small>delete</v-icon> Delete</v-card-text>
+            <div>
+              <v-card-text v-if='editing' @click='toggleEdit'><v-icon small>save</v-icon> Save</v-card-text>
+            </div>
           </v-card-actions>
           <LeaveComment />
           <Comments :comments='comments' @vote='vote'/>
@@ -40,6 +30,7 @@ import Post from '@/components/Posts/Post.vue'
 import LeaveComment from '@/components/Comments/LeaveComment.vue'
 import Comments from '@/components/Comments/Comments.vue'
 import CommunityInfo from '@/components/Communities/Info.vue'
+import TextArea from '@/components/Core/TextArea.vue'
 
 import axios from 'axios'
 import communities from '@/assets/json/communities.json'
@@ -50,7 +41,8 @@ export default {
     Post,
     LeaveComment,
     Comments,
-    CommunityInfo
+    CommunityInfo,
+    TextArea
   },
   data: function () {
     return {
@@ -76,6 +68,9 @@ export default {
         return
       }
       this.editing = this.post.text
+    },
+    editOnChange (e) {
+      this.editing = e
     }
   },
   mounted () {
@@ -107,14 +102,19 @@ export default {
 
 <style lang="scss" scoped>
   .v-card__actions {
-    display: block;
+    justify-content: space-between;
     padding: 0 30px 20px;
+    margin-top: -10px;
+
     .v-card__text {
       display: inline-block;
       width: inherit;
       padding: 0;
       margin-right: 10px;
       cursor: pointer;
+    }
+    &.responsive {
+      padding: 0 10px 10px;
     }
   }
   .editing-container {
