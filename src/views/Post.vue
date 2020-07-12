@@ -4,6 +4,26 @@
       <v-col cols='12' :md='8'>
         <v-card>
           <Post v-if='post' :post='post' :showCommunity='true' @vote='vote' />
+          <div v-if='editing' :class='$vuetify.breakpoint.smAndUp ? "editing-container" : "editing-container responsive"'>
+            <div>
+              <wysiwyg
+                v-if='$vuetify.breakpoint.smAndUp'
+                v-model='editing'
+                style='margin-top: -10px;'
+                placeholder='Text (optional)'
+              />
+              <v-textarea
+                v-if='!$vuetify.breakpoint.smAndUp'
+                outlined
+                v-model='editing'
+                label="Text (optional)"
+              ></v-textarea>
+            </div>
+          </div>
+          <v-card-actions>
+            <v-card-text @click='toggleEdit'><v-icon small>edit</v-icon> Edit</v-card-text>
+            <v-card-text @click='deleting = true'><v-icon small>delete</v-icon> Delete</v-card-text>
+          </v-card-actions>
           <LeaveComment />
           <Comments :comments='comments' @vote='vote'/>
         </v-card>
@@ -37,7 +57,9 @@ export default {
       post: null,
       error: null,
       comments: [],
-      community: null
+      community: null,
+      editing: false,
+      deleting: false
     }
   },
   methods: {
@@ -47,6 +69,13 @@ export default {
         calculateVote(this.comments.find(e => e._id === data.commentId), data.type)
       }
       calculateVote(this.post, data.type)
+    },
+    toggleEdit () {
+      if (this.editing) {
+        this.editing = false
+        return
+      }
+      this.editing = this.post.text
     }
   },
   mounted () {
@@ -75,3 +104,26 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .v-card__actions {
+    display: block;
+    padding: 0 30px 20px;
+    .v-card__text {
+      display: inline-block;
+      width: inherit;
+      padding: 0;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+  }
+  .editing-container {
+    padding: 0 30px 20px;
+    &.responsive {
+      padding: 0 10px 10px;
+    }
+  }
+  .v-input, .editr--content {
+    font-size: 0.875rem !important;
+  }
+</style>
