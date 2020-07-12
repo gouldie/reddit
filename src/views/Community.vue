@@ -28,7 +28,7 @@ import axios from 'axios'
 import { calculateVote } from '@/utils.js'
 
 export default {
-  name: 'Home',
+  name: 'Community',
   components: {
     CreatePostHeader,
     PostFilter,
