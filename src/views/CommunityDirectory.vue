@@ -13,6 +13,13 @@
         <v-card-title>
           Browse Communities starting with {{ letter }}
         </v-card-title>
+        <v-divider />
+        <div v-if='filteredCommunities.length > 0'>
+          <v-card-text v-for='community in filteredCommunities' :key='community.id'>
+            <span @click='$router.push(`/r/${community.name}`)'>{{ community.name }}</span>
+          </v-card-text>
+        </div>
+        <div v-else><v-card-text>No communities found</v-card-text></div>
       </v-card>
     </v-container>
   </div>
@@ -38,6 +45,33 @@ export default {
     setLetter (letter) {
       this.letter = letter
     }
+  },
+  computed: {
+    filteredCommunities () {
+      return this.communities.filter(c => {
+        // return true
+        if (this.letter === '#') return parseInt(c.name.charAt(0)) !== 'NaN'
+        return c.name.charAt(0).toUpperCase() === this.letter
+      })
+    }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .v-card {
+    padding-bottom: 10px;
+  }
+  .v-divider {
+    margin-bottom: 10px;
+  }
+  .v-card__text {
+    width: 25%;
+    display: inline-block;
+    padding-top: 0;
+    padding-bottom: 0;
+    span {
+      cursor: pointer;
+    }
+  }
+</style>
