@@ -50,3 +50,8 @@ export const GetPosts = Joi.object().keys({
 export const Vote = Joi.object().keys({
   postId
 })
+
+export const EditPost = Joi.object().keys({
+  postId,
+  text
+})

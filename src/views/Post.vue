@@ -7,11 +7,11 @@
           <TextArea v-if='editing || editing === ""' :value='editing' @onChange='editOnChange' placeholder='Text (optional)' />
           <v-card-actions :class='!$vuetify.breakpoint.smAndUp && "responsive"'>
             <div>
-              <v-card-text @click='toggleEdit'><v-icon small>edit</v-icon> Edit</v-card-text>
+              <v-card-text :class='(editing || editing === "") && "selected"' @click='toggleEdit'><v-icon small>edit</v-icon> Edit</v-card-text>
               <v-card-text @click='deleting = true'><v-icon small>delete</v-icon> Delete</v-card-text>
             </div>
             <div>
-              <v-card-text v-if='editing' @click='toggleEdit'><v-icon small>save</v-icon> Save</v-card-text>
+              <v-card-text v-if='editing' @click='editPost'><v-icon small>save</v-icon> Save</v-card-text>
             </div>
           </v-card-actions>
           <LeaveComment />
@@ -48,8 +48,8 @@ export default {
     return {
       post: null,
       error: null,
+      community: {},
       comments: [],
-      community: null,
       editing: false,
       deleting: false
     }
@@ -59,6 +59,7 @@ export default {
       // check if commentId exists and if so use data.comments[i] instead
       if (data.commentId) {
         calculateVote(this.comments.find(e => e._id === data.commentId), data.type)
+        return
       }
       calculateVote(this.post, data.type)
     },
@@ -71,6 +72,27 @@ export default {
     },
     editOnChange (e) {
       this.editing = e
+    },
+    editPost () {
+      axios.post('/api/posts/edit', {
+        postId: this.post._id,
+        text: this.editing
+      })
+        .then(res => {
+          if (!res.data.success) {
+            console.log('err')
+            return
+          }
+          this.editing = false
+          this.post = res.data.post
+        })
+    }
+  },
+  watch: {
+    post () {
+      const community = communities.find(c => c.id === this.post.communityId)
+
+      this.post.communityName = community.name
     }
   },
   mounted () {
@@ -109,9 +131,14 @@ export default {
     .v-card__text {
       display: inline-block;
       width: inherit;
-      padding: 0;
+      padding: 2px 10px;
       margin-right: 10px;
       cursor: pointer;
+      border-radius: 10px;
+
+      &.selected {
+        background: #dcdcdc;
+      }
     }
     &.responsive {
       padding: 0 10px 10px;

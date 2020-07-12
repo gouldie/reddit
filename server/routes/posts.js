@@ -1,4 +1,4 @@
-import { createTextPost, getPosts, getPost, upvote, downvote } from '../controllers/posts'
+import { createTextPost, getPosts, getPost, upvote, downvote, editPost } from '../controllers/posts'
 import { verifyToken, optionalToken } from '../middleware/auth'
 
 const root = '/api/posts'
@@ -9,4 +9,5 @@ export default (app) => {
   app.post(`${root}/text`, verifyToken, createTextPost)
   app.post(`${root}/upvote`, verifyToken, upvote)
   app.post(`${root}/downvote`, verifyToken, downvote)
+  app.post(`${root}/edit`, verifyToken, editPost)
 }

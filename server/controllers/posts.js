@@ -1,6 +1,6 @@
 import cuid from 'cuid'
 import Post from '../models/Post'
-import { CreateTextPost, GetPost, GetPosts, Vote } from '../validators/posts'
+import { CreateTextPost, GetPost, GetPosts, Vote, EditPost } from '../validators/posts'
 import sortBy from '../utils/sort'
 
 export const getPosts = async (req, res) => {
@@ -119,4 +119,28 @@ export const downvote = async (req, res) => {
   await Post.updateOne({ _id: req.body.postId }, { $addToSet: { downvotes: req.userId }, $pull: { upvotes: req.userId } })
 
   return res.json({ success: true })
+}
+
+export const editPost = async (req, res) => {
+  const { error } = EditPost.validate(req.body, { abortEarly: true })
+
+  if (error) {
+    return res.json({ success: false, message: error.details[0].message })
+  }
+
+  const { postId, text } = req.body
+
+  // make sure we validate the userId with the postId
+  const post = await Post.findOne({ _id: postId })
+
+  if (req.userId !== post.user) {
+    return res.json({
+      success: false,
+      message: 'Unauthorized'
+    })
+  }
+
+  const newPost = await Post.findByIdAndUpdate({ _id: postId }, { $set: { text } }, { new: true })
+
+  return res.json({ success: true, post: newPost })
 }
