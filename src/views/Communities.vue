@@ -29,6 +29,7 @@
       <v-col v-if='$vuetify.breakpoint.mdAndUp' :md='4'>
         <TopCommunities :communities='communities' :category='randomCategory[0]' @selectCategory='selectCategory' />
         <TopCommunities :communities='communities' :category='randomCategory[1]' @selectCategory='selectCategory' />
+        <BrowseAZ />
       </v-col>
     </v-row>
   </v-container>
@@ -37,10 +38,12 @@
 <script>
 import communities from '@/assets/json/communities.json'
 import TopCommunities from '@/components/Communities/Top.vue'
+import BrowseAZ from '@/components/Communities/BrowseAZ.vue'
 
 export default {
   components: {
-    TopCommunities
+    TopCommunities,
+    BrowseAZ
   },
   data: function () {
     return {

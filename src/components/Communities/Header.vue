@@ -43,7 +43,7 @@ export default {
         margin: 0;
       }
       span {
-        color: rgb(0, 121, 211);
+        color: var(--v-info-darken1);
         margin-right: 2px;
         font-weight: 500;
         font-size: 14px;
