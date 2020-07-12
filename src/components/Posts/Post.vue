@@ -27,7 +27,7 @@
       <v-card-title class='post-title'>
         {{ post.title }}
       </v-card-title>
-      <v-card-text class='post-text' v-html='post.text'>
+      <v-card-text v-if='!hideText' class='post-text' v-html='post.text'>
 
       </v-card-text>
     </div>
@@ -45,7 +45,8 @@ export default {
   },
   props: [
     'post',
-    'showCommunity'
+    'showCommunity',
+    'hideText'
   ],
   methods: {
     formattedTime (timestamp) {

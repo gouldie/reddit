@@ -2,17 +2,17 @@
   <div :class='`textarea-container ${dense && "dense"} ${!$vuetify.breakpoint.smAndUp && "responsive"}`'>
     <wysiwyg
       v-if='$vuetify.breakpoint.smAndUp'
-      :value='value'
+      :html="value"
       @change='onChange'
       style='margin-top: -10px;'
-      placeholder='What are you thoughts?'
+      :placeholder='placeholder || "What are your thoughts?"'
     />
     <v-textarea
       v-if='!$vuetify.breakpoint.smAndUp'
       outlined
       :value='value'
       @change='onChange'
-      label="What are your thoughts?"
+      :label='placeholder || "What are your thoughts?"'
     ></v-textarea>
   </div>
 </template>
@@ -21,7 +21,8 @@
 export default {
   props: [
     'value',
-    'dense'
+    'dense',
+    'placeholder'
   ],
   methods: {
     onChange (e) {

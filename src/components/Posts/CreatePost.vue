@@ -44,14 +44,7 @@
           </v-card-actions>
 
           <div v-if='tab === 0'>
-            <TextArea :value='text' @onChange='textOnChange' :dense='true' />
-            <!-- <wysiwyg v-if='tab === 0 && $vuetify.breakpoint.smAndUp' v-model='text' style='margin-top: -10px;' placeholder='Text (optional)' />
-            <v-textarea
-              v-if='tab === 0 && !$vuetify.breakpoint.smAndUp'
-              outlined
-              v-model='text'
-              label="Text (optional)"
-            ></v-textarea> -->
+            <TextArea :value='text' @onChange='textOnChange' :dense='true' placeholder='Text (optional)' />
           </div>
 
           <v-card-text class='error-text' v-if='error'>{{ error }}</v-card-text>

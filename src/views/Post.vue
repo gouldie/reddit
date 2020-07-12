@@ -3,8 +3,8 @@
     <v-row>
       <v-col cols='12' :md='8'>
         <v-card>
-          <Post v-if='post' :post='post' :showCommunity='true' @vote='vote' />
-          <TextArea v-if='editing' :value='editing' @onChange='editOnChange' />
+          <Post v-if='post' :post='post' :showCommunity='true' @vote='vote' :hideText='editing || editing === ""' />
+          <TextArea v-if='editing || editing === ""' :value='editing' @onChange='editOnChange' placeholder='Text (optional)' />
           <v-card-actions :class='!$vuetify.breakpoint.smAndUp && "responsive"'>
             <div>
               <v-card-text @click='toggleEdit'><v-icon small>edit</v-icon> Edit</v-card-text>
