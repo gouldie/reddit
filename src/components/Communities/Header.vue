@@ -1,15 +1,9 @@
 <template>
   <div class='community-header'>
-    <div></div>
-    <div>
+    <div v-if='border' class='border'></div>
+    <div class='main'>
       <v-container>
-        <div>
-
-        </div>
-        <div>
-          <h2>{{ community.title }}</h2>
-          <p>r/{{ community.name }}</p>
-        </div>
+        <slot></slot>
       </v-container>
     </div>
   </div>
@@ -18,26 +12,27 @@
 <script>
 export default {
   props: [
-    'community'
+    'border'
   ]
 }
 </script>
 
 <style lang="scss" scoped>
   .community-header {
-    >div:nth-of-type(1) {
+    .border {
       height: 80px;
       background: #33a8ff;
     }
-    >div:nth-of-type(2) {
+    .main {
       background: white;
     }
     .container {
       height: 80px;
       display: flex;
       align-items: center;
-      padding: 0;
-      >div:nth-of-type(1) {
+      padding-top: 0;
+      padding-bottom: 0;
+      .icon {
         width: 70px;
         height: 70px;
         background: maroon;
@@ -46,6 +41,13 @@ export default {
       }
       p {
         margin: 0;
+      }
+      span {
+        color: rgb(0, 121, 211);
+        margin-right: 2px;
+        font-weight: 500;
+        font-size: 14px;
+        cursor: pointer;
       }
     }
   }
