@@ -3,11 +3,11 @@
     <v-row>
       <v-col cols='12' :md='8'>
         <v-card>
-          <Post v-if='post' :post='post' :showCommunity='true' @vote='vote' :hideText='editing || editing === ""' />
-          <TextArea v-if='editing || editing === ""' :value='editing' @onChange='editOnChange' placeholder='Text (optional)' />
+          <Post v-if='post' :post='post' :showCommunity='true' @vote='vote' :hideText='isEditing' />
+          <TextArea v-if='isEditing' :value='editing' @onChange='editOnChange' placeholder='Text (optional)' />
           <v-card-actions :class='!$vuetify.breakpoint.smAndUp && "responsive"'>
             <div>
-              <v-card-text :class='(editing || editing === "") && "selected"' @click='toggleEdit'><v-icon small>edit</v-icon> Edit</v-card-text>
+              <v-card-text :class='isEditing && "selected"' @click='toggleEdit'><v-icon small>edit</v-icon> Edit</v-card-text>
               <v-card-text @click='deleting = true'><v-icon small>delete</v-icon> Delete</v-card-text>
             </div>
             <div>
@@ -86,6 +86,11 @@ export default {
           this.editing = false
           this.post = res.data.post
         })
+    }
+  },
+  computed: {
+    isEditing () {
+      return this.editing || this.editing === ''
     }
   },
   watch: {
