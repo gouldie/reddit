@@ -1,10 +1,9 @@
 <template>
-  <div :class='`textarea-container ${dense && "dense"} ${!$vuetify.breakpoint.smAndUp && "responsive"}`'>
+  <div>
     <wysiwyg
       v-if='$vuetify.breakpoint.smAndUp'
       :html="value"
       @change='onChange'
-      style='margin-top: -10px;'
       :placeholder='placeholder || "What are your thoughts?"'
     />
     <v-textarea
@@ -33,17 +32,6 @@ export default {
 </script>
 
 <style lang="scss">
-  .textarea-container {
-    padding: 0 30px 20px;
-
-    &.dense {
-      padding: 0 10px 10px;
-    }
-
-    &.responsive {
-      padding: 0 10px 10px;
-    }
-  }
   .v-input, .editr--content {
     label {
       font-size: 0.875rem !important;
@@ -52,5 +40,8 @@ export default {
     textarea {
       line-height: 1.4rem;
     }
+  }
+  .v-text-field__details {
+    display: none;
   }
 </style>

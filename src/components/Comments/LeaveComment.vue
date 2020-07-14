@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div :class='`leave-comment-container ${!$vuetify.breakpoint.smAndUp && "responsive"}`'>
     <div v-if='$store.state.isAuthenticated' >
-      <v-card-text :class='$vuetify.breakpoint.smAndUp ? "comment-as" : "comment-as responsive"'>Comment as {{ $store.state.username }}</v-card-text>
+      <v-card-text class='comment-as'>Comment as {{ $store.state.username }}</v-card-text>
       <TextArea :value='comment' @onChange='onChange' />
       <div :class='`action-buttons ${!$vuetify.breakpoint.smAndUp && "responsive"}`'>
         <v-btn width='100' @click='back()'>
@@ -58,20 +58,16 @@ export default {
 </script>
 
 <style lang='scss' scoped>
- .comment-as {
-    margin-top: 10px;
-    padding: 0 30px 20px;
+  .leave-comment-container {
+    padding: 0 50px 20px;
 
     &.responsive {
       padding: 0 10px 10px;
     }
   }
-  .action-buttons {
-    padding: 0 30px 20px;
-
-    &.responsive {
-      padding: 0 10px 10px;
-    }
+ .comment-as {
+    margin-top: 10px;
+    padding: 16px 0 5px;
   }
   button {
     margin: 0 8px;

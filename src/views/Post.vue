@@ -4,7 +4,9 @@
       <v-col cols='12' :md='8'>
         <v-card>
           <Post v-if='post' :post='post' :showCommunity='true' @vote='vote' :hideText='isEditing' :dense='true' />
-          <TextArea v-if='isEditing' :value='editing' @onChange='editOnChange' placeholder='Text (optional)' />
+          <div :class='editing && "editing-container"'>
+            <TextArea v-if='isEditing' :value='editing' @onChange='editOnChange' placeholder='Text (optional)' />
+          </div>
           <v-card-actions :class='!$vuetify.breakpoint.smAndUp && "responsive"'>
             <div>
               <v-card-text :class='isEditing && "selected"' @click='toggleEdit'><v-icon small>edit</v-icon> Edit</v-card-text>
@@ -130,16 +132,19 @@ export default {
 <style lang="scss" scoped>
   .v-card__actions {
     justify-content: space-between;
-    padding: 0 50px 20px;
-    margin-top: -10px;
+    padding: 0 50px 0;
+    // margin-top: -10px;
 
     .v-card__text {
       display: inline-block;
       width: inherit;
-      padding: 2px 10px;
-      margin-right: 10px;
+      padding: 2px 5px;
       cursor: pointer;
       border-radius: 10px;
+
+      &:nth-of-type(2) {
+        margin-left: 10px;
+      }
 
       &.selected {
         background: #dcdcdc;
@@ -150,7 +155,7 @@ export default {
     }
   }
   .editing-container {
-    padding: 0 30px 20px;
+    padding: 0 50px 20px;
     &.responsive {
       padding: 0 10px 10px;
     }

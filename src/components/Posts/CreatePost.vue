@@ -43,7 +43,7 @@
             ></v-text-field>
           </v-card-actions>
 
-          <div v-if='tab === 0'>
+          <div v-if='tab === 0' >
             <TextArea :value='text' @onChange='textOnChange' :dense='true' placeholder='Text (optional)' />
           </div>
 
@@ -142,6 +142,7 @@ export default {
   .v-select {
     max-width: 300px;
     margin-top: 20px;
+    margin-bottom: 15px;
   }
   h3 {
     margin-bottom: 10px;
@@ -166,4 +167,10 @@ export default {
   .error-text {
     color: red !important;
   }
+  .v-card {
+    padding: 0 8px;
+  }
+  .v-card__actions {
+    padding: 8px 0 8px;
+  };
 </style>
