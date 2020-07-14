@@ -59,6 +59,7 @@ export default {
 
 <style lang='scss' scoped>
  .comment-as {
+    margin-top: 10px;
     padding: 0 30px 20px;
 
     &.responsive {

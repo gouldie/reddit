@@ -1,5 +1,5 @@
 <template>
-  <div class='post-container'>
+  <div :class='`post-container ${dense && "dense"}`'>
     <div class='vote-panel' v-if='$vuetify.breakpoint.smAndUp'>
       <v-icon
         dense
@@ -46,7 +46,8 @@ export default {
   props: [
     'post',
     'showCommunity',
-    'hideText'
+    'hideText',
+    'dense'
   ],
   methods: {
     formattedTime (timestamp) {
@@ -74,6 +75,10 @@ export default {
   .post-container {
     display: flex;
     margin-bottom: 20px;
+
+    &.dense {
+      margin-bottom: 0;
+    }
   }
   .vote-panel {
     width: 36px;

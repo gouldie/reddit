@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols='12' :md='8'>
         <v-card>
-          <Post v-if='post' :post='post' :showCommunity='true' @vote='vote' :hideText='isEditing' />
+          <Post v-if='post' :post='post' :showCommunity='true' @vote='vote' :hideText='isEditing' :dense='true' />
           <TextArea v-if='isEditing' :value='editing' @onChange='editOnChange' placeholder='Text (optional)' />
           <v-card-actions :class='!$vuetify.breakpoint.smAndUp && "responsive"'>
             <div>
@@ -130,7 +130,7 @@ export default {
 <style lang="scss" scoped>
   .v-card__actions {
     justify-content: space-between;
-    padding: 0 30px 20px;
+    padding: 0 50px 20px;
     margin-top: -10px;
 
     .v-card__text {
