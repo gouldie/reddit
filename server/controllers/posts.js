@@ -130,8 +130,11 @@ export const editPost = async (req, res) => {
 
   const { postId, text } = req.body
 
-  // make sure we validate the userId with the postId
+  // validate the userId with the postId
   const post = await Post.findOne({ _id: postId })
+
+  // very basic html sanitizer - removes empty tags
+  const cleanHtml = text.replace(/<[^/>][^>]*><\/[^>]+>/, '')
 
   if (req.userId !== post.user) {
     return res.json({
@@ -140,7 +143,7 @@ export const editPost = async (req, res) => {
     })
   }
 
-  const newPost = await Post.findByIdAndUpdate({ _id: postId }, { $set: { text } }, { new: true })
+  const newPost = await Post.findByIdAndUpdate({ _id: postId }, { $set: { cleanHtml } }, { new: true })
 
   return res.json({ success: true, post: newPost })
 }

@@ -1,9 +1,9 @@
 <template>
-  <v-container>
+  <v-container v-if='post'>
     <v-row>
       <v-col cols='12' :md='8'>
         <v-card>
-          <Post v-if='post' :post='post' :showCommunity='false' @vote='vote' :canEdit='true' />
+          <Post :post='post' :showCommunity='false' @vote='vote' :canEdit='true' />
           <LeaveComment />
           <Comments :comments='comments' @vote='vote'/>
         </v-card>
