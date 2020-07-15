@@ -1,13 +1,13 @@
 <template>
   <div>
     <wysiwyg
-      v-if='$vuetify.breakpoint.smAndUp'
+      v-if='$vuetify.breakpoint.mdAndUp'
       :html="value"
       @change='onChange'
       :placeholder='placeholder || "What are your thoughts?"'
     />
     <v-textarea
-      v-if='!$vuetify.breakpoint.smAndUp'
+      v-if='!$vuetify.breakpoint.mdAndUp'
       outlined
       :value='value'
       @change='onChange'

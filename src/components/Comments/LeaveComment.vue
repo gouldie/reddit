@@ -80,4 +80,7 @@ export default {
       margin-right: 0;
     }
   }
+  .v-card__actions {
+    padding-bottom: 16px;
+  }
 </style>
