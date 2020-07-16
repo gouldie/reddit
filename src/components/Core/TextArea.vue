@@ -1,9 +1,9 @@
 <template>
   <div>
-    <wysiwyg
+    <VueEditor
       v-if='$vuetify.breakpoint.mdAndUp'
-      :html="value"
-      @change='onChange'
+      :value="value"
+      @input='onChange'
       :placeholder='placeholder || "What are your thoughts?"'
     />
     <v-textarea
@@ -17,12 +17,17 @@
 </template>
 
 <script>
+import { VueEditor } from 'vue2-editor'
+
 export default {
   props: [
     'value',
     'dense',
     'placeholder'
   ],
+  components: {
+    VueEditor
+  },
   methods: {
     onChange (e) {
       this.$emit('onChange', e)

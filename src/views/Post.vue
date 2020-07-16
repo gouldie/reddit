@@ -3,7 +3,16 @@
     <v-row>
       <v-col cols='12' :md='8'>
         <v-card>
-          <Post :post='post' :showCommunity='false' @vote='vote' :canEdit='true' />
+          <Post
+            :post='post'
+            :showCommunity='false'
+            @vote='vote'
+            :canEdit='true'
+            @editPost='editPost'
+            @editOnChange='editOnChange'
+            :editing='editing'
+            :toggleEdit='toggleEdit'
+          />
           <LeaveComment />
           <Comments :comments='comments' @vote='vote'/>
         </v-card>
@@ -37,17 +46,87 @@ export default {
       post: null,
       error: null,
       community: {},
-      comments: []
+      comments: [],
+      editing: false
     }
   },
   methods: {
     vote (data) {
-      // check if commentId exists and if so use data.comments[i] instead
-      if (data.commentId) {
-        calculateVote(this.comments.find(e => e._id === data.commentId), data.type)
+      if (!this.$store.state.isAuthenticated) {
+        this.$store.commit('setModal', 'log-in')
         return
       }
-      calculateVote(this.post, data.type)
+
+      if (data.commentId) {
+        calculateVote(this.comments.find(e => e._id === data.commentId), data.type)
+        axios.post(`/api/comments/${data.type}`, {
+          commentId: data.commentId
+        })
+          .then(res => {
+          // emit to parent
+            this.$emit('vote', { commentId: data.commentId, type: data.type })
+          })
+      } else {
+        calculateVote(this.post, data.type)
+        axios.post(`/api/posts/${data.type}`, {
+          postId: this.post._id
+        })
+          .then(res => {
+          // emit to parent
+            this.$emit('vote', { postId: this.post._id, type: data.type })
+          })
+      }
+    },
+    getPost () {
+      axios.get(`/api/posts/${this.$route.params.id}`)
+        .then(res => {
+          if (!res.data.success) {
+            this.error = res.data.message
+            return
+          }
+
+          const community = communities.find(c => c.id === res.data.post.communityId)
+
+          res.data.post.communityName = community.name
+          this.post = res.data.post
+          this.community = community
+        })
+    },
+    getComments () {
+      axios.get(`/api/comments/${this.$route.params.id}`)
+        .then(res => {
+          if (!res.data.success) {
+            this.error = res.data.message
+            return
+          }
+
+          this.comments = res.data.comments
+        })
+    },
+    editPost () {
+      axios.post('/api/posts/edit', {
+        postId: this.post._id,
+        text: this.editing
+      })
+        .then(res => {
+          if (!res.data.success) {
+            return
+          }
+
+          console.log('t', res.data.post)
+          this.post = res.data.post
+          this.editing = false
+        })
+    },
+    editOnChange (e) {
+      this.editing = e
+    },
+    toggleEdit () {
+      if (this.editing) {
+        this.editing = false
+        return
+      }
+      this.editing = this.post.text
     }
   },
 
@@ -59,28 +138,8 @@ export default {
     }
   },
   mounted () {
-    axios.all([
-      axios.get(`/api/posts/${this.$route.params.id}`),
-      axios.get(`/api/comments/${this.$route.params.id}`)
-    ]).then(res => {
-      const [postRes, commentRes] = res
-
-      if (!postRes.data.success) {
-        this.error = postRes.data.message
-        return
-      }
-      if (!commentRes.data.success) {
-        this.error = commentRes.data.message
-        return
-      }
-
-      const community = communities.find(c => c.id === postRes.data.post.communityId)
-
-      postRes.data.post.communityName = community.name
-      this.post = postRes.data.post
-      this.comments = commentRes.data.comments
-      this.community = community
-    })
+    this.getPost()
+    this.getComments()
   }
 }
 </script>

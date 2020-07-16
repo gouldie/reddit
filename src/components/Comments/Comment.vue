@@ -4,14 +4,14 @@
       <v-icon
         dense
         :color='comment.userVote === 1 ? "green" : ""'
-        @click.stop='vote("upvote")'
+        @click.stop='$emit("vote", { type: "upvote", commentId: comment._id })'
       >
         mdi-arrow-up-bold
       </v-icon>
       <v-icon
         dense
         :color='comment.userVote === -1 ? "red" : ""'
-        @click.stop='vote("downvote")'
+        @click.stop='$emit("vote", { type: "downvote", commentId: comment._id })'
       >
         mdi-arrow-down-bold
       </v-icon>
@@ -34,7 +34,6 @@
 
 <script>
 import timeago from 'time-ago'
-import axios from 'axios'
 
 export default {
   props: [
@@ -43,20 +42,6 @@ export default {
   methods: {
     formattedTime (timestamp) {
       return timeago.ago(timestamp)
-    },
-    vote (type) {
-      if (!this.$store.state.isAuthenticated) {
-        this.$store.commit('setModal', 'log-in')
-        return
-      }
-
-      axios.post(`/api/comments/${type}`, {
-        commentId: this.comment._id
-      })
-        .then(res => {
-          // emit to parent
-          this.$emit('vote', { commentId: this.comment._id, type })
-        })
     }
   }
 }

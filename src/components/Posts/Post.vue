@@ -4,7 +4,7 @@
       <v-icon
         dense
         :color='post.userVote === 1 ? "green" : ""'
-        @click.stop='vote("upvote")'
+        @click.stop='$emit("vote", { type: "upvote" })'
       >
         mdi-arrow-up-bold
       </v-icon>
@@ -12,7 +12,7 @@
       <v-icon
         dense
         :color='post.userVote === -1 ? "red" : ""'
-        @click.stop='vote("downvote")'
+        @click.stop='$emit("vote", { type: "downvote" })'
       >
         mdi-arrow-down-bold
       </v-icon>
@@ -27,7 +27,7 @@
       <v-card-title class='post-title'>
         {{ post.title }}
       </v-card-title>
-      <v-card-text v-if='!isEditing' class='post-text' v-html='post.text'></v-card-text>
+      <v-card-text v-if='!isEditing' class='post-text' v-html='postText'></v-card-text>
 
       <div :class='editing && "editing-container"'>
         <TextArea v-if='isEditing' :value='editing' @onChange='editOnChange' placeholder='Text (optional)' />
@@ -47,7 +47,6 @@
 
 <script>
 import timeago from 'time-ago'
-import axios from 'axios'
 import Icon from '@/components/Communities/Icon.vue'
 import TextArea from '@/components/Core/TextArea.vue'
 
@@ -59,11 +58,12 @@ export default {
   props: [
     'post',
     'showCommunity',
-    'canEdit'
+    'canEdit',
+    'toggleEdit',
+    'editing'
   ],
   data: function () {
     return {
-      editing: false,
       deleting: false
     }
   },
@@ -71,48 +71,19 @@ export default {
     formattedTime (timestamp) {
       return timeago.ago(timestamp)
     },
-    vote (type) {
-      if (!this.$store.state.isAuthenticated) {
-        this.$store.commit('setModal', 'log-in')
-        return
-      }
-
-      axios.post(`/api/posts/${type}`, {
-        postId: this.post._id
-      })
-        .then(res => {
-          // emit to parent
-          this.$emit('vote', { postId: this.post._id, type })
-        })
-    },
     editOnChange (e) {
-      this.editing = e
+      this.$emit('editOnChange', e)
     },
     editPost () {
-      axios.post('/api/posts/edit', {
-        postId: this.post._id,
-        text: this.editing
-      })
-        .then(res => {
-          if (!res.data.success) {
-            console.log('err')
-            return
-          }
-          this.editing = false
-          this.post = res.data.post
-        })
-    },
-    toggleEdit () {
-      if (this.editing) {
-        this.editing = false
-        return
-      }
-      this.editing = this.post.text
+      this.$emit('editPost')
     }
   },
   computed: {
     isEditing () {
       return this.editing || this.editing === ''
+    },
+    postText () {
+      return this.post.text.replace(/<([^>\s]+)[^>]*>(?:\s*(?:<br \/>|&nbsp;|&thinsp;|&ensp;|&emsp;|&#8201;|&#8194;|&#8195;)\s*)*<\/\1>/, '')
     }
   }
 }
