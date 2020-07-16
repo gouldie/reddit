@@ -28,8 +28,6 @@
     "time-ago": "^0.2.1",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
-    "vue-wysiwyg": "^1.7.2",
-    "vue2-editor": "^2.10.2",
     "vuetify": "^2.2.11",
     "vuex": "^3.4.0"
   },

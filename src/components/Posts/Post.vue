@@ -27,7 +27,9 @@
       <v-card-title class='post-title'>
         {{ post.title }}
       </v-card-title>
-      <v-card-text v-if='!isEditing' class='post-text' v-html='postText'></v-card-text>
+      <v-card-text v-if='!isEditing' class='post-text'>
+        {{ post.text }}
+      </v-card-text>
 
       <div :class='editing && "editing-container"'>
         <TextArea v-if='isEditing' :value='editing' @onChange='editOnChange' placeholder='Text (optional)' />
@@ -81,9 +83,6 @@ export default {
   computed: {
     isEditing () {
       return this.editing || this.editing === ''
-    },
-    postText () {
-      return this.post.text.replace(/<([^>\s]+)[^>]*>(?:\s*(?:<br \/>|&nbsp;|&thinsp;|&ensp;|&emsp;|&#8201;|&#8194;|&#8195;)\s*)*<\/\1>/, '')
     }
   }
 }

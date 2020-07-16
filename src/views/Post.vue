@@ -110,11 +110,11 @@ export default {
       })
         .then(res => {
           if (!res.data.success) {
+            this.error = res.data.message
             return
           }
 
-          console.log('t', res.data.post)
-          this.post = res.data.post
+          this.post.text = res.data.post.text
           this.editing = false
         })
     },

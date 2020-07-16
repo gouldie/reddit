@@ -25,8 +25,8 @@
       <!-- <v-card-title class='post-title'>
         {{ comment.title }}
       </v-card-title> -->
-      <v-card-text class='post-text' v-html='comment.text'>
-
+      <v-card-text class='post-text'>
+        {{ comment.text }}
       </v-card-text>
     </div>
   </div>

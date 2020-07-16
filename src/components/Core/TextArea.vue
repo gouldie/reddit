@@ -1,13 +1,6 @@
 <template>
   <div>
-    <VueEditor
-      v-if='$vuetify.breakpoint.mdAndUp'
-      :value="value"
-      @input='onChange'
-      :placeholder='placeholder || "What are your thoughts?"'
-    />
     <v-textarea
-      v-if='!$vuetify.breakpoint.mdAndUp'
       outlined
       :value='value'
       @change='onChange'
@@ -17,17 +10,12 @@
 </template>
 
 <script>
-import { VueEditor } from 'vue2-editor'
-
 export default {
   props: [
     'value',
     'dense',
     'placeholder'
   ],
-  components: {
-    VueEditor
-  },
   methods: {
     onChange (e) {
       this.$emit('onChange', e)
@@ -37,7 +25,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .v-input, .editr--content {
+  .v-input {
     label {
       font-size: 0.875rem !important;
     }
