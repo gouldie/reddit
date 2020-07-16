@@ -104,6 +104,7 @@ export default {
         })
     },
     editPost () {
+      console.log('t', this.editing)
       axios.post('/api/posts/edit', {
         postId: this.post._id,
         text: this.editing

@@ -2,7 +2,7 @@
   <div :class='`leave-comment-container ${!$vuetify.breakpoint.smAndUp && "responsive"}`'>
     <div v-if='$store.state.isAuthenticated' >
       <v-card-text class='comment-as'>Comment as {{ $store.state.username }}</v-card-text>
-      <TextArea :value='comment' @onChange='onChange' />
+      <TextField :value='comment' @onChange='onChange' />
       <div :class='`action-buttons ${!$vuetify.breakpoint.smAndUp && "responsive"}`'>
         <v-btn width='100' @click='back()'>
           Cancel
@@ -27,13 +27,13 @@
 import axios from 'axios'
 import LogInButton from '@/components/Buttons/LogIn.vue'
 import SignUpButton from '@/components/Buttons/SignUp.vue'
-import TextArea from '@/components/Core/TextArea.vue'
+import TextField from '@/components/Core/TextField.vue'
 
 export default {
   components: {
     LogInButton,
     SignUpButton,
-    TextArea
+    TextField
   },
   data: function () {
     return {

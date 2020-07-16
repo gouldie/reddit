@@ -22,10 +22,11 @@ const title = Joi.string()
   .label('Title')
 
 const text = Joi.string()
+  .allow('')
+  .optional()
   .trim()
   .max(3000)
   .message('Text cannot be more than 3000 characters')
-  .optional()
   .label('Text')
 
 const sort = Joi.string()

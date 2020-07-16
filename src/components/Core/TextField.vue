@@ -1,10 +1,21 @@
 <template>
   <div>
-    <v-textarea
+    <v-text-field
+      v-if='!area'
       outlined
+      dense
       :value='value'
       @change='onChange'
-      :label='placeholder || "What are your thoughts?"'
+      :placeholder='placeholder || "What are your thoughts?"'
+    >
+    </v-text-field>
+    <v-textarea
+      v-if='area'
+      outlined
+      dense
+      :value='value'
+      @change='onChange'
+      :placeholder='placeholder || "What are your thoughts?"'
     ></v-textarea>
   </div>
 </template>
@@ -14,7 +25,8 @@ export default {
   props: [
     'value',
     'dense',
-    'placeholder'
+    'placeholder',
+    'area'
   ],
   methods: {
     onChange (e) {

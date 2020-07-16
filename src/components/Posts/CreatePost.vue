@@ -44,7 +44,7 @@
           </v-card-actions>
 
           <div v-if='tab === 0' >
-            <TextArea :value='text' @onChange='textOnChange' :dense='true' placeholder='Text (optional)' />
+            <TextField :value='text' @onChange='textOnChange' :dense='true' placeholder='Text (optional)' :area='true' />
           </div>
 
           <v-card-text class='error-text' v-if='error'>{{ error }}</v-card-text>
@@ -65,14 +65,14 @@
 
 <script>
 import axios from 'axios'
-import TextArea from '@/components/Core/TextArea.vue'
+import TextField from '@/components/Core/TextField.vue'
 
 export default {
   props: [
     'communities'
   ],
   components: {
-    TextArea
+    TextField
   },
   data: function () {
     return {

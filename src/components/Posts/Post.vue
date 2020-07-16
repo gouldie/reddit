@@ -31,8 +31,8 @@
         {{ post.text }}
       </v-card-text>
 
-      <div :class='editing && "editing-container"'>
-        <TextArea v-if='isEditing' :value='editing' @onChange='editOnChange' placeholder='Text (optional)' />
+      <div :class='isEditing && "editing-container"'>
+        <TextField v-if='isEditing' :value='editing' @onChange='editOnChange' placeholder='Text (optional)' :area='true' />
       </div>
       <v-card-actions v-if='canEdit' :class='`post-actions-container ${!$vuetify.breakpoint.smAndUp && "responsive"}`'>
         <div>
@@ -40,7 +40,7 @@
           <v-card-text @click='deleting = true'><v-icon small>delete</v-icon> Delete</v-card-text>
         </div>
         <div>
-          <v-card-text v-if='editing' @click='editPost'><v-icon small>save</v-icon> Save</v-card-text>
+          <v-card-text v-if='isEditing' @click='editPost'><v-icon small>save</v-icon> Save</v-card-text>
         </div>
       </v-card-actions>
     </div>
@@ -50,12 +50,12 @@
 <script>
 import timeago from 'time-ago'
 import Icon from '@/components/Communities/Icon.vue'
-import TextArea from '@/components/Core/TextArea.vue'
+import TextField from '@/components/Core/TextField.vue'
 
 export default {
   components: {
     Icon,
-    TextArea
+    TextField
   },
   props: [
     'post',
@@ -77,6 +77,7 @@ export default {
       this.$emit('editOnChange', e)
     },
     editPost () {
+      console.log('emit')
       this.$emit('editPost')
     }
   },
