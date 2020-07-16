@@ -17,10 +17,10 @@
         mdi-arrow-down-bold
       </v-icon>
     </div>
-    <div :class='`post-content-container ${!$vuetify.breakpoint.smAndUp && "responsive"}`'>
+    <div class='post-content-container'>
       <v-card-text class='post-header'>
         <Icon v-if='showCommunity' />
-        <a v-if='showCommunity' @click.stop='$router.push("/r/" + post.communityName)'><span class='post-community'>{{ `r/${post.communityName}` }}</span></a>
+        <span v-if='showCommunity'><a @click.stop='$router.push("/r/" + post.communityName)'><span class='post-community'>{{ `r/${post.communityName}` }}</span></a></span>
         <span class='post-user'>Posted by u/{{ post.user.username }}</span>
         <span class='post-time'>{{ formattedTime(post.createdAt) }}</span>
       </v-card-text>
@@ -34,7 +34,7 @@
       <div :class='isEditing && "editing-container"'>
         <TextField v-if='isEditing' :value='editing' @onChange='editOnChange' placeholder='Text (optional)' :area='true' />
       </div>
-      <v-card-actions v-if='canEdit' :class='`post-actions-container ${!$vuetify.breakpoint.smAndUp && "responsive"}`'>
+      <v-card-actions v-if='canEdit' class='post-actions-container'>
         <div>
           <v-card-text :class='isEditing && "selected"' @click='toggleEdit'><v-icon small>edit</v-icon> Edit</v-card-text>
           <v-card-text @click='deleting = true'><v-icon small>delete</v-icon> Delete</v-card-text>
@@ -90,6 +90,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  @import '~vuetify/src/styles/styles.sass';
+
   .post-container {
     display: flex;
     margin-bottom: 20px;
@@ -102,6 +104,7 @@ export default {
     align-items: center;
   }
   .post-header {
+    font-size: 12px;
     padding-bottom: 0;
     display: flex;
   }
@@ -130,17 +133,13 @@ export default {
   }
   .editing-container {
     padding: 0 16px 10px 16px;
-    &.responsive {
-      padding: 0 10px 10px;
-    }
   }
-  .v-input, .editr--content {
+  .v-input {
     font-size: 0.875rem !important;
   }
   .post-actions-container {
     justify-content: space-between;
     padding: 0 16px 0 10px;
-    // margin-top: -10px;
 
     .v-card__text {
       display: inline-block;
@@ -157,15 +156,18 @@ export default {
         background: #dcdcdc;
       }
     }
-    &.responsive {
-      padding: 0 10px 10px;
-    }
   }
   .post-content-container {
     padding-right: 36px;
     flex: 1;
-    &.responsive {
+  }
+  @media #{map-get($display-breakpoints, 'xs-only')} {
+    .post-content-container {
       padding-right: 0;
     }
+    .post-actions-container {
+      padding: 0 10px 10px;
+    }
   }
+
 </style>

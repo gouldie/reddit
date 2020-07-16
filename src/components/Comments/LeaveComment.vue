@@ -1,9 +1,9 @@
 <template>
-  <div :class='`leave-comment-container ${!$vuetify.breakpoint.smAndUp && "responsive"}`'>
+  <div class='leave-comment-container'>
     <div v-if='$store.state.isAuthenticated' >
       <v-card-text class='comment-as'>Comment as {{ $store.state.username }}</v-card-text>
       <TextField :value='comment' @onChange='onChange' />
-      <div :class='`action-buttons ${!$vuetify.breakpoint.smAndUp && "responsive"}`'>
+      <div class='action-buttons'>
         <v-btn width='100' @click='back()'>
           Cancel
         </v-btn>
@@ -58,6 +58,8 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+  @import '~vuetify/src/styles/styles.sass';
+
   .leave-comment-container {
     padding: 0 50px 20px;
 
@@ -82,5 +84,11 @@ export default {
   }
   .v-card__actions {
     padding-bottom: 16px;
+  }
+
+  @media #{map-get($display-breakpoints, 'xs-only')} {
+    .leave-comment-container {
+      padding: 0 10px 10px;
+    }
   }
 </style>
