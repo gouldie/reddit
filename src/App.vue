@@ -24,6 +24,8 @@ export default {
 </script>
 
 <style lang='scss'>
+  @import '~vuetify/src/styles/styles.sass';
+
   html {
     overflow-y: auto !important;
   }
@@ -36,5 +38,28 @@ export default {
   }
   .black-gradient {
     background: linear-gradient(#484848, #252525);
+  }
+
+  .v-card__title {
+    font-size: 18px;
+  }
+  .v-card__subtitle {
+    font-weight: 500;
+    font-size: 16px;
+  }
+  .v-card__text {
+    font-size: 14px;
+  }
+
+  @media #{map-get($display-breakpoints, 'xs-only')} {
+    .v-card__title {
+      font-size: 16px;
+    }
+    .v-card__subtitle {
+      font-size: 14px;
+    }
+    .v-card__text {
+      font-size: 12px;
+    }
   }
 </style>

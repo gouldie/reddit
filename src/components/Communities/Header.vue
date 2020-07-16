@@ -18,37 +18,61 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .community-header {
-    .border {
-      height: 80px;
-      background: #33a8ff;
+  @import '~vuetify/src/styles/styles.sass';
+
+  .border {
+    height: 80px;
+    background: #33a8ff;
+  }
+  .main {
+    background: white;
+  }
+  .container {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    padding-top: 0;
+    padding-bottom: 0;
+
+  }
+  .icon {
+    width: 70px;
+    height: 70px;
+    background: maroon;
+    border-radius: 50%;
+    margin-right: 20px;
+    flex-shrink: 0;
+  }
+  p {
+    margin: 0;
+  }
+  span {
+    color: var(--v-info-darken1);
+    margin-right: 2px;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  @media #{map-get($display-breakpoints, 'sm-and-down')} {
+    h2 {
+      font-size: 18px;
     }
-    .main {
-      background: white;
+    p {
+      font-size: 14px;
     }
-    .container {
-      height: 80px;
-      display: flex;
-      align-items: center;
-      padding-top: 0;
-      padding-bottom: 0;
-      .icon {
-        width: 70px;
-        height: 70px;
-        background: maroon;
-        border-radius: 50%;
-        margin-right: 20px;
-      }
-      p {
-        margin: 0;
-      }
-      span {
-        color: var(--v-info-darken1);
-        margin-right: 2px;
-        font-weight: 500;
-        font-size: 14px;
-        cursor: pointer;
-      }
+  }
+
+  @media #{map-get($display-breakpoints, 'xs-only')} {
+    h2 {
+      font-size: 14px;
+    }
+    p {
+      font-size: 12px;
+    }
+    .icon {
+      width: 50px;
+      height: 50px;
     }
   }
 </style>

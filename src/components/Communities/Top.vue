@@ -1,9 +1,9 @@
 <template>
   <v-card :class='!alt && "padding-bot"'>
     <div :class='!alt && "black-gradient"'>
-      <v-card-title :class='alt && "alt blue-grey lighten-5"'>
+      <v-card-subtitle :class='alt && "alt blue-grey lighten-5"'>
         {{ title }}
-      </v-card-title>
+      </v-card-subtitle>
     </div>
     <v-list>
       <router-link v-for='(community, i) in prefixedCommunities' :key='community.id' :to='community.name'>
@@ -59,13 +59,13 @@ export default {
   .padding-bot {
     padding-bottom: 10px;
   }
-  .v-card__title {
-    font-size: 18px;
-    color: #fff;
+  .v-card__subtitle {
+    // font-size: 18px;
+    color: #fff !important;
     padding-top: 50px;
     &.alt {
-      padding: 5px 8px;
-      color: inherit;
+      padding: 7px 10px;
+      color: black !important;
     }
   }
   .v-list {
@@ -85,10 +85,5 @@ export default {
   }
   a {
     text-decoration: none;
-  }
-  @media screen and (max-width: 1300px) {
-    .v-card__title {
-      font-size: 16px;
-    }
   }
 </style>

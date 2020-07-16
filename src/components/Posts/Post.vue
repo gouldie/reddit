@@ -19,12 +19,12 @@
     </div>
     <div class='post-content-container'>
       <v-card-text class='post-header'>
-        <Icon v-if='showCommunity' />
+        <Icon v-if='showCommunity && $vuetify.breakpoint.smAndUp' />
         <span v-if='showCommunity'><a @click.stop='$router.push("/r/" + post.communityName)'><span class='post-community'>{{ `r/${post.communityName}` }}</span></a></span>
         <span class='post-user'>Posted by u/{{ post.user.username }}</span>
         <span class='post-time'>{{ formattedTime(post.createdAt) }}</span>
       </v-card-text>
-      <v-card-title class='post-title'>
+      <v-card-title>
         {{ post.title }}
       </v-card-title>
       <v-card-text v-if='!isEditing' class='post-text'>
@@ -104,7 +104,6 @@ export default {
     align-items: center;
   }
   .post-header {
-    font-size: 12px;
     padding-bottom: 0;
     display: flex;
   }
@@ -119,9 +118,10 @@ export default {
   .post-time {
     font-weight: lighter;
   }
-  .post-title {
-    padding-top: 5px;
+  .v-card__title {
+    padding-top: 10px;
     padding-bottom: 10px;
+    word-break: break-word;
   }
   i {
     cursor: pointer;
@@ -132,7 +132,7 @@ export default {
     z-index: 99999;
   }
   .editing-container {
-    padding: 0 16px 10px 16px;
+    padding: 5px 16px 10px 16px;
   }
   .v-input {
     font-size: 0.875rem !important;
@@ -161,6 +161,17 @@ export default {
     padding-right: 36px;
     flex: 1;
   }
+
+  @media #{map-get($display-breakpoints, 'sm-and-down')} {
+    .v-card__title {
+      font-size: 16px;
+      line-height: 20px;
+    }
+    .post-text {
+      font-size: 12px;
+    }
+  }
+
   @media #{map-get($display-breakpoints, 'xs-only')} {
     .post-content-container {
       padding-right: 0;
@@ -168,6 +179,16 @@ export default {
     .post-actions-container {
       padding: 0 10px 10px;
     }
+    .post-header {
+      font-size: 12px;
+    }
+    // .v-card__title {
+    //   font-size: 16px;
+    //   line-height: 20px;
+    // }
+    // .post-text {
+    //   font-size: 12px;
+    // }
   }
 
 </style>

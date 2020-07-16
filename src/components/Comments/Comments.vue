@@ -18,5 +18,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+  .comments-list {
+    padding-bottom: 10px;
+  }
 </style>

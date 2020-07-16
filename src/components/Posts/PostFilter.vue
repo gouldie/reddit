@@ -3,7 +3,8 @@
     <div class='post-sort-container'>
       <v-card-actions>
         <div :key='item' v-for='item in Object.keys(sorts)' :class='sort === item && "selected"' @click='selectSort(item)'>
-          <v-icon dense>{{ sorts[item] }}</v-icon>{{ item }}
+          <v-icon dense>{{ sorts[item] }}</v-icon>
+          <v-card-text>{{ item }}</v-card-text>
         </div>
       </v-card-actions>
     </div>
@@ -55,5 +56,8 @@ export default {
   }
   i {
     margin-right: 3px;
+  }
+  .v-card__text {
+    padding: 0;
   }
 </style>
