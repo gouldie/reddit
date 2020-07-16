@@ -143,7 +143,7 @@ export const editPost = async (req, res) => {
     })
   }
 
-  const newPost = await Post.findByIdAndUpdate({ _id: postId }, { $set: { cleanHtml } }, { new: true })
+  const newPost = await Post.findByIdAndUpdate({ _id: postId }, { $set: { text: cleanHtml } }, { new: true })
 
   return res.json({ success: true, post: newPost })
 }
