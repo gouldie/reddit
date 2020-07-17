@@ -12,7 +12,7 @@
         </v-list-item>
       </router-link>
     </v-list>
-    <v-btn v-if='!alt' color='blue' width='80%' @click='this.onClick'>
+    <v-btn v-if='!alt' color='blue' min-width='80%' @click='this.onClick'>
       {{ category ? `SEE MORE ${category.toUpperCase()}` : "VIEW ALL" }}
     </v-btn>
   </v-card>
