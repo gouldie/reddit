@@ -81,8 +81,7 @@ export default {
       items: [
         'Post',
         'Image & Video',
-        'Link',
-        'Poll'
+        'Link'
       ],
       title: '',
       text: '',

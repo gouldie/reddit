@@ -11,6 +11,7 @@
           dense
           hide-details
           outlined
+          readonly
         ></v-text-field>
       </router-link>
       <v-card-actions>
