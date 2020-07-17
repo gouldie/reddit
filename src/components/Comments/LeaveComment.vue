@@ -4,11 +4,11 @@
       <v-card-text class='comment-as'>Comment as {{ $store.state.username }}</v-card-text>
       <TextField :value='comment' @onChange='onChange' />
       <div class='action-buttons'>
-        <v-btn width='100' @click='back()'>
+        <!-- <v-btn small @click='back()'>
           Cancel
-        </v-btn>
-        <v-btn color='primary' width='80' @click="submit" :disabled='!comment'>
-          Post
+        </v-btn> -->
+        <v-btn small color='primary' @click="submit" :disabled='!comment'>
+          Comment
         </v-btn>
       </div>
     </div>
@@ -51,6 +51,7 @@ export default {
         })
     },
     onChange (e) {
+      console.log('e')
       this.comment = e
     }
   }
@@ -71,19 +72,21 @@ export default {
     margin-top: 10px;
     padding: 16px 0 5px;
   }
-  button {
-    margin: 0 8px;
-  }
+
   .action-buttons {
     display: flex;
     justify-content: flex-end;
-    margin-top: 15px;
+    margin-top: 5px;
     button:nth-of-type(2) {
       margin-right: 0;
     }
   }
   .v-card__actions {
     padding-bottom: 16px;
+
+    button {
+    margin: 0 8px;
+  }
   }
 
   @media #{map-get($display-breakpoints, 'xs-only')} {

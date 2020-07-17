@@ -52,6 +52,7 @@ export default {
   },
   methods: {
     vote (data) {
+      console.log('v')
       if (!this.$store.state.isAuthenticated) {
         this.$store.commit('setModal', 'log-in')
         return
@@ -104,7 +105,6 @@ export default {
         })
     },
     editPost () {
-      console.log('t', this.editing)
       axios.post('/api/posts/edit', {
         postId: this.post._id,
         text: this.editing
@@ -123,14 +123,18 @@ export default {
       this.editing = e
     },
     toggleEdit () {
-      if (this.editing) {
+      if (this.editing || this.editing === '') {
         this.editing = false
         return
       }
       this.editing = this.post.text
     }
   },
-
+  computed: {
+    isEditing () {
+      return this.editing || this.editing === ''
+    }
+  },
   watch: {
     post () {
       const community = communities.find(c => c.id === this.post.communityId)

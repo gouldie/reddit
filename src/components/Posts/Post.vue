@@ -1,22 +1,6 @@
 <template>
   <div class='post-container'>
-    <div class='vote-panel' v-if='$vuetify.breakpoint.smAndUp'>
-      <v-icon
-        dense
-        :color='post.userVote === 1 ? "green" : ""'
-        @click.stop='$emit("vote", { type: "upvote" })'
-      >
-        mdi-arrow-up-bold
-      </v-icon>
-      <span>{{ post.count }}</span>
-      <v-icon
-        dense
-        :color='post.userVote === -1 ? "red" : ""'
-        @click.stop='$emit("vote", { type: "downvote" })'
-      >
-        mdi-arrow-down-bold
-      </v-icon>
-    </div>
+    <VotePanel :post='post' v-on="$listeners" />
     <div class='post-content-container'>
       <v-card-text class='post-header'>
         <Icon v-if='showCommunity && $vuetify.breakpoint.smAndUp' />
@@ -36,6 +20,7 @@
       </div>
       <v-card-actions v-if='canEdit' class='post-actions-container'>
         <div>
+          <VotePanel :post='post' :mobile='true' v-on="$listeners" />
           <v-card-text :class='isEditing && "selected"' @click='toggleEdit'><v-icon small>edit</v-icon> Edit</v-card-text>
           <v-card-text @click='deleting = true'><v-icon small>delete</v-icon> Delete</v-card-text>
         </div>
@@ -51,11 +36,13 @@
 import timeago from 'time-ago'
 import Icon from '@/components/Communities/Icon.vue'
 import TextField from '@/components/Core/TextField.vue'
+import VotePanel from '@/components/Posts/VotePanel.vue'
 
 export default {
   components: {
     Icon,
-    TextField
+    TextField,
+    VotePanel
   },
   props: [
     'post',
@@ -77,7 +64,6 @@ export default {
       this.$emit('editOnChange', e)
     },
     editPost () {
-      console.log('emit')
       this.$emit('editPost')
     }
   },
@@ -95,13 +81,6 @@ export default {
   .post-container {
     display: flex;
     margin-bottom: 20px;
-  }
-  .vote-panel {
-    width: 36px;
-    padding: 16px 0 16px 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
   }
   .post-header {
     padding-bottom: 0;
@@ -138,6 +117,10 @@ export default {
     font-size: 0.875rem !important;
   }
   .post-actions-container {
+    >div {
+      display: flex;
+      align-items: center;
+    }
     justify-content: space-between;
     padding: 0 16px 0 10px;
 
@@ -149,7 +132,7 @@ export default {
       border-radius: 10px;
 
       &:nth-of-type(2) {
-        margin-left: 10px;
+        // margin-left: 10px;
       }
 
       &.selected {
@@ -182,13 +165,5 @@ export default {
     .post-header {
       font-size: 12px;
     }
-    // .v-card__title {
-    //   font-size: 16px;
-    //   line-height: 20px;
-    // }
-    // .post-text {
-    //   font-size: 12px;
-    // }
   }
-
 </style>

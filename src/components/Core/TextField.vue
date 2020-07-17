@@ -5,7 +5,7 @@
       outlined
       dense
       :value='value'
-      @change='onChange'
+      @input='onChange'
       :placeholder='placeholder || "What are your thoughts?"'
     >
     </v-text-field>
@@ -14,7 +14,7 @@
       outlined
       dense
       :value='value'
-      @change='onChange'
+      @input='onChange'
       :placeholder='placeholder || "What are your thoughts?"'
     ></v-textarea>
   </div>
