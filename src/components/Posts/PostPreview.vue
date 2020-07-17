@@ -41,7 +41,7 @@ export default {
     textShort () {
       const length = this.post.text.length
       if (length > 300) {
-        return this.post.text.slice(0, 250) + '...'
+        return this.post.text.slice(0, 250).trim() + '...'
       }
       return this.post.text
     }

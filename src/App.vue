@@ -30,7 +30,6 @@ export default {
     overflow-y: auto !important;
   }
   .container {
-    padding-top: 30px;
     max-width: 1185px;
   }
   .v-content {
@@ -51,6 +50,12 @@ export default {
     font-size: 14px;
   }
 
+  @media #{map-get($display-breakpoints, 'sm-and-up')} {
+    .container {
+      padding-top: 30px;
+    }
+  }
+
   @media #{map-get($display-breakpoints, 'xs-only')} {
     .v-card__title {
       font-size: 16px;
@@ -59,6 +64,9 @@ export default {
       font-size: 14px;
     }
     .v-card__text {
+      font-size: 12px;
+    }
+    .v-input {
       font-size: 12px;
     }
   }
