@@ -37,16 +37,29 @@ export default {
 </script>
 
 <style lang="scss">
+  @import '~vuetify/src/styles/styles.sass';
+
   .v-input {
+    font-size: 14px;
+
     label {
-      font-size: 0.875rem !important;
+      font-size: 14px !important;
     }
-    font-size: 0.875rem;
     textarea {
-      line-height: 1.4rem;
+      line-height: 20px !important;
     }
   }
   .v-text-field__details {
     display: none;
+  }
+
+  @media #{map-get($display-breakpoints, 'xs-only')} {
+    .v-input {
+      font-size: 12px;
+
+      label {
+        font-size: 12px;
+      }
+    }
   }
 </style>

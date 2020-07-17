@@ -1,13 +1,13 @@
 <template>
   <div class='post-list-container'>
     <v-card v-for='post in posts' :key='post.id' @click.native.stop='$router.push(`/post/${post._id}`)'>
-      <Post :post='post' :showCommunity='showCommunity' v-on="$listeners" />
+      <PostPreview :post='post' :showCommunity='showCommunity' v-on="$listeners" />
     </v-card>
   </div>
 </template>
 
 <script>
-import Post from '@/components/Posts/Post.vue'
+import PostPreview from '@/components/Posts/PostPreview.vue'
 
 export default {
   props: [
@@ -15,7 +15,7 @@ export default {
     'showCommunity'
   ],
   components: {
-    Post
+    PostPreview
   }
 }
 </script>

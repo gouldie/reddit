@@ -138,6 +138,8 @@ export default {
 </script>
 
 <style scoped lang='scss'>
+  @import '~vuetify/src/styles/styles.sass';
+
   .v-select {
     max-width: 300px;
     margin-top: 20px;
@@ -172,4 +174,9 @@ export default {
   .v-card__actions {
     padding: 8px 0 8px;
   };
+    @media #{map-get($display-breakpoints, 'xs-only')} {
+      .v-tab {
+        font-size: 12px;
+      }
+    }
 </style>
