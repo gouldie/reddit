@@ -7,7 +7,7 @@
             :post='post'
             :showCommunity='false'
             @vote='vote'
-            :canEdit='true'
+            :canEdit='post.canEdit'
             @editPost='editPost'
             @editOnChange='editOnChange'
             :editing='editing'
@@ -52,7 +52,6 @@ export default {
   },
   methods: {
     vote (data) {
-      console.log('v')
       if (!this.$store.state.isAuthenticated) {
         this.$store.commit('setModal', 'log-in')
         return

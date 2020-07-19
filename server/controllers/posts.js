@@ -58,6 +58,10 @@ export const getPost = async (req, res) => {
     })
   }
 
+  if (req.userId === post.user._id) {
+    post.canEdit = true
+  }
+
   const upvotes = post.upvotes ? post.upvotes.length : 0
   const downvotes = post.downvotes ? post.downvotes.length : 0
   const count = upvotes - downvotes
