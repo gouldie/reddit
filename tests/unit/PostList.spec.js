@@ -4,7 +4,7 @@ import Vuetify from 'vuetify'
 import { mount, createLocalVue } from '@vue/test-utils'
 
 import PostList from '@/components/Posts/PostList.vue'
-import Post from '@/components/Posts/Post.vue'
+import PostPreview from '@/components/Posts/PostPreview.vue'
 
 Vue.use(Vuetify)
 
@@ -45,6 +45,6 @@ describe('PostList.vue', () => {
       }
     })
 
-    expect(wrapper.findAllComponents(Post).length).toEqual(3)
+    expect(wrapper.findAllComponents(PostPreview).length).toEqual(3)
   })
 })

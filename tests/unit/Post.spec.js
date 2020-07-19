@@ -3,7 +3,7 @@ import Vuetify from 'vuetify'
 
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 
-import Post from '@/components/Post.vue'
+import Post from '@/components/Posts/Post.vue'
 
 Vue.use(Vuetify)
 
@@ -32,7 +32,8 @@ describe('Post.vue', () => {
       localVue,
       vuetify,
       propsData: {
-        post
+        post,
+        showCommunity: true
       },
       mocks: {
         $vuetify: {
