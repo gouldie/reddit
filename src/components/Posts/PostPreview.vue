@@ -89,21 +89,21 @@ export default {
   }
 
   @media #{map-get($display-breakpoints, 'sm-and-down')} {
-    .v-card__title {
-      font-size: 16px;
-      line-height: 20px;
-    }
-    .post-text {
-      font-size: 12px;
-    }
+    // .v-card__title {
+    //   font-size: 16px;
+    //   line-height: 20px;
+    // }
+    // .post-text {
+    //   font-size: 12px;
+    // }
   }
 
   @media #{map-get($display-breakpoints, 'xs-only')} {
     .post-content-container {
       padding-right: 0;
     }
-    .post-header {
-      font-size: 12px;
-    }
+    // .post-header {
+    //   font-size: 12px;
+    // }
   }
 </style>

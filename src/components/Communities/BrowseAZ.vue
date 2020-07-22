@@ -23,6 +23,7 @@ export default {
   span {
     color: var(--v-info-darken1);
     cursor: pointer;
+    font-size: 14px;
   }
   .v-card__title {
     font-size: 16px;

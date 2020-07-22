@@ -8,7 +8,7 @@
     <v-list>
       <router-link v-for='(community, i) in prefixedCommunities' :key='community.id' :to='community.name'>
         <v-list-item>
-          <span>{{ i+1 }}</span> <Icon /> <span class='community-name'>{{ community.name }}</span>
+          <span>{{ i+1 }}</span> <Icon /> <v-card-text class='community-name'>{{ community.name }}</v-card-text>
         </v-list-item>
       </router-link>
     </v-list>
@@ -85,5 +85,9 @@ export default {
   }
   a {
     text-decoration: none;
+  }
+  .community-name {
+    flex: 1;
+    padding-left: 0;
   }
 </style>
