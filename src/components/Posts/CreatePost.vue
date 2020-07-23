@@ -25,14 +25,14 @@
         {{ item }}
       </v-tab>
     </v-tabs>
-    <v-tabs-items v-model='tab'>
-      <v-tab-item
-        v-for='item in items'
-        :key='item'
-        :reverse-transition='false'
-        :transition='false'
-      >
-        <v-card flat tile>
+    <v-card class='tabs-items-wrapper'>
+      <v-tabs-items v-model='tab'>
+        <v-tab-item
+          v-for='item in items'
+          :key='item'
+          :reverse-transition='false'
+          :transition='false'
+        >
           <v-card-actions>
             <v-text-field
               outlined
@@ -57,9 +57,9 @@
               Post
             </v-btn>
           </v-card-actions>
-        </v-card>
-      </v-tab-item>
-    </v-tabs-items>
+        </v-tab-item>
+      </v-tabs-items>
+    </v-card>
   </div>
 </template>
 
@@ -139,7 +139,9 @@ export default {
 
 <style scoped lang='scss'>
   @import '~vuetify/src/styles/styles.sass';
-
+  .v-tabs {
+    border-radius: 3px;
+  }
   .v-select {
     max-width: 300px;
     margin-top: 20px;
@@ -169,14 +171,14 @@ export default {
     color: red !important;
   }
   .v-card {
-    padding: 0 8px;
+    padding: 8px 16px;
   }
   .v-card__actions {
     padding: 8px 0 8px;
-  };
-    @media #{map-get($display-breakpoints, 'xs-only')} {
-      .v-tab {
-        font-size: 12px;
-      }
+  }
+  @media #{map-get($display-breakpoints, 'xs-only')} {
+    .v-tab {
+      font-size: 12px;
     }
+  }
 </style>

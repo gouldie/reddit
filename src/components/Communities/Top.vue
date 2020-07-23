@@ -88,7 +88,7 @@ export default {
   }
   .community-name {
     flex: 1;
-    padding-left: 0;
+    padding: 10px 0;
     font-size: 16px;
   }
 </style>
