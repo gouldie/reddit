@@ -22,7 +22,7 @@ describe('Top.vue', () => {
     vuetify = new Vuetify()
   })
 
-  it('renders correct communities', async () => {
+  it('renders all communities given a category', async () => {
     const wrapper = mount(Top, {
       localVue,
       vuetify,
@@ -36,5 +36,21 @@ describe('Top.vue', () => {
     const list = wrapper.findAll('.v-list>a')
 
     expect(list.length).toEqual(communities.filter(e => e.category === 'Science').length)
+  })
+
+  it('renders all communities in alt view', async () => {
+    const wrapper = mount(Top, {
+      localVue,
+      vuetify,
+      router,
+      propsData: {
+        alt: true,
+        communities
+      }
+    })
+
+    const list = wrapper.findAll('.v-list>a')
+
+    expect(list.length).toEqual(communities.length)
   })
 })
