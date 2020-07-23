@@ -27,7 +27,7 @@ describe('PostPreview.vue', () => {
     text: 'test text'
   }
 
-  it('renders all post props when passed', () => {
+  it('renders community name', () => {
     const wrapper = shallowMount(PostPreview, {
       localVue,
       vuetify,

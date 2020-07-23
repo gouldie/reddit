@@ -40,7 +40,7 @@ export default {
     },
     prefixedCommunities () {
       // TODO: order by top growing
-      return this.communities.filter(e => !this.category || (this.category === e.category)).map(e => ({ ...e, name: `r/${e.name}` })).slice(0, 5)
+      return this.communities.filter(e => !this.category || (this.category === e.category)).map(e => ({ ...e, name: `r/${e.name}` })).slice(0, !this.alt ? 5 : 100)
     }
   },
   methods: {
@@ -89,5 +89,6 @@ export default {
   .community-name {
     flex: 1;
     padding-left: 0;
+    font-size: 16px;
   }
 </style>
