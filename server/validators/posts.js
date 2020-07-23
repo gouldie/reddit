@@ -33,10 +33,20 @@ const sort = Joi.string()
   .allow(...validSorts)
   .only()
 
+const image = Joi.string()
+  .dataUri()
+  .required()
+
 export const CreateTextPost = Joi.object().keys({
   communityId: communityId.required(),
   title,
   text
+})
+
+export const CreateImagePost = Joi.object().keys({
+  communityId: communityId.required(),
+  title,
+  image
 })
 
 export const GetPost = Joi.object().keys({

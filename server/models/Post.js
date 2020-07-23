@@ -4,6 +4,7 @@ var PostSchema = new Schema({
   _id: String,
   title: String,
   text: String,
+  image: String,
   communityId: String,
   user: {
     type: String,

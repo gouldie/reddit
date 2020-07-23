@@ -1,6 +1,6 @@
 import cuid from 'cuid'
 import Post from '../models/Post'
-import { CreateTextPost, GetPost, GetPosts, Vote, EditPost } from '../validators/posts'
+import { CreateTextPost, CreateImagePost, GetPost, GetPosts, Vote, EditPost } from '../validators/posts'
 import sortBy from '../utils/sort'
 
 export const getPosts = async (req, res) => {
@@ -91,6 +91,29 @@ export const createTextPost = async (req, res) => {
     _id: cuid(),
     title,
     text,
+    communityId,
+    user: req.userId,
+    createdAt: Date.now()
+  })
+
+  return res.json({
+    success: true
+  })
+}
+
+export const createImagePost = async (req, res) => {
+  const { error } = CreateImagePost.validate(req.body, { abortEarly: true })
+
+  if (error) {
+    return res.json({ success: false, message: error.details[0].message })
+  }
+
+  const { title, image, communityId } = req.body
+
+  await Post.create({
+    _id: cuid(),
+    title,
+    image,
     communityId,
     user: req.userId,
     createdAt: Date.now()

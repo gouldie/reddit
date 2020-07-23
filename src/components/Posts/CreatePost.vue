@@ -33,19 +33,27 @@
           :reverse-transition='false'
           :transition='false'
         >
-          <v-card-actions>
-            <v-text-field
-              outlined
-              dense
-              counter='300'
-              placeholder='Title'
-              v-model='title'
-            ></v-text-field>
-          </v-card-actions>
+          <v-text-field
+            class='create-post-title'
+            outlined
+            dense
+            counter='300'
+            placeholder='Title'
+            v-model='title'
+          ></v-text-field>
 
-          <div v-if='tab === 0' >
-            <TextField :value='text' @onChange='textOnChange' :dense='true' placeholder='Text (optional)' :area='true' />
-          </div>
+          <TextField
+            v-if='tab === 0'
+            :value='text'
+            @onChange='textOnChange'
+            :dense='true'
+            placeholder='Text (optional)'
+            :area='true'
+          />
+          <DropZone
+            v-if='tab === 1'
+            @addImage='addImage'
+          />
 
           <v-card-text class='error-text' v-if='error'>{{ error }}</v-card-text>
 
@@ -53,7 +61,7 @@
             <v-btn width='100' @click='back()'>
               Cancel
             </v-btn>
-            <v-btn color='primary' width='80' @click="submit" :disabled='!communityId || !title'>
+            <v-btn color='primary' width='80' @click="submit" :disabled='disabled'>
               Post
             </v-btn>
           </v-card-actions>
@@ -66,13 +74,15 @@
 <script>
 import axios from 'axios'
 import TextField from '@/components/Core/TextField.vue'
+import DropZone from '@/components/Core/DropZone.vue'
 
 export default {
   props: [
     'communities'
   ],
   components: {
-    TextField
+    TextField,
+    DropZone
   },
   data: function () {
     return {
@@ -85,12 +95,21 @@ export default {
       ],
       title: '',
       text: '',
+      image: null,
       error: null
     }
   },
   computed: {
     prefixedCommunities () {
       return this.communities.map(e => ({ ...e, name: `r/${e.name}` }))
+    },
+    disabled () {
+      if (this.tab === 0) {
+        return !this.communityId || !this.title
+      }
+      // if (this.tab === 1) {
+      return !this.communityId || !this.title || !this.image
+      // }
     }
   },
   methods: {
@@ -107,6 +126,11 @@ export default {
       if (this.tab === 0) {
         route = 'text'
         fields = { text: this.text }
+      }
+
+      if (this.tab === 1) {
+        route = 'image'
+        fields = { image: this.image }
       }
 
       axios.post(`/api/posts/${route}`, {
@@ -126,6 +150,15 @@ export default {
     },
     textOnChange (e) {
       this.text = e
+    },
+    addImage (image, asd) {
+      const reader = new FileReader()
+      reader.readAsDataURL(image)
+
+      reader.onload = (event) => {
+        console.log('done', event.target.result)
+        this.image = event.target.result
+      }
     }
   },
   watch: {
@@ -147,28 +180,26 @@ export default {
     margin-top: 20px;
     margin-bottom: 15px;
   }
+  .create-post-title {
+    margin-bottom: 10px;
+  }
   h3 {
     margin-bottom: 10px;
   }
   .action-buttons {
     display: flex;
     justify-content: flex-end;
+    button {
+      margin-left: 15px !important;
+    }
   }
   .button-container {
     display: flex;
     justify-content: flex-end;
   }
-  button {
-    margin-left: 15px;
-  }
-  .v-textarea, .editr {
-    margin-top: -10px;
-  }
-  .v-textarea {
-    margin-bottom: -20px;
-  }
   .error-text {
     color: red !important;
+    padding-left: 0;
   }
   .v-card {
     padding: 8px 16px;
