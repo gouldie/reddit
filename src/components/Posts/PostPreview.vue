@@ -11,9 +11,11 @@
       <v-card-title>
         {{ post.title }}
       </v-card-title>
-      <v-card-text class='post-text'>
+      <v-card-text v-if='post.text' class='post-text'>
         {{ textShort }}
       </v-card-text>
+      <div v-if='post.image' class='post-image' :style='`background-image: url(${post.image});`'>
+      </div>
     </div>
   </div>
 </template>
@@ -45,6 +47,9 @@ export default {
       }
       return this.post.text
     }
+  },
+  mounted () {
+    console.log(typeof this.post.image)
   }
 }
 </script>
@@ -87,23 +92,18 @@ export default {
     padding-right: 36px;
     flex: 1;
   }
-
-  @media #{map-get($display-breakpoints, 'sm-and-down')} {
-    // .v-card__title {
-    //   font-size: 16px;
-    //   line-height: 20px;
-    // }
-    // .post-text {
-    //   font-size: 12px;
-    // }
+  .post-image {
+    width: 90%;
+    margin: 0 auto;
+    border-radius: 3px;
+    height: 200px;
+    background-position: center;
+    margin-bottom: 16px;
   }
 
   @media #{map-get($display-breakpoints, 'xs-only')} {
     .post-content-container {
       padding-right: 0;
     }
-    // .post-header {
-    //   font-size: 12px;
-    // }
   }
 </style>
