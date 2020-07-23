@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 import VueRouter from 'vue-router'
 import routes from '@/router/routes'
-import Communities from '@/views/Communities.vue'
 
 import { mount, createLocalVue } from '@vue/test-utils'
 
@@ -19,7 +18,6 @@ const router = new VueRouter({ routes })
 
 describe('Top.vue', () => {
   let vuetify
-  const push = jest.fn()
 
   beforeEach(() => {
     vuetify = new Vuetify()
@@ -57,7 +55,7 @@ describe('Top.vue', () => {
     expect(list.length).toEqual(communities.length)
   })
 
-  it('navigates to /communities when view all is clicked', async () => {
+  it('navigates to communities route when view all is clicked', async () => {
     const wrapper = mount(Top, {
       localVue,
       vuetify,
@@ -72,5 +70,24 @@ describe('Top.vue', () => {
     await wrapper.vm.$nextTick()
 
     expect(router.history.current.path).toEqual('/communities')
+  })
+
+  it('navigates to community route when a community is clicked', async () => {
+    const wrapper = mount(Top, {
+      localVue,
+      vuetify,
+      router,
+      propsData: {
+        category: 'Science',
+        communities
+      }
+    })
+
+    const button = wrapper.find('a')
+    button.trigger('click')
+
+    await wrapper.vm.$nextTick()
+
+    expect(router.history.current.path).toEqual('/' + button.text().split(' ')[2])
   })
 })
