@@ -5,7 +5,7 @@
       width="500"
     >
       <v-card>
-        <v-card-title class="headline grey lighten-2" primary-title>
+        <v-card-title class="modal-title headline grey lighten-2" primary-title>
           Log In
         </v-card-title>
 

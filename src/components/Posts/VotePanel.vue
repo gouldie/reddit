@@ -3,7 +3,7 @@
     <v-icon
       dense
       :color='post.userVote === 1 ? "green" : ""'
-      @click.stop='test'
+      @click.stop='vote("upvote")'
     >
       mdi-arrow-up-bold
     </v-icon>
@@ -11,7 +11,7 @@
     <v-icon
       dense
       :color='post.userVote === -1 ? "red" : ""'
-      @click.stop='$emit("vote", { type: "downvote" })'
+      @click.stop='vote("downvote")'
     >
       mdi-arrow-down-bold
     </v-icon>
@@ -25,8 +25,13 @@ export default {
     'post'
   ],
   methods: {
-    test () {
-      this.$emit('vote', { type: 'upvote' })
+    vote (type) {
+      if (!this.$store.state.isAuthenticated) {
+        this.$store.commit('setModal', 'log-in')
+        return
+      }
+
+      this.$emit('vote', { type, postId: this.post._id })
     }
   }
 }

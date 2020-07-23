@@ -52,29 +52,16 @@ export default {
   },
   methods: {
     vote (data) {
-      if (!this.$store.state.isAuthenticated) {
-        this.$store.commit('setModal', 'log-in')
-        return
-      }
-
       if (data.commentId) {
         calculateVote(this.comments.find(e => e._id === data.commentId), data.type)
         axios.post(`/api/comments/${data.type}`, {
           commentId: data.commentId
         })
-          .then(res => {
-          // emit to parent
-            this.$emit('vote', { commentId: data.commentId, type: data.type })
-          })
       } else {
         calculateVote(this.post, data.type)
         axios.post(`/api/posts/${data.type}`, {
-          postId: this.post._id
+          postId: data.postId
         })
-          .then(res => {
-          // emit to parent
-            this.$emit('vote', { postId: this.post._id, type: data.type })
-          })
       }
     },
     getPost () {

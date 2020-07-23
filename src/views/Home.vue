@@ -45,6 +45,9 @@ export default {
     },
     vote (data) {
       calculateVote(this.posts.find(p => p._id === data.postId), data.type)
+      axios.post(`/api/posts/${data.type}`, {
+        postId: data.postId
+      })
     },
     getPosts () {
       axios.get('/api/posts', {
