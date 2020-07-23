@@ -1,17 +1,48 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import Vuex from 'vuex'
+import axios from 'axios'
+import MockAdapter from 'axios-mock-adapter'
+import flushPromises from 'flush-promises'
 
-import { mount, createLocalVue, shallowMount } from '@vue/test-utils'
+import { createLocalVue, mount } from '@vue/test-utils'
 
-import Post from '@/components/Posts/Post.vue'
-import PostView from '@/views/Post.vue'
+import Post from '@/views/Post.vue'
 
 Vue.use(Vuetify)
 
 const localVue = createLocalVue()
 localVue.use(Vuetify)
 localVue.use(Vuex)
+
+const mock = new MockAdapter(axios)
+
+mock.onGet('/api/posts/1').reply(200, {
+  success: true,
+  post: {
+    communityId: '1',
+    user: {
+      username: 'matt'
+    },
+    createdAt: Date.now(),
+    title: 'test title',
+    text: 'test text'
+  }
+})
+
+mock.onGet('/api/comments/1').reply(200, {
+  success: true,
+  comments: [{
+    text: 'text',
+    postId: '1',
+    user: {
+      username: 'username'
+    },
+    createdAt: Date.now(),
+    count: 1,
+    userVote: 0
+  }]
+})
 
 describe('Post.vue', () => {
   let vuetify
@@ -28,56 +59,27 @@ describe('Post.vue', () => {
     })
   })
 
-  const post = {
-    communityName: 'cats',
-    user: {
-      username: 'matt'
-    },
-    createdAt: Date.now(),
-    title: 'test title',
-    text: 'test text'
-  }
-
-  it('renders all post props when passed', () => {
-    const wrapper = shallowMount(Post, {
-      localVue,
-      vuetify,
-      propsData: {
-        post,
-        showCommunity: true
-      },
-      mocks: {
-        $vuetify: {
-          breakpoint: {}
-        }
-      }
-    })
-
-    const community = wrapper.find('.post-community')
-
-    expect(community.text()).toBe(`r/${post.communityName}`)
-  })
-
   it('opens log in modal when unauthenticated user attempts to upvote or downvote', async () => {
-    const wrapper = mount(PostView, {
+    const wrapper = mount(Post, {
       localVue,
       vuetify,
       store,
-      propsData: {
-        post: {
-          user: {}
-        }
-      },
       mocks: {
         $vuetify: {
           breakpoint: {}
+        },
+        $route: {
+          params: {
+            id: 1
+          }
         }
       }
     })
-    const icon = wrapper.find('.vote-panel button:nth-of-type(1)')
-    console.log('ico', icon)
-    await wrapper.vm.$nextTick()
 
-    expect(mutations.setModal).toHaveBeenCalled()
+    await flushPromises()
+
+    wrapper.find('.vote-panel button:nth-of-type(1)').trigger('click')
+
+    expect(mutations.setModal).toBeCalled()
   })
 })

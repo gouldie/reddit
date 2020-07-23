@@ -9,7 +9,7 @@ export const getComments = async (req, res) => {
     return res.json({ success: false, message: error.details[0].message })
   }
 
-  let comments = await Comment.find({ postId: req.params.postId }).populate('user').lean()
+  let comments = await Comment.find({ postId: req.params.postId }).populate('user', 'username').lean()
 
   comments = comments.map(e => {
     const upvotes = e.upvotes ? e.upvotes.length : 0

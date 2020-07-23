@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols='12' :md='8'>
         <v-card>
-          <Post
+          <PostFull
             :post='post'
             :showCommunity='false'
             @vote='vote'
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import Post from '@/components/Posts/Post.vue'
+import PostFull from '@/components/Posts/PostFull.vue'
 import LeaveComment from '@/components/Comments/LeaveComment.vue'
 import Comments from '@/components/Comments/Comments.vue'
 import CommunityInfo from '@/components/Communities/Info.vue'
@@ -36,7 +36,7 @@ import { calculateVote } from '@/utils.js'
 
 export default {
   components: {
-    Post,
+    PostFull,
     LeaveComment,
     Comments,
     CommunityInfo
