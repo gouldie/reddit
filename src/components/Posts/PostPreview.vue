@@ -90,11 +90,10 @@ export default {
   }
   .post-image {
     width: 90%;
-    margin: 0 auto;
+    margin: 0 auto 20px;
     border-radius: 3px;
     height: 200px;
     background-position: center;
-    margin-bottom: 16px;
     background-size: cover;
     max-height: 300px;
   }
