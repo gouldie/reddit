@@ -35,7 +35,7 @@ const sort = Joi.string()
 
 const image = Joi.string()
   .dataUri()
-  .required()
+  .optional()
 
 export const CreateTextPost = Joi.object().keys({
   communityId: communityId.required(),
@@ -46,7 +46,7 @@ export const CreateTextPost = Joi.object().keys({
 export const CreateImagePost = Joi.object().keys({
   communityId: communityId.required(),
   title,
-  image
+  image: image.required()
 })
 
 export const GetPost = Joi.object().keys({
@@ -64,5 +64,6 @@ export const Vote = Joi.object().keys({
 
 export const EditPost = Joi.object().keys({
   postId,
-  text
-})
+  text,
+  image
+}).xor('text', 'image')

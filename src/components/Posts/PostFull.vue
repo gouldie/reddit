@@ -17,7 +17,8 @@
       <div v-if='post.image && !isEditing' class='post-image' :style='`background-image: url(${post.image});`'></div>
 
       <div :class='isEditing && "editing-container"'>
-        <TextField v-if='isEditing' :value='editing' @onChange='editOnChange' placeholder='Text (optional)' :area='true' />
+        <TextField v-if='post.text && isEditing' :value='editing' @onChange='editOnChange' placeholder='Text (optional)' :area='true' />
+        <DropZone v-if='post.image && isEditing' @addImage='addImage' :initialImage='post.image' />
       </div>
       <v-card-actions v-if='canEdit' class='post-actions-container'>
         <div>
@@ -38,12 +39,14 @@ import timeago from 'time-ago'
 import Icon from '@/components/Communities/Icon.vue'
 import TextField from '@/components/Core/TextField.vue'
 import VotePanel from '@/components/Posts/VotePanel.vue'
+import DropZone from '@/components/Core/DropZone.vue'
 
 export default {
   components: {
     Icon,
     TextField,
-    VotePanel
+    VotePanel,
+    DropZone
   },
   props: [
     'post',
@@ -66,6 +69,15 @@ export default {
     },
     editPost () {
       this.$emit('editPost')
+    },
+    addImage (image) {
+      console.log('add 1')
+      const reader = new FileReader()
+      reader.readAsDataURL(image)
+
+      reader.onload = (event) => {
+        this.$emit('editOnChange', event.target.result)
+      }
     }
   },
   computed: {

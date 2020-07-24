@@ -93,7 +93,8 @@ export default {
     editPost () {
       axios.post('/api/posts/edit', {
         postId: this.post._id,
-        text: this.editing
+        text: this.post.text && this.editing,
+        image: this.post.image && this.editing
       })
         .then(res => {
           if (!res.data.success) {
@@ -102,6 +103,7 @@ export default {
           }
 
           this.post.text = res.data.post.text
+          this.post.image = res.data.post.image
           this.editing = false
         })
     },

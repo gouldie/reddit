@@ -151,12 +151,11 @@ export default {
     textOnChange (e) {
       this.text = e
     },
-    addImage (image, asd) {
+    addImage (image) {
       const reader = new FileReader()
       reader.readAsDataURL(image)
 
       reader.onload = (event) => {
-        console.log('done', event.target.result)
         this.image = event.target.result
       }
     }

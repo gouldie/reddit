@@ -1,5 +1,5 @@
 <template>
-  <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions" @vdropzone-file-added='addImage'></vue-dropzone>
+  <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions" @vdropzone-file-added='addImage' ></vue-dropzone>
 </template>
 
 <script>
@@ -7,7 +7,9 @@ import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 
 export default {
-  name: 'app',
+  props: [
+    'initialImage'
+  ],
   components: {
     vueDropzone: vue2Dropzone
   },
@@ -27,7 +29,19 @@ export default {
   },
   methods: {
     addImage (image) {
+      if (!image.status) return
       this.$emit('addImage', image)
+    }
+  },
+  mounted () {
+    if (this.initialImage) {
+      const mime = this.initialImage.substring(this.initialImage.indexOf(':') + 1, this.initialImage.indexOf(';'))
+      const extension = mime.split('/')[1]
+      const file = { name: `filename.${extension}`, type: mime, dataURL: this.initialImage }
+
+      this.$refs.myVueDropzone.manuallyAddFile(file, this.initialImage)
+      this.$refs.myVueDropzone.dropzone.emit('thumbnail', file, file.dataURL)
+      this.$refs.myVueDropzone.dropzone.emit('complete', file)
     }
   }
 }
@@ -36,8 +50,11 @@ export default {
 <style lang="scss">
   .dz-preview, .dz-image {
     width: 100%;
+    margin: 0 !important;
   }
   img {
     margin: 0 auto;
+    max-width: 100%;
+    max-height: 300px;
   }
 </style>

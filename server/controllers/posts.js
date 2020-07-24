@@ -155,7 +155,7 @@ export const editPost = async (req, res) => {
     return res.json({ success: false, message: error.details[0].message })
   }
 
-  const { postId, text } = req.body
+  const { postId, text, image } = req.body
 
   // validate the userId with the postId
   const post = await Post.findOne({ _id: postId })
@@ -167,7 +167,11 @@ export const editPost = async (req, res) => {
     })
   }
 
-  const newPost = await Post.findByIdAndUpdate({ _id: postId }, { $set: { text } }, { new: true }).populate('user')
+  const $set = {}
+  if (text) $set.text = text
+  if (image) $set.image = image
+
+  const newPost = await Post.findByIdAndUpdate({ _id: postId }, { $set }, { new: true }).populate('user')
 
   return res.json({ success: true, post: newPost })
 }
