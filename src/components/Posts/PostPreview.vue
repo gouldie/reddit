@@ -1,6 +1,6 @@
 <template>
   <div class='post-container'>
-    <VotePanel :post='post' v-on="$listeners" />
+    <VotePanel :post='post' v-on="$listeners" :greyBackground='true' />
     <div class='post-content-container'>
       <v-card-text class='post-header'>
         <Icon v-if='showCommunity && $vuetify.breakpoint.smAndUp' />
@@ -14,8 +14,7 @@
       <v-card-text v-if='post.text' class='post-text'>
         {{ textShort }}
       </v-card-text>
-      <div v-if='post.image' class='post-image' :style='`background-image: url(${post.image});`'>
-      </div>
+      <div v-if='post.image' class='post-image' :style='`background-image: url(${post.image});`'></div>
     </div>
   </div>
 </template>
@@ -47,9 +46,6 @@ export default {
       }
       return this.post.text
     }
-  },
-  mounted () {
-    console.log(typeof this.post.image)
   }
 }
 </script>
@@ -99,6 +95,8 @@ export default {
     height: 200px;
     background-position: center;
     margin-bottom: 16px;
+    background-size: cover;
+    max-height: 300px;
   }
 
   @media #{map-get($display-breakpoints, 'xs-only')} {

@@ -11,9 +11,10 @@
       <v-card-title>
         {{ post.title }}
       </v-card-title>
-      <v-card-text v-if='!isEditing' class='post-text'>
+      <v-card-text v-if='post.text && !isEditing' class='post-text'>
         {{ post.text }}
       </v-card-text>
+      <div v-if='post.image && !isEditing' class='post-image' :style='`background-image: url(${post.image});`'></div>
 
       <div :class='isEditing && "editing-container"'>
         <TextField v-if='isEditing' :value='editing' @onChange='editOnChange' placeholder='Text (optional)' :area='true' />
@@ -96,6 +97,15 @@ export default {
   }
   .post-time {
     font-weight: lighter;
+  }
+  .post-image {
+    width: 90%;
+    margin: 0 auto;
+    border-radius: 3px;
+    height: 200px;
+    background-position: center;
+    margin-bottom: 16px;
+    background-size: cover;
   }
   .v-card__title {
     padding-top: 10px;

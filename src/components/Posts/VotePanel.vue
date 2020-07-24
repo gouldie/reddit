@@ -1,5 +1,5 @@
 <template>
-  <div :class='`${mobile ? "vote-panel-mobile" : "vote-panel"}`'>
+  <div :class='`${mobile ? "vote-panel-mobile" : "vote-panel"} ${greyBackground ? "greyBackground" : null}`'>
     <v-icon
       dense
       :color='post.userVote === 1 ? "green" : ""'
@@ -22,7 +22,8 @@
 export default {
   props: [
     'mobile',
-    'post'
+    'post',
+    'greyBackground'
   ],
   methods: {
     vote (type) {
@@ -42,10 +43,14 @@ export default {
 
   .vote-panel {
     width: 36px;
-    padding: 16px 0 16px 16px;
+    // padding: 16px 0 16px 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 12px 8px;
+    &.greyBackground {
+      background-color: #f8f9fa;
+    }
   }
   .vote-panel-mobile {
     display: none;

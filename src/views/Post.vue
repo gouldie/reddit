@@ -113,7 +113,7 @@ export default {
         this.editing = false
         return
       }
-      this.editing = this.post.text
+      this.editing = this.post.text || this.post.image
     }
   },
   computed: {
