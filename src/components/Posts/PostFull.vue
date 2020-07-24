@@ -24,13 +24,15 @@
         <div>
           <VotePanel :post='post' :mobile='true' v-on="$listeners" />
           <v-card-text :class='isEditing && "selected"' @click='toggleEdit'><v-icon small>edit</v-icon> Edit</v-card-text>
-          <v-card-text @click='deleting = true'><v-icon small>delete</v-icon> Delete</v-card-text>
+          <v-card-text @click.stop="$store.commit('setModal', 'delete-post')"><v-icon small>delete</v-icon> Delete</v-card-text>
         </div>
         <div>
           <v-card-text v-if='isEditing' @click='editPost'><v-icon small>save</v-icon> Save</v-card-text>
         </div>
       </v-card-actions>
     </div>
+
+    <DeletePost :postId='post._id' />
   </div>
 </template>
 
@@ -40,13 +42,15 @@ import Icon from '@/components/Communities/Icon.vue'
 import TextField from '@/components/Core/TextField.vue'
 import VotePanel from '@/components/Posts/VotePanel.vue'
 import DropZone from '@/components/Core/DropZone.vue'
+import DeletePost from '@/components/Modals/DeletePost.vue'
 
 export default {
   components: {
     Icon,
     TextField,
     VotePanel,
-    DropZone
+    DropZone,
+    DeletePost
   },
   props: [
     'post',

@@ -67,3 +67,7 @@ export const EditPost = Joi.object().keys({
   text,
   image
 }).xor('text', 'image')
+
+export const DeletePost = Joi.object().keys({
+  postId
+})
