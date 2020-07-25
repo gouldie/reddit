@@ -48,13 +48,11 @@ export default {
       return timeago.ago(timestamp)
     },
     clickLink (url) {
-      console.log(url.indexOf('//'))
-      if (url.indexOf('//')) {
+      if (!url.startsWith('http')) {
+        window.open('http://' + url)
+      } else {
         window.open(url)
-        return
       }
-
-      window.open('//' + url)
     }
   },
   computed: {
@@ -126,7 +124,7 @@ export default {
     }
   }
   .v-card__title {
-    padding-top: 15px;
+    padding-top: 10px;
     padding-bottom: 10px;
     word-break: break-word;
   }
