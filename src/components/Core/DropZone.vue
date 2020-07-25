@@ -57,4 +57,10 @@ export default {
     max-width: 100%;
     max-height: 300px;
   }
+  .dz-details {
+    background-color: rgba(0, 0, 0, 0.3) !important;
+  }
+  .dz-size, .dz-filename, .dz-progress {
+    display: none;
+  }
 </style>
