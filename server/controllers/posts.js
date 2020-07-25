@@ -2,6 +2,10 @@ import cuid from 'cuid'
 import Post from '../models/Post'
 import { CreateTextPost, CreateImagePost, CreateLinkPost, GetPost, GetPosts, Vote, EditPost, DeletePost } from '../validators/posts'
 import sortBy from '../utils/sort'
+const metascraper = require('metascraper')([
+  require('metascraper-image')()
+])
+const got = require('got')
 
 export const getPosts = async (req, res) => {
   const { error } = GetPosts.validate(req.query, { abortEarly: true })
@@ -22,6 +26,7 @@ export const getPosts = async (req, res) => {
   // sort
   posts = posts.sort(sortBy[sort])
 
+  // votes
   posts = posts.map(e => {
     const upvotes = e.upvotes ? e.upvotes.length : 0
     const downvotes = e.downvotes ? e.downvotes.length : 0
@@ -133,10 +138,15 @@ export const createLinkPost = async (req, res) => {
 
   const { title, link, communityId } = req.body
 
+  // link post image previews
+  const { body: html, url } = await got(link)
+  const metadata = await metascraper({ html, url })
+
   await Post.create({
     _id: cuid(),
     title,
     link,
+    linkPreview: metadata.image,
     communityId,
     user: req.userId,
     createdAt: Date.now()

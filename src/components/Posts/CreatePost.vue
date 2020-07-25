@@ -54,6 +54,14 @@
             v-if='tab === 1'
             @addImage='addImage'
           />
+          <TextField
+            v-if='tab === 2'
+            :value='link'
+            @onChange='linkOnChange'
+            :dense='true'
+            placeholder='Url'
+            :area='false'
+          />
 
           <v-card-text class='error-text' v-if='error'>{{ error }}</v-card-text>
 
@@ -96,6 +104,7 @@ export default {
       title: '',
       text: '',
       image: null,
+      link: '',
       error: null
     }
   },
@@ -107,9 +116,16 @@ export default {
       if (this.tab === 0) {
         return !this.communityId || !this.title
       }
-      // if (this.tab === 1) {
-      return !this.communityId || !this.title || !this.image
-      // }
+
+      if (this.tab === 1) {
+        return !this.communityId || !this.title || !this.image
+      }
+
+      if (this.tab === 2) {
+        return !this.communityId || !this.title || !this.link
+      }
+
+      return false
     }
   },
   methods: {
@@ -131,6 +147,11 @@ export default {
       if (this.tab === 1) {
         route = 'image'
         fields = { image: this.image }
+      }
+
+      if (this.tab === 2) {
+        route = 'link'
+        fields = { link: this.link }
       }
 
       axios.post(`/api/posts/${route}`, {
@@ -158,6 +179,9 @@ export default {
       reader.onload = (event) => {
         this.image = event.target.result
       }
+    },
+    linkOnChange (e) {
+      this.link = e
     }
   },
   watch: {

@@ -41,6 +41,7 @@ export default {
 
   .v-card__title {
     font-size: 18px;
+    line-height: 22px;
   }
   .v-card__subtitle {
     font-weight: 500;

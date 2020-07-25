@@ -6,6 +6,7 @@ var PostSchema = new Schema({
   text: String,
   image: String,
   link: String,
+  linkPreview: String,
   communityId: String,
   user: {
     type: String,
