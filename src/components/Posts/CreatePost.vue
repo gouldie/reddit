@@ -87,7 +87,7 @@ export default {
   data: function () {
     return {
       communityId: this.$route.params.community ? this.communities.find(e => e.name === this.$route.params.community).id : null,
-      tab: 0,
+      tab: this.$route.query.tab ? Number(this.$route.query.tab) : 0,
       items: [
         'Post',
         'Image & Video',

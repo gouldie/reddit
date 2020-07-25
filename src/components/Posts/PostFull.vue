@@ -3,7 +3,7 @@
     <VotePanel :post='post' v-on="$listeners" />
     <div class='post-content-container'>
       <v-card-text class='post-header'>
-        <Icon v-if='showCommunity && $vuetify.breakpoint.smAndUp' />
+        <Avatar v-if='showCommunity && $vuetify.breakpoint.smAndUp' />
         <span v-if='showCommunity'><a @click.stop='$router.push("/r/" + post.communityName)'><span class='post-community'>{{ `r/${post.communityName}` }}</span></a></span>
         <span class='post-user'>Posted by u/{{ post.user.username }}</span>
         <span class='post-time'>{{ formattedTime(post.createdAt) }}</span>
@@ -14,8 +14,8 @@
       <v-card-text v-if='post.text && !isEditing' class='post-text'>
         {{ post.text }}
       </v-card-text>
-      <!-- <div v-if='post.image && !isEditing' class='post-image' :style='`background-image: url(${post.image});`'></div> -->
-      <div v-if='post.image' class='post-image'>
+
+      <div v-if='post.image && !isEditing' class='post-image'>
         <img :src='post.image' />
       </div>
 
@@ -41,7 +41,7 @@
 
 <script>
 import timeago from 'time-ago'
-import Icon from '@/components/Communities/Icon.vue'
+import Avatar from '@/components/Communities/Avatar.vue'
 import TextField from '@/components/Core/TextField.vue'
 import VotePanel from '@/components/Posts/VotePanel.vue'
 import DropZone from '@/components/Core/DropZone.vue'
@@ -49,7 +49,7 @@ import DeletePost from '@/components/Modals/DeletePost.vue'
 
 export default {
   components: {
-    Icon,
+    Avatar,
     TextField,
     VotePanel,
     DropZone,

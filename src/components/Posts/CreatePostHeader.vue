@@ -2,7 +2,9 @@
   <v-card>
     <div class='create-post-container'>
       <v-card-actions>
-        <router-link to='/settings'><v-icon large>face</v-icon></router-link>
+        <router-link to='/settings'>
+          <Icon label='Settings' icon='face' />
+        </router-link>
       </v-card-actions>
       <router-link to='/posts/create' style='flex: 1'>
         <v-text-field
@@ -15,16 +17,25 @@
         ></v-text-field>
       </router-link>
       <v-card-actions>
-        <v-icon large>add_photo_alternate</v-icon>
-        <v-icon large>link</v-icon>
+
+        <router-link to='/posts/create?tab=1'>
+          <Icon label='Create Media Post' icon='add_photo_alternate' />
+        </router-link>
+
+        <router-link to='/posts/create?tab=2'>
+          <Icon label='Create Link Post' icon='link' />
+        </router-link>
       </v-card-actions>
     </div>
   </v-card>
 </template>
 
 <script>
+import Icon from '@/components/Core/Icon.vue'
 export default {
-
+  components: {
+    Icon
+  }
 }
 </script>
 
