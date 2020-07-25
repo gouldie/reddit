@@ -14,7 +14,10 @@
       <v-card-text v-if='post.text && !isEditing' class='post-text'>
         {{ post.text }}
       </v-card-text>
-      <div v-if='post.image && !isEditing' class='post-image' :style='`background-image: url(${post.image});`'></div>
+      <!-- <div v-if='post.image && !isEditing' class='post-image' :style='`background-image: url(${post.image});`'></div> -->
+      <div v-if='post.image' class='post-image'>
+        <img :src='post.image' />
+      </div>
 
       <div :class='isEditing && "editing-container"'>
         <TextField v-if='post.text && isEditing' :value='editing' @onChange='editOnChange' placeholder='Text (optional)' :area='true' />
@@ -116,12 +119,11 @@ export default {
   }
   .post-image {
     width: 90%;
-    margin: 0 auto;
+    margin: 0 auto 10px;
     border-radius: 3px;
-    height: 200px;
-    background-position: center;
-    margin-bottom: 16px;
-    background-size: cover;
+    img {
+      max-width: 100%;
+    }
   }
   .v-card__title {
     padding-top: 10px;

@@ -52,7 +52,7 @@ export default {
     width: 100%;
     margin: 0 !important;
   }
-  img {
+  .vue-dropzone img {
     margin: 0 auto;
     max-width: 100%;
     max-height: 300px;
