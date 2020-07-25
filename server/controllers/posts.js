@@ -1,6 +1,6 @@
 import cuid from 'cuid'
 import Post from '../models/Post'
-import { CreateTextPost, CreateImagePost, GetPost, GetPosts, Vote, EditPost, DeletePost } from '../validators/posts'
+import { CreateTextPost, CreateImagePost, CreateLinkPost, GetPost, GetPosts, Vote, EditPost, DeletePost } from '../validators/posts'
 import sortBy from '../utils/sort'
 
 export const getPosts = async (req, res) => {
@@ -124,6 +124,29 @@ export const createImagePost = async (req, res) => {
   })
 }
 
+export const createLinkPost = async (req, res) => {
+  const { error } = CreateLinkPost.validate(req.body, { abortEarly: true })
+
+  if (error) {
+    return res.json({ success: false, message: error.details[0].message })
+  }
+
+  const { title, link, communityId } = req.body
+
+  await Post.create({
+    _id: cuid(),
+    title,
+    link,
+    communityId,
+    user: req.userId,
+    createdAt: Date.now()
+  })
+
+  return res.json({
+    success: true
+  })
+}
+
 export const upvote = async (req, res) => {
   const { error } = Vote.validate(req.body, { abortEarly: true })
 
@@ -155,7 +178,7 @@ export const editPost = async (req, res) => {
     return res.json({ success: false, message: error.details[0].message })
   }
 
-  const { postId, text, image } = req.body
+  const { postId, text, image, link } = req.body
 
   // validate the userId with the postId
   const post = await Post.findOne({ _id: postId })
@@ -172,9 +195,16 @@ export const editPost = async (req, res) => {
   if (text) {
     $set.text = text
     $unset.image = ''
+    $unset.link = ''
   }
   if (image) {
     $set.image = image
+    $unset.text = ''
+    $unset.link = ''
+  }
+  if (link) {
+    $set.link = link
+    $unset.image = ''
     $unset.text = ''
   }
 

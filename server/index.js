@@ -46,7 +46,7 @@ app.use(function (err, req, res, next) {
 
   res.json({
     success: false,
-    message: 'internal'
+    message: 'An internal error occurred.'
   })
 })
 
