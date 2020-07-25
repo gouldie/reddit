@@ -36,6 +36,7 @@ const sort = Joi.string()
 const image = Joi.string()
   .dataUri()
   .optional()
+  .label('Image')
 
 export const CreateTextPost = Joi.object().keys({
   communityId: communityId.required(),

@@ -168,10 +168,17 @@ export const editPost = async (req, res) => {
   }
 
   const $set = {}
-  if (text) $set.text = text
-  if (image) $set.image = image
+  const $unset = {}
+  if (text) {
+    $set.text = text
+    $unset.image = ''
+  }
+  if (image) {
+    $set.image = image
+    $unset.text = ''
+  }
 
-  const newPost = await Post.findByIdAndUpdate({ _id: postId }, { $set }, { new: true }).populate('user')
+  const newPost = await Post.findByIdAndUpdate({ _id: postId }, { $set, $unset }, { new: true }).populate('user')
 
   return res.json({ success: true, post: newPost })
 }
