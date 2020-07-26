@@ -94,7 +94,8 @@ export default {
       axios.post('/api/posts/edit', {
         postId: this.post._id,
         text: this.post.text && this.editing,
-        image: this.post.image && this.editing
+        image: this.post.image && this.editing,
+        link: this.post.link && this.editing
       })
         .then(res => {
           if (!res.data.success) {
@@ -104,6 +105,8 @@ export default {
 
           this.post.text = res.data.post.text
           this.post.image = res.data.post.image
+          this.post.link = res.data.post.link
+          this.post.linkPreview = res.data.post.linkPreview
           this.editing = false
         })
     },
@@ -115,7 +118,7 @@ export default {
         this.editing = false
         return
       }
-      this.editing = this.post.text || this.post.image
+      this.editing = this.post.text || this.post.image || this.post.link
     }
   },
   computed: {

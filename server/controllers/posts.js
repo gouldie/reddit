@@ -139,7 +139,9 @@ export const createLinkPost = async (req, res) => {
   const { title, link, communityId } = req.body
 
   // link post image previews
-  const { body: html, url } = await got(link)
+  const { body: html, url } = await got(link, {
+    timeout: 3000
+  })
   const metadata = await metascraper({ html, url })
 
   await Post.create({
@@ -216,6 +218,21 @@ export const editPost = async (req, res) => {
     $set.link = link
     $unset.image = ''
     $unset.text = ''
+  }
+
+  if (link) {
+    // link post image previews
+    // using try/catch here as if an error occurs we can continue without creating a link preview image
+    try {
+      const { body: html, url } = await got(link, {
+        timeout: 3000,
+        retry: 0
+      })
+      const metadata = await metascraper({ html, url })
+      $set.linkPreview = metadata.image
+    } catch (e) {
+
+    }
   }
 
   const newPost = await Post.findByIdAndUpdate({ _id: postId }, { $set, $unset }, { new: true }).populate('user')

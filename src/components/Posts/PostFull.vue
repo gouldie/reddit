@@ -2,37 +2,45 @@
   <div class='post-container'>
     <VotePanel :post='post' v-on="$listeners" />
     <div class='post-content-container'>
-      <v-card-text class='post-header'>
-        <Avatar v-if='showCommunity && $vuetify.breakpoint.smAndUp' />
-        <span v-if='showCommunity'><a @click.stop='$router.push("/r/" + post.communityName)'><span class='post-community'>{{ `r/${post.communityName}` }}</span></a></span>
-        <span class='post-user'>Posted by u/{{ post.user.username }}</span>
-        <span class='post-time'>{{ formattedTime(post.createdAt) }}</span>
-      </v-card-text>
-      <v-card-title>
-        {{ post.title }}
-      </v-card-title>
-      <v-card-text v-if='post.text && !isEditing' class='post-text'>
-        {{ post.text }}
-      </v-card-text>
+      <div>
+        <v-card-text class='post-header'>
+          <Avatar v-if='showCommunity && $vuetify.breakpoint.smAndUp' />
+          <span v-if='showCommunity'><a @click.stop='$router.push("/r/" + post.communityName)'><span class='post-community'>{{ `r/${post.communityName}` }}</span></a></span>
+          <span class='post-user'>Posted by u/{{ post.user.username }}</span>
+          <span class='post-time'>{{ formattedTime(post.createdAt) }}</span>
+        </v-card-text>
+        <v-card-title>
+          {{ post.title }}
+        </v-card-title>
+        <v-card-text v-if='post.text && !isEditing' class='post-text'>
+          {{ post.text }}
+        </v-card-text>
 
-      <div v-if='post.image && !isEditing' class='post-image'>
-        <img :src='post.image' />
-      </div>
+        <div v-if='post.image && !isEditing' class='post-image'>
+          <img :src='post.image' />
+        </div>
 
-      <div :class='isEditing && "editing-container"'>
-        <TextField v-if='post.text && isEditing' :value='editing' @onChange='editOnChange' placeholder='Text (optional)' :area='true' />
-        <DropZone v-if='post.image && isEditing' @addImage='addImage' :initialImage='post.image' />
+        <v-card-text v-if='post.link && !isEditing' class='post-link' @click.stop='clickLink(post.link)'>
+          {{ post.link }}
+        </v-card-text>
+
+        <div :class='isEditing && "editing-container"'>
+          <TextField v-if='post.text && isEditing' :value='editing' @onChange='editOnChange' placeholder='Text (optional)' :area='true' />
+          <DropZone v-if='post.image && isEditing' @addImage='addImage' :initialImage='post.image' />
+          <TextField v-if='post.link && isEditing' :value='editing' @onChange='editOnChange' placeholder='Url' />
+        </div>
+        <v-card-actions v-if='canEdit' class='post-actions-container'>
+          <div>
+            <VotePanel :post='post' :mobile='true' v-on="$listeners" />
+            <v-card-text :class='isEditing && "selected"' @click='toggleEdit'><v-icon small>edit</v-icon> Edit</v-card-text>
+            <v-card-text @click.stop="$store.commit('setModal', 'delete-post')"><v-icon small>delete</v-icon> Delete</v-card-text>
+          </div>
+          <div>
+            <v-card-text v-if='isEditing' @click='editPost'><v-icon small>save</v-icon> Save</v-card-text>
+          </div>
+        </v-card-actions>
       </div>
-      <v-card-actions v-if='canEdit' class='post-actions-container'>
-        <div>
-          <VotePanel :post='post' :mobile='true' v-on="$listeners" />
-          <v-card-text :class='isEditing && "selected"' @click='toggleEdit'><v-icon small>edit</v-icon> Edit</v-card-text>
-          <v-card-text @click.stop="$store.commit('setModal', 'delete-post')"><v-icon small>delete</v-icon> Delete</v-card-text>
-        </div>
-        <div>
-          <v-card-text v-if='isEditing' @click='editPost'><v-icon small>save</v-icon> Save</v-card-text>
-        </div>
-      </v-card-actions>
+      <LinkPreview v-if='post.link' :post='post' @clickLink='clickLink' />
     </div>
 
     <DeletePost :postId='post._id' />
@@ -46,6 +54,7 @@ import TextField from '@/components/Core/TextField.vue'
 import VotePanel from '@/components/Posts/VotePanel.vue'
 import DropZone from '@/components/Core/DropZone.vue'
 import DeletePost from '@/components/Modals/DeletePost.vue'
+import LinkPreview from '@/components/Posts/LinkPreview.vue'
 
 export default {
   components: {
@@ -53,7 +62,8 @@ export default {
     TextField,
     VotePanel,
     DropZone,
-    DeletePost
+    DeletePost,
+    LinkPreview
   },
   props: [
     'post',
@@ -78,12 +88,18 @@ export default {
       this.$emit('editPost')
     },
     addImage (image) {
-      console.log('add 1')
       const reader = new FileReader()
       reader.readAsDataURL(image)
 
       reader.onload = (event) => {
         this.$emit('editOnChange', event.target.result)
+      }
+    },
+    clickLink (url) {
+      if (!url.startsWith('http')) {
+        window.open('http://' + url)
+      } else {
+        window.open(url)
       }
     }
   },
@@ -116,6 +132,15 @@ export default {
   }
   .post-time {
     font-weight: lighter;
+  }
+  .post-link {
+    cursor: pointer;
+    padding-top: 0;
+    color: #65ade4;
+    word-break: break-all;
+    &:hover {
+      text-decoration: underline;
+    }
   }
   .post-image {
     width: 90%;
@@ -170,7 +195,12 @@ export default {
   }
   .post-content-container {
     padding-right: 36px;
-    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+    >div:nth-of-type(1) {
+      flex-grow: 1
+    }
   }
 
   @media #{map-get($display-breakpoints, 'sm-and-down')} {

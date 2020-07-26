@@ -18,7 +18,7 @@
         </v-card-text>
         <div v-if='post.image' class='post-image' :style='`background-image: url(${post.image});`'></div>
 
-        <v-card-text class='post-link' @click.stop='clickLink(post.link)'>
+        <v-card-text v-if='post.link' class='post-link' @click.stop='clickLink(post.link)'>
           {{ post.link }}
         </v-card-text>
       </div>
@@ -89,9 +89,6 @@ export default {
   .post-time {
     font-weight: lighter;
   }
-  .post-text {
-    padding: 0 16px;
-  }
   .post-link {
     padding-top: 0;
     color: #65ade4;
@@ -106,7 +103,7 @@ export default {
     align-items: flex-start;
   }
   .v-card__title {
-    padding-top: 10px;
+    padding-top: 12px;
     padding-bottom: 10px;
     word-break: break-word;
   }

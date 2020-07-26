@@ -25,6 +25,7 @@ export default {
     left: 10px;
     border: 1px solid var(--v-blue-base);
     border-radius: 4px;
+    cursor: pointer;
     img {
       width: 100%;
     }
