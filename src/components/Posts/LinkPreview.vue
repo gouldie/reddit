@@ -14,6 +14,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  @import '~vuetify/src/styles/styles.sass';
+
   .link-preview {
     display: flex;
     justify-content: center;
@@ -37,6 +39,14 @@ export default {
     }
     .link-preview-center {
       transform: rotate(-45deg);
+    }
+  }
+  @media #{map-get($display-breakpoints, 'xs-only')} {
+    .link-preview {
+      left: 0;
+      margin: 16px;
+      min-width: 75px;
+      height: 75px;
     }
   }
 </style>

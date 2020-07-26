@@ -13,7 +13,7 @@
           Log in to a Reddit account to join, vote, and comment on all your favorite Reddit content.
         </v-card-text>
 
-        <v-form ref="form" v-model="valid" lazy-validation>
+        <v-form id='myForm' ref="form" v-model="valid" lazy-validation @submit.prevent='submit'>
           <v-text-field
             label="Username"
             v-model="username"
@@ -31,6 +31,7 @@
             type='password'
             >
           </v-text-field>
+          <input type='submit' style='display: none;' />
         </v-form>
 
         <v-card-text class='error-text' v-if='error'>
@@ -44,7 +45,7 @@
           <v-btn color="blue" text @click="dialog = false">
             Close
           </v-btn>
-          <v-btn color="blue" text @click="submit">
+          <v-btn form='myForm' color="blue" text @click="submit">
             Log In
           </v-btn>
         </v-card-actions>
@@ -110,7 +111,7 @@ export default {
     padding: 20px 24px !important;
   }
   form {
-    padding: 0 24px 20px;
+    padding: 0 24px 10px;
   }
   .error-text {
     padding-top: 0 !important;

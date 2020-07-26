@@ -13,7 +13,7 @@
           By having a Reddit account, you can join, vote, and comment on all your favorite Reddit content.
         </v-card-text>
 
-        <v-form ref="form" v-model="valid" lazy-validation>
+        <v-form ref="form" v-model="valid" lazy-validation @submit.prevent='submit'>
           <v-text-field
             label="Email"
             v-model="email"
@@ -39,6 +39,7 @@
             type='password'
           >
           </v-text-field>
+          <input type='submit' style='display: none;' />
         </v-form>
 
         <v-card-text class='error-text' v-if='error'>

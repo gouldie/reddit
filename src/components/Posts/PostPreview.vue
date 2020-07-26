@@ -138,11 +138,5 @@ export default {
     .post-content-container {
       padding-right: 0;
     }
-    .link-preview {
-      left: 0;
-      margin: 16px;
-      min-width: 75px;
-      height: 75px;
-    }
   }
 </style>

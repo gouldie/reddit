@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class='post-container'>
     <VotePanel :post='post' v-on="$listeners" />
     <div class='post-content-container'>
@@ -29,7 +30,14 @@
           <DropZone v-if='post.image && isEditing' @addImage='addImage' :initialImage='post.image' />
           <TextField v-if='post.link && isEditing' :value='editing' @onChange='editOnChange' placeholder='Url' />
         </div>
-        <v-card-actions v-if='canEdit' class='post-actions-container'>
+
+      </div>
+      <LinkPreview v-if='post.link' :post='post' @clickLink='clickLink' />
+    </div>
+
+    <DeletePost :postId='post._id' />
+  </div>
+  <v-card-actions v-if='canEdit' class='post-actions-container'>
           <div>
             <VotePanel :post='post' :mobile='true' v-on="$listeners" />
             <v-card-text :class='isEditing && "selected"' @click='toggleEdit'><v-icon small>edit</v-icon> Edit</v-card-text>
@@ -39,12 +47,7 @@
             <v-card-text v-if='isEditing' @click='editPost'><v-icon small>save</v-icon> Save</v-card-text>
           </div>
         </v-card-actions>
-      </div>
-      <LinkPreview v-if='post.link' :post='post' @clickLink='clickLink' />
-    </div>
-
-    <DeletePost :postId='post._id' />
-  </div>
+        </div>
 </template>
 
 <script>
@@ -173,12 +176,13 @@ export default {
     >div {
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
     }
     justify-content: space-between;
-    padding: 0 16px 0 10px;
+    padding: 0 45px;
 
     .v-card__text {
-      display: inline-block;
+      display: flex;
       width: inherit;
       padding: 2px 5px;
       cursor: pointer;
