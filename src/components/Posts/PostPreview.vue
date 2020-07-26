@@ -22,10 +22,7 @@
           {{ post.link }}
         </v-card-text>
       </div>
-      <div class='link-preview' v-if='post.link' :style='`background-image: url(${post.linkPreview});`' @click.stop='clickLink(post.link)'>
-        <v-icon class='link-preview-center' color='blue' v-if='!post.linkPreview'>link</v-icon>
-        <v-icon class='link-preview-corner' color='blue' small>link</v-icon>
-      </div>
+      <LinkPreview v-if='post.link' :post='post' @clickLink='clickLink' />
     </div>
   </div>
 </template>
@@ -34,11 +31,13 @@
 import timeago from 'time-ago'
 import Avatar from '@/components/Communities/Avatar.vue'
 import VotePanel from '@/components/Posts/VotePanel.vue'
+import LinkPreview from '@/components/Posts/LinkPreview.vue'
 
 export default {
   components: {
     Avatar,
-    VotePanel
+    VotePanel,
+    LinkPreview
   },
   props: [
     'post',
@@ -105,30 +104,6 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-  }
-  .link-preview {
-    display: flex;
-    justify-content: center;
-    min-width: 100px;
-    height: 100px;
-    margin: 25px 0;
-    background-size: cover;
-    position: relative;
-    left: 10px;
-    border: 1px solid var(--v-blue-base);
-    border-radius: 4px;
-    img {
-      width: 100%;
-    }
-    .link-preview-corner {
-      position: absolute;
-      height: 14px;
-      bottom: 0;
-      right: 0;
-    }
-    .link-preview-center {
-      transform: rotate(-45deg);
-    }
   }
   .v-card__title {
     padding-top: 10px;
