@@ -35,6 +35,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  @import '~vuetify/src/styles/styles.sass';
+
   .post-sort-container {
     display: flex;
     justify-content: flex-start;
@@ -59,5 +61,13 @@ export default {
   }
   .v-card__text {
     padding: 0;
+  }
+
+  @media #{map-get($display-breakpoints, 'xs-only')} {
+    .v-card__actions {
+      >div {
+        margin-right: 5px;
+      }
+    }
   }
 </style>

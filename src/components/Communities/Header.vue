@@ -43,7 +43,7 @@ export default {
     background: white;
   }
   .container {
-    height: 80px;
+    min-height: 80px;
     display: flex;
     align-items: center;
     padding-top: 0;
@@ -51,8 +51,8 @@ export default {
 
   }
   .icon {
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     background: #928ace;
     border-radius: 50%;
     margin-right: 20px;
@@ -70,15 +70,15 @@ export default {
   }
 
   @media #{map-get($display-breakpoints, 'sm-and-down')} {
-    // h2 {
-    //   font-size: 18px;
-    // }
-    // p {
-    //   font-size: 14px;
-    // }
+    .v-card__title {
+      font-size: 18px;
+    }
   }
 
   @media #{map-get($display-breakpoints, 'xs-only')} {
+     .v-card__title {
+      font-size: 16px;
+    }
     // h2 {
     //   font-size: 14px;
     // }
