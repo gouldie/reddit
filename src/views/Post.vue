@@ -1,27 +1,33 @@
 <template>
-  <v-container v-if='post'>
-    <v-row>
-      <v-col cols='12' :md='8'>
-        <v-card>
-          <PostFull
-            :post='post'
-            :showCommunity='false'
-            @vote='vote'
-            :canEdit='post.canEdit'
-            @editPost='editPost'
-            @editOnChange='editOnChange'
-            :editing='editing'
-            :toggleEdit='toggleEdit'
-          />
-          <LeaveComment />
-          <Comments :comments='comments' @vote='vote'/>
-        </v-card>
-      </v-col>
-      <v-col :md='4' v-if='$vuetify.breakpoint.mdAndUp'>
-        <CommunityInfo v-if='community' :community='community' />
-      </v-col>
-    </v-row>
-  </v-container>
+  <div>
+    <CommunityHeader
+      :border='true'
+      :community='community'
+    />
+    <v-container v-if='post'>
+      <v-row>
+        <v-col cols='12' :md='8'>
+          <v-card>
+            <PostFull
+              :post='post'
+              :showCommunity='false'
+              @vote='vote'
+              :canEdit='post.canEdit'
+              @editPost='editPost'
+              @editOnChange='editOnChange'
+              :editing='editing'
+              :toggleEdit='toggleEdit'
+            />
+            <LeaveComment />
+            <Comments :comments='comments' @vote='vote'/>
+          </v-card>
+        </v-col>
+        <v-col :md='4' v-if='$vuetify.breakpoint.mdAndUp'>
+          <CommunityInfo v-if='community' :community='community' />
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script>
@@ -29,6 +35,7 @@ import PostFull from '@/components/Posts/PostFull.vue'
 import LeaveComment from '@/components/Comments/LeaveComment.vue'
 import Comments from '@/components/Comments/Comments.vue'
 import CommunityInfo from '@/components/Communities/Info.vue'
+import CommunityHeader from '@/components/Communities/Header.vue'
 
 import axios from 'axios'
 import communities from '@/assets/json/communities.json'
@@ -39,7 +46,8 @@ export default {
     PostFull,
     LeaveComment,
     Comments,
-    CommunityInfo
+    CommunityInfo,
+    CommunityHeader
   },
   data: function () {
     return {

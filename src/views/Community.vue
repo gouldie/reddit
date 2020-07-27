@@ -2,13 +2,8 @@
   <div>
     <CommunityHeader
       :border='true'
-    >
-      <div class='icon'></div>
-      <div>
-        <h2>{{ community.title }}</h2>
-        <p>r/{{ community.name }}</p>
-      </div>
-    </CommunityHeader>
+      :community='community'
+    />
     <v-container>
       <v-row>
         <v-col cols='12' :md='8'>

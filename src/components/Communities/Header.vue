@@ -3,7 +3,11 @@
     <div v-if='border' class='border'></div>
     <div class='main'>
       <v-container>
-        <slot></slot>
+        <div class='icon'></div>
+        <v-card>
+          <v-card-title>{{ community.title }}</v-card-title>
+          <v-card-text>r/{{ community.name }}</v-card-text>
+        </v-card>
       </v-container>
     </div>
   </div>
@@ -12,13 +16,24 @@
 <script>
 export default {
   props: [
-    'border'
+    'border',
+    'community'
   ]
 }
 </script>
 
 <style lang="scss" scoped>
   @import '~vuetify/src/styles/styles.sass';
+  .v-card {
+    box-shadow: none;
+  }
+  .v-card__title {
+    font-size: 24px;
+    padding: 0;
+  }
+  .v-card__text {
+    padding: 0;
+  }
 
   .border {
     height: 80px;
@@ -38,14 +53,14 @@ export default {
   .icon {
     width: 70px;
     height: 70px;
-    background: maroon;
+    background: #928ace;
     border-radius: 50%;
     margin-right: 20px;
     flex-shrink: 0;
   }
-  p {
-    margin: 0;
-  }
+  // p {
+  //   margin: 0;
+  // }
   span {
     color: var(--v-info-darken1);
     margin-right: 2px;
@@ -55,21 +70,21 @@ export default {
   }
 
   @media #{map-get($display-breakpoints, 'sm-and-down')} {
-    h2 {
-      font-size: 18px;
-    }
-    p {
-      font-size: 14px;
-    }
+    // h2 {
+    //   font-size: 18px;
+    // }
+    // p {
+    //   font-size: 14px;
+    // }
   }
 
   @media #{map-get($display-breakpoints, 'xs-only')} {
-    h2 {
-      font-size: 14px;
-    }
-    p {
-      font-size: 12px;
-    }
+    // h2 {
+    //   font-size: 14px;
+    // }
+    // p {
+    //   font-size: 12px;
+    // }
     .icon {
       width: 50px;
       height: 50px;

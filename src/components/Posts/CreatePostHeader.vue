@@ -3,7 +3,7 @@
     <div class='create-post-container'>
       <v-card-actions>
         <router-link to='/settings'>
-          <Icon label='Settings' icon='face' />
+          <Icon label='User Settings' icon='face' />
         </router-link>
       </v-card-actions>
       <router-link to='/posts/create' style='flex: 1'>
