@@ -32,3 +32,8 @@ export const LogIn = Joi.object().keys({
   username,
   password
 })
+
+export const ChangePassword = Joi.object().keys({
+  currentPassword: password.label('Current password'),
+  newPassword: password.label('New password')
+})

@@ -46,7 +46,7 @@ app.use(function (err, req, res, next) {
 
   res.json({
     success: false,
-    message: 'An internal error occurred.'
+    message: typeof err === 'string' ? err : 'An internal error occurred.'
   })
 })
 

@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import cuid from 'cuid'
 import User from '../models/User'
-import { Register, LogIn } from '../validators/users'
+import { Register, LogIn, ChangePassword } from '../validators/users'
 
 export const user = async (req, res) => {
   const token = req.cookies.token
@@ -55,4 +55,23 @@ export const login = async (req, res) => {
 export const logout = (req, res) => {
   res.clearCookie('token')
   return res.status(200).json({ success: true })
+}
+
+export const changePassword = async (req, res) => {
+  const { error } = ChangePassword.validate(req.body, { abortEarly: true })
+
+  if (error) {
+    return res.json({ success: false, message: error.details[0].message })
+  }
+
+  const user = await User.findOne({ _id: req.userId })
+  if (!user.matchesPassword(req.body.currentPassword)) return res.json({ success: false, message: 'Incorrect password' })
+
+  user.password = req.body.newPassword
+  await user.save()
+  // await User.updateOne({ _id: req.userId }, { $set: { password: req.body.newPassword } })
+
+  return res.json({
+    success: true
+  })
 }

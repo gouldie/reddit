@@ -7,12 +7,7 @@ var UserSchema = new Schema({
     type: String,
     unique: true,
     required: true,
-    trim: true,
-    validate: [
-      async email =>
-        !(await User.exists({ email })),
-      'Email is already taken.'
-    ]
+    trim: true
   },
   password: {
     type: String,
@@ -22,16 +17,17 @@ var UserSchema = new Schema({
     type: String,
     required: true,
     trim: true,
-    unique: true,
-    validate: [
-      async username =>
-        !(await User.exists({ username })),
-      'Username is already taken.'
-    ]
+    unique: true
   }
 }, { versionKey: false })
 
-UserSchema.pre('save', function () {
+UserSchema.pre('save', async function (next) {
+  const emailExists = await User.exists({ email: this.email, _id: { $ne: this._id } })
+  if (emailExists) return next('Email already exists')
+
+  const usernameExists = await User.exists({ username: new RegExp(`^${this.username}$`, 'i'), _id: { $ne: this._id } })
+  if (usernameExists) return next('Username already exists')
+
   if (this.isModified('password')) {
     this.password = User.hash(this.password)
   }

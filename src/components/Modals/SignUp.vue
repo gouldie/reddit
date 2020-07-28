@@ -126,7 +126,7 @@ export default {
     padding: 20px 24px !important;
   }
   form {
-    padding: 0 24px 20px;
+    padding: 0 24px 10px;
   }
   .error-text {
     padding-top: 0 !important;

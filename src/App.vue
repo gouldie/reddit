@@ -50,6 +50,9 @@ export default {
   .v-card__text {
     font-size: 14px;
   }
+  .v-input {
+    font-size: 14px;
+  }
 
   @media #{map-get($display-breakpoints, 'sm-and-up')} {
     .container {
