@@ -29,6 +29,7 @@ export default {
 <style lang="scss" scoped>
   .container {
     max-width: 600px !important;
+    padding: 24px 12px;
   }
   .v-card__title {
     margin-bottom: 20px;
