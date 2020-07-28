@@ -18,7 +18,7 @@ export default {
       dropzoneOptions: {
         url: 'https://httpbin.org/post',
         thumbnailWidth: 150,
-        maxFilesize: 0.5,
+        maxFilesize: 1,
         headers: { 'My-Awesome-Header': 'header value' },
         uploadMultiple: false,
         maxFiles: 1,
