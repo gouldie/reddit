@@ -7,7 +7,7 @@
     <v-container>
       <v-row>
         <v-col cols='12' :md='8'>
-          <CreatePostHeader v-if='isAuthenticated' />
+          <CreatePostHeader v-if='isAuthenticated' :community='community.name' />
           <PostFilter :sort='sort' @selectSort='selectSort' />
           <PostList :posts='posts' @vote='vote' />
         </v-col>

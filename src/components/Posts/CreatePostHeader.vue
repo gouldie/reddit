@@ -6,7 +6,7 @@
           <Icon label='User Settings' icon='face' />
         </router-link>
       </v-card-actions>
-      <router-link to='/posts/create' style='flex: 1'>
+      <router-link :to='`/posts/create/${community || ""}`' style='flex: 1'>
         <v-text-field
           color='rgba(150, 150, 150, 55)'
           placeholder="Create Post"
@@ -18,11 +18,11 @@
       </router-link>
       <v-card-actions>
 
-        <router-link to='/posts/create?tab=1'>
+        <router-link :to='`/posts/create/${community || ""}?tab=1`'>
           <Icon label='Create Media Post' icon='add_photo_alternate' />
         </router-link>
 
-        <router-link to='/posts/create?tab=2'>
+        <router-link :to='`/posts/create/${community || ""}?tab=2`'>
           <Icon label='Create Link Post' icon='link' />
         </router-link>
       </v-card-actions>
@@ -33,6 +33,9 @@
 <script>
 import Icon from '@/components/Core/Icon.vue'
 export default {
+  props: [
+    'community'
+  ],
   components: {
     Icon
   }

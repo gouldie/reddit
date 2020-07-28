@@ -150,7 +150,7 @@ export default {
   }
   .post-image {
     width: 90%;
-    margin: 0 auto 10px;
+    margin: 10px auto 0;
     border-radius: 3px;
     img {
       max-width: 100%;
