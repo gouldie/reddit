@@ -1,7 +1,7 @@
 import Joi from '@hapi/joi'
 
 // In a production app this would be retrieved from the database / validated at the model
-const validCommunityIds = ['1', '2', '3']
+const validCommunityIds = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
 const validSorts = ['Best', 'Hot', 'Top', 'New']
 
 const postId = Joi.string()

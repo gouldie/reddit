@@ -92,7 +92,7 @@ export const createTextPost = async (req, res) => {
 
   const { title, text, communityId } = req.body
 
-  await Post.create({
+  const post = await Post.create({
     _id: cuid(),
     title,
     text,
@@ -102,7 +102,8 @@ export const createTextPost = async (req, res) => {
   })
 
   return res.json({
-    success: true
+    success: true,
+    id: post._id
   })
 }
 
@@ -115,7 +116,7 @@ export const createImagePost = async (req, res) => {
 
   const { title, image, communityId } = req.body
 
-  await Post.create({
+  const post = await Post.create({
     _id: cuid(),
     title,
     image,
@@ -125,7 +126,8 @@ export const createImagePost = async (req, res) => {
   })
 
   return res.json({
-    success: true
+    success: true,
+    id: post._id
   })
 }
 
@@ -144,7 +146,7 @@ export const createLinkPost = async (req, res) => {
   })
   const metadata = await metascraper({ html, url })
 
-  await Post.create({
+  const post = await Post.create({
     _id: cuid(),
     title,
     link,
@@ -155,7 +157,8 @@ export const createLinkPost = async (req, res) => {
   })
 
   return res.json({
-    success: true
+    success: true,
+    id: post._id
   })
 }
 

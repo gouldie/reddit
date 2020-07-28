@@ -162,7 +162,7 @@ export default {
         .then(res => {
           if (res.data.success) {
             // todo: redirect to submitted post
-            window.location.href = '/'
+            window.location.href = `/post/${res.data.id}`
             return
           }
 
