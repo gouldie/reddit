@@ -136,6 +136,9 @@ export default {
   .post-time {
     font-weight: lighter;
   }
+  .post-text {
+    white-space: pre-line;
+  }
   .post-link {
     cursor: pointer;
     padding-top: 0;

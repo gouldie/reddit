@@ -86,6 +86,9 @@ export default {
     font-weight: lighter;
     margin-right: 10px;
   }
+  .post-text {
+    white-space: pre-line;
+  }
   .post-time {
     font-weight: lighter;
   }
