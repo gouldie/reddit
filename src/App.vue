@@ -52,6 +52,9 @@ export default {
   }
   .v-input {
     font-size: 14px;
+    label {
+      font-size: 14px;
+    }
   }
 
   @media #{map-get($display-breakpoints, 'sm-and-up')} {

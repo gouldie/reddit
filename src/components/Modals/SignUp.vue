@@ -123,13 +123,15 @@ export default {
 
 <style scoped lang="scss">
   .v-card__text {
-    padding: 20px 24px !important;
+    padding: 20px 24px 10px !important;
   }
   form {
-    padding: 0 24px 10px;
+    padding: 0 24px 20px;
   }
   .error-text {
     padding-top: 0 !important;
     color: red !important;
+    position: relative;
+    top: -10px;
   }
 </style>
