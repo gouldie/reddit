@@ -1,5 +1,3 @@
-// https://docs.cypress.io/api/introduction/api.html
-
 describe('page display on large size screen', () => {
   beforeEach(() => {
     cy.viewport(1264, 1000)

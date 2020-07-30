@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <div class='create-post-container'>
+    <div class='create-post-container' data-testid='create-post-container'>
       <v-card-actions>
         <router-link to='/settings'>
           <Icon label='User Settings' icon='face' />

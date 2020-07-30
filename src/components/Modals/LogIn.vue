@@ -16,6 +16,7 @@
         <v-form id='myForm' ref="form" v-model="valid" lazy-validation @submit.prevent='submit'>
           <v-text-field
             label="Username"
+            name='username'
             v-model="username"
             :rules="usernameRules"
             color='grey'
@@ -24,6 +25,7 @@
           </v-text-field>
           <v-text-field
             label="Password"
+            name='password'
             v-model="password"
             :rules='passwordRules'
             color='grey'
