@@ -1,9 +1,9 @@
 // https://docs.cypress.io/api/introduction/api.html
 
 describe('page display on large size screen', () => {
-  before(() => {
-    cy.visit('/')
+  beforeEach(() => {
     cy.viewport(1264, 1000)
+    cy.visit('/')
     cy.server()
     cy.route({
       method: 'GET', // Route all GET requests
@@ -35,5 +35,26 @@ describe('page display on large size screen', () => {
     cy.visit('/')
 
     cy.get('[data-testid=hamburger-menu]').should('be.visible')
+  })
+})
+
+describe('page display on xs size screen', () => {
+  beforeEach(() => {
+    cy.viewport(350, 1000)
+    cy.visit('/')
+    cy.server()
+    cy.route({
+      method: 'GET', // Route all GET requests
+      url: '/api/posts?sort=Best', // that have a URL that matches '/users/*'
+      response: 'fixture:posts.json' // and force the response to be: []
+    })
+  })
+
+  it('does display hamburger menu', () => {
+    cy.get('[data-testid=hamburger-menu]').should('be.visible')
+  })
+
+  it('does display single column layout', () => {
+    cy.get('.row').children().should('have.length', 1)
   })
 })
