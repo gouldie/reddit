@@ -1,7 +1,6 @@
 // https://docs.cypress.io/api/introduction/api.html
 
 describe('page display on large size screen', () => {
-  console.log('test', Cypress.env('test'))
   before(() => {
     cy.visit('/')
     cy.viewport(1264, 1000)
@@ -25,8 +24,6 @@ describe('page display on large size screen', () => {
   it('displays hamburger menu when logged in', () => {
     const username = String(Cypress.env('username'))
     const password = String(Cypress.env('password'))
-
-    console.log('test', username, password, typeof username)
 
     cy.request('POST', '/api/users/login', {
       username,
