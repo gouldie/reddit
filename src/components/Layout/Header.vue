@@ -4,10 +4,10 @@
 
     <v-spacer></v-spacer>
 
-    <v-menu offset-y min-width="100">
+    <v-menu offset-y min-width="100" v-if='showHamburgerMenu'>
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-          v-if='isAuthenticated || $vuetify.breakpoint.xs'
+          data-testid='hamburger-menu'
           dark
           icon
           v-bind="attrs"
@@ -28,7 +28,7 @@
       </v-list>
     </v-menu>
 
-    <div v-if='!isAuthenticated && $vuetify.breakpoint.smAndUp'>
+    <div v-if='!showHamburgerMenu'>
       <LogInButton />
       <SignUpButton />
     </div>
@@ -90,6 +90,9 @@ export default {
   computed: {
     isAuthenticated () {
       return this.$store.state.isAuthenticated
+    },
+    showHamburgerMenu () {
+      return this.isAuthenticated || this.$vuetify.breakpoint.xsOnly
     }
   }
 }
