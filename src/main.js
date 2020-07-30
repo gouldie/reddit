@@ -4,14 +4,10 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
 import axios from 'axios'
-import wysiwyg from 'vue-wysiwyg'
-
-import 'vue-wysiwyg/dist/vueWysiwyg.css'
 
 // Importing the global css file
 import '@/assets/global.css'
 
-Vue.use(wysiwyg, {})
 Vue.config.productionTip = false
 
 axios.get('/api/users/me')
