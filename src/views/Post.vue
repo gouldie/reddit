@@ -1,32 +1,35 @@
 <template>
   <div>
-    <CommunityHeader
-      :border='true'
-      :community='community'
-    />
-    <v-container v-if='post'>
-      <v-row>
-        <v-col cols='12' :md='8'>
-          <v-card>
-            <PostFull
-              :post='post'
-              :showCommunity='false'
-              @vote='vote'
-              :canEdit='post.canEdit'
-              @editPost='editPost'
-              @editOnChange='editOnChange'
-              :editing='editing'
-              :toggleEdit='toggleEdit'
-            />
-            <LeaveComment />
-            <Comments :comments='comments' @vote='vote'/>
-          </v-card>
-        </v-col>
-        <v-col :md='4' v-if='$vuetify.breakpoint.mdAndUp'>
-          <CommunityInfo v-if='community' :community='community' />
-        </v-col>
-      </v-row>
-    </v-container>
+    <NotFound v-if='postNotFound' resource='post' />
+    <div v-if='post'>
+      <CommunityHeader
+        :border='true'
+        :community='community'
+      />
+      <v-container v-if='post'>
+        <v-row>
+          <v-col cols='12' :md='8'>
+            <v-card>
+              <PostFull
+                :post='post'
+                :showCommunity='false'
+                @vote='vote'
+                :canEdit='post.canEdit'
+                @editPost='editPost'
+                @editOnChange='editOnChange'
+                :editing='editing'
+                :toggleEdit='toggleEdit'
+              />
+              <LeaveComment />
+              <Comments :comments='comments' @vote='vote'/>
+            </v-card>
+          </v-col>
+          <v-col :md='4' v-if='$vuetify.breakpoint.mdAndUp'>
+            <CommunityInfo v-if='community' :community='community' />
+          </v-col>
+        </v-row>
+      </v-container>
+    </div>
   </div>
 </template>
 
@@ -36,6 +39,7 @@ import LeaveComment from '@/components/Comments/LeaveComment.vue'
 import Comments from '@/components/Comments/Comments.vue'
 import CommunityInfo from '@/components/Communities/Info.vue'
 import CommunityHeader from '@/components/Communities/Header.vue'
+import NotFound from '@/components/Core/NotFound.vue'
 
 import axios from 'axios'
 import communities from '@/assets/json/communities.json'
@@ -47,10 +51,12 @@ export default {
     LeaveComment,
     Comments,
     CommunityInfo,
-    CommunityHeader
+    CommunityHeader,
+    NotFound
   },
   data: function () {
     return {
+      postNotFound: false,
       post: null,
       error: null,
       community: {},
@@ -77,6 +83,7 @@ export default {
         .then(res => {
           if (!res.data.success) {
             this.error = res.data.message
+            this.postNotFound = true
             return
           }
 
@@ -85,6 +92,8 @@ export default {
           res.data.post.communityName = community.name
           this.post = res.data.post
           this.community = community
+
+          this.getComments()
         })
     },
     getComments () {
@@ -143,7 +152,6 @@ export default {
   },
   mounted () {
     this.getPost()
-    this.getComments()
   }
 }
 </script>
