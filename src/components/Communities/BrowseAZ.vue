@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title>Browse Communities A-Z</v-card-title>
     <div class='az-container'>
-      <span v-for='letter in letters' :key='letter' @click='$router.push(`/communities/directory/${letter}`)'>
+      <span v-for='letter in letters' :key='letter' @click='$router.push(`/communities/directory/${letter === "#" ? "no" : letter}`)'>
         {{ letter }}
       </span>
     </div>

@@ -35,13 +35,20 @@ export default {
   data: function () {
     return {
       letters: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '#'],
-      letter: (this.$route.params.letter && this.$route.params.letter.toUpperCase()) || 'A',
+      letter: this.initializeLetter(),
       communities
     }
   },
   methods: {
     setLetter (letter) {
       this.letter = letter
+    },
+    initializeLetter () {
+      if (this.$route.params.letter) {
+        if (this.$route.params.letter === 'no') return '#'
+        return this.$route.params.letter.toUpperCase()
+      }
+      return 'A'
     }
   },
   computed: {
@@ -53,6 +60,7 @@ export default {
       })
     }
   }
+
 }
 </script>
 
