@@ -44,5 +44,10 @@ export default [
     path: '/communities/directory/:letter?',
     name: 'Community Directory',
     component: () => import('@/views/CommunityDirectory.vue')
+  },
+  {
+    path: '*',
+    name: '404',
+    component: () => import('@/views/404.vue')
   }
 ]
