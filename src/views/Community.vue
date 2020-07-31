@@ -1,21 +1,24 @@
 <template>
   <div>
-    <CommunityHeader
-      :border='true'
-      :community='community'
-    />
-    <v-container>
-      <v-row>
-        <v-col cols='12' :md='8'>
-          <CreatePostHeader v-if='isAuthenticated' :community='community.name' />
-          <PostFilter :sort='sort' @selectSort='selectSort' />
-          <PostList :posts='posts' @vote='vote' />
-        </v-col>
-        <v-col :md='4' v-if='$vuetify.breakpoint.mdAndUp'>
-          <CommunityInfo :community='community' />
-        </v-col>
-      </v-row>
-    </v-container>
+    <NotFound v-if='!community' resource='community' />
+    <div v-if='community'>
+      <CommunityHeader
+        :border='true'
+        :community='community'
+      />
+      <v-container>
+        <v-row>
+          <v-col cols='12' :md='8'>
+            <CreatePostHeader v-if='isAuthenticated' :community='community.name' />
+            <PostFilter :sort='sort' @selectSort='selectSort' />
+            <PostList :posts='posts' @vote='vote' />
+          </v-col>
+          <v-col :md='4' v-if='$vuetify.breakpoint.mdAndUp'>
+            <CommunityInfo :community='community' />
+          </v-col>
+        </v-row>
+      </v-container>
+    </div>
   </div>
 </template>
 
@@ -29,6 +32,7 @@ import PostList from '@/components/Posts/PostList.vue'
 import communities from '@/assets/json/communities.json'
 import axios from 'axios'
 import { calculateVote } from '@/utils.js'
+import NotFound from '@/components/Core/NotFound.vue'
 
 export default {
   name: 'Community',
@@ -37,7 +41,8 @@ export default {
     PostFilter,
     PostList,
     CommunityInfo,
-    CommunityHeader
+    CommunityHeader,
+    NotFound
   },
   data: function () {
     return {
@@ -87,7 +92,9 @@ export default {
     }
   },
   mounted () {
-    this.getPosts()
+    if (this.community) {
+      this.getPosts()
+    }
   }
 }
 </script>
