@@ -25,7 +25,7 @@ export default {
 <style lang="scss" scoped>
   @import '~vuetify/src/styles/styles.sass';
   .v-card {
-    box-shadow: none;
+    box-shadow: none !important;
   }
   .v-card__title {
     font-size: 24px;
