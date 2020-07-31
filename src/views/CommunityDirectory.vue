@@ -70,8 +70,11 @@ export default {
   .az-container {
     background: #fff;
     .v-card__title {
-      padding-bottom: 8px;
+      padding: 8px 16px;
       font-size: 20px;
+    }
+    .container {
+      padding-top: 12px;
     }
   }
   .letters {
@@ -98,8 +101,13 @@ export default {
   }
 
   @media #{map-get($display-breakpoints, 'xs-only')} {
-     .az-container .v-card__title {
-      font-size: 16px;
+    .az-container {
+      .v-card__title {
+        font-size: 16px;
+      }
+      span {
+        font-size: 12px;
+      }
     }
   }
 </style>
