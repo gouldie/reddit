@@ -1,13 +1,15 @@
 <template>
   <div>
-    <CommunitiesHeader>
-      <div>
-      <h2>Community Directory</h2>
-      <span v-for='letter in letters' :key='letter' @click='setLetter(letter)'>
-        {{ letter }}
-      </span>
-      </div>
-    </CommunitiesHeader>
+    <div class='az-container'>
+      <v-container>
+        <v-card-title>Community Directory</v-card-title>
+        <div class='letters'>
+          <span v-for='letter in letters' :key='letter' @click='setLetter(letter)'>
+            {{ letter }}
+          </span>
+        </div>
+      </v-container>
+    </div>
     <v-container>
       <v-card>
         <v-card-title>
@@ -28,12 +30,8 @@
 <script>
 // @ is an alias to /src
 import communities from '@/assets/json/communities.json'
-import CommunitiesHeader from '@/components/Communities/Header.vue'
 
 export default {
-  components: {
-    CommunitiesHeader
-  },
   data: function () {
     return {
       letters: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '#'],
@@ -50,7 +48,7 @@ export default {
     filteredCommunities () {
       return this.communities.filter(c => {
         // return true
-        if (this.letter === '#') return parseInt(c.name.charAt(0)) !== 'NaN'
+        if (this.letter === '#') return !isNaN(parseInt(c.name.charAt(0)))
         return c.name.charAt(0).toUpperCase() === this.letter
       })
     }
@@ -59,6 +57,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  @import '~vuetify/src/styles/styles.sass';
+
+  .az-container {
+    background: #fff;
+    .v-card__title {
+      padding-bottom: 8px;
+      font-size: 20px;
+    }
+  }
+  .letters {
+    padding: 0 16px;
+  }
+  span {
+    cursor: pointer;
+    color: #0079d3;
+  }
   .v-card {
     padding-bottom: 10px;
   }
@@ -72,6 +86,12 @@ export default {
     padding-bottom: 0;
     span {
       cursor: pointer;
+    }
+  }
+
+  @media #{map-get($display-breakpoints, 'xs-only')} {
+     .az-container .v-card__title {
+      font-size: 16px;
     }
   }
 </style>
