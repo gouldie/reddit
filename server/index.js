@@ -4,6 +4,7 @@ import express from 'express'
 import path from 'path'
 import cookieParser from 'cookie-parser'
 import routes from './routes'
+import helmet from 'helmet'
 
 if (!process.env.SECRET) {
   console.log('SECRET is required')
@@ -11,6 +12,8 @@ if (!process.env.SECRET) {
 }
 
 const PORT = process.env.PORT || 8080
+const IN_PROD = process.env.NODE_ENV === 'production'
+console.log('Running in', IN_PROD ? 'production' : 'development')
 
 // Use native promises
 mongoose.Promise = global.Promise
@@ -22,6 +25,11 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useFindAndMod
 
 // Set up Express
 const app = express()
+
+if (IN_PROD) {
+  app.use(helmet())
+}
+
 app.use(express.json({ limit: '3mb', type: 'application/json' }))
 app.use(express.static('dist'))
 app.use(express.static('public'))
