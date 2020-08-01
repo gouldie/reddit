@@ -21,7 +21,7 @@ default port 3000
 Production
 
 ```
-npm install
+npm install --prod
 npm run build
 npm run server
 default port 8080
