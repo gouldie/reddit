@@ -51,7 +51,6 @@ export default {
         })
     },
     onChange (e) {
-      console.log('e')
       this.comment = e
     }
   }

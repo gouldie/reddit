@@ -11,5 +11,18 @@ module.exports = {
   },
   transpileDependencies: [
     'vuetify'
-  ]
+  ],
+  configureWebpack: {
+    optimization: {
+      splitChunks: {
+        minSize: 10000,
+        maxSize: 240000
+      }
+    },
+    performance: {
+      maxEntrypointSize: 1512000,
+      maxAssetSize: 512000
+    }
+  }
+
 }
