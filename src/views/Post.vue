@@ -6,8 +6,9 @@
         :border='true'
         :community='community'
       />
-      <v-container v-if='post'>
-        <v-row>
+      <v-container>
+        <Spinner v-if='loading' />
+        <v-row v-if='!loading'>
           <v-col cols='12' :md='8'>
             <v-card>
               <PostFull
@@ -40,6 +41,7 @@ import Comments from '@/components/Comments/Comments.vue'
 import CommunityInfo from '@/components/Communities/Info.vue'
 import CommunityHeader from '@/components/Communities/Header.vue'
 import NotFound from '@/components/Core/NotFound.vue'
+import Spinner from '@/components/Core/Spinner.vue'
 
 import axios from 'axios'
 import communities from '@/assets/json/communities.json'
@@ -52,7 +54,8 @@ export default {
     Comments,
     CommunityInfo,
     CommunityHeader,
-    NotFound
+    NotFound,
+    Spinner
   },
   data: function () {
     return {
@@ -61,7 +64,8 @@ export default {
       error: null,
       community: {},
       comments: [],
-      editing: false
+      editing: false,
+      loading: true
     }
   },
   methods: {
@@ -104,6 +108,7 @@ export default {
             return
           }
 
+          this.loading = false
           this.comments = res.data.comments
         })
     },

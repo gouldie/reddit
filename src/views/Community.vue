@@ -7,7 +7,8 @@
         :community='community'
       />
       <v-container>
-        <v-row>
+        <Spinner v-if='loading' />
+        <v-row v-if='!loading'>
           <v-col cols='12' :md='8'>
             <CreatePostHeader v-if='isAuthenticated' :community='community.name' />
             <PostFilter :sort='sort' @selectSort='selectSort' />
@@ -29,6 +30,7 @@ import CommunityHeader from '@/components/Communities/Header.vue'
 import CreatePostHeader from '@/components/Posts/CreatePostHeader.vue'
 import PostFilter from '@/components/Posts/PostFilter.vue'
 import PostList from '@/components/Posts/PostList.vue'
+import Spinner from '@/components/Core/Spinner.vue'
 import communities from '@/assets/json/communities.json'
 import axios from 'axios'
 import { calculateVote } from '@/utils.js'
@@ -42,13 +44,15 @@ export default {
     PostList,
     CommunityInfo,
     CommunityHeader,
-    NotFound
+    NotFound,
+    Spinner
   },
   data: function () {
     return {
       communities,
       sort: 'Best',
-      posts: []
+      posts: [],
+      loading: true
     }
   },
   methods: {
@@ -70,6 +74,7 @@ export default {
         }
       })
         .then(res => {
+          this.loading = false
           if (res.data.success) {
             this.posts = res.data.posts.map(e => {
               const community = this.communities.find(c => c.id === e.communityId)
