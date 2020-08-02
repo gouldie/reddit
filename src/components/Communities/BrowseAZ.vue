@@ -20,6 +20,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .v-card {
+    min-height: auto !important;
+  }
   span {
     color: var(--v-info-darken1);
     cursor: pointer;

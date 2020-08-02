@@ -22,24 +22,24 @@
   },
   {
     "id": "4",
-    "name": "smashbros",
-    "title": "Super Smash Bros.",
-    "description": "Welcome to Reddit's finest Smash Bros community",
-    "category": "Gaming"
+    "name": "learnprogramming",
+    "title": "learn programming",
+    "description": "A subreddit for all questions related to programming in any language.",
+    "category": "Tech"
   },
   {
     "id": "5",
-    "name": "wow",
-    "title": "World of Warcraft",
-    "description": "World of Warcraft on Reddit!",
-    "category": "Gaming"
+    "name": "vuejs",
+    "title": "Vue.js - The progressive Javascript framework",
+    "description": "Vue.js is a library for building interactive web interfaces. It provides data-reactive components with a simple and flexible API.",
+    "category": "Tech"
   },
   {
     "id": "6",
-    "name": "Overwatch",
-    "title": "Overwatch",
-    "description": "Subreddit for all things Overwatch™, the team-based shooter from Blizzard Entertainment.",
-    "category": "Gaming"
+    "name": "reactjs",
+    "title": "/r/ReactJS - The Front Page of React",
+    "description": "A community for learning and developing web applications using React by Facebook.",
+    "category": "Tech"
   },
   {
     "id": "7",
