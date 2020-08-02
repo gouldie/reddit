@@ -7,12 +7,12 @@
         :community='community'
       />
       <v-container>
-        <Spinner v-if='loading' />
-        <v-row v-if='!loading'>
+        <v-row>
           <v-col cols='12' :md='8'>
             <CreatePostHeader v-if='isAuthenticated' :community='community.name' />
             <PostFilter :sort='sort' @selectSort='selectSort' />
-            <PostList :posts='posts' @vote='vote' />
+            <PostList v-if='posts' :posts='posts' @vote='vote' />
+            <Spinner v-if='!posts' />
           </v-col>
           <v-col :md='4' v-if='$vuetify.breakpoint.mdAndUp'>
             <CommunityInfo :community='community' />
@@ -51,8 +51,7 @@ export default {
     return {
       communities,
       sort: 'Best',
-      posts: [],
-      loading: true
+      posts: null
     }
   },
   methods: {
@@ -67,6 +66,7 @@ export default {
       })
     },
     getPosts () {
+      this.posts = null
       axios.get('/api/posts', {
         params: {
           communityId: this.community.id,
@@ -74,7 +74,6 @@ export default {
         }
       })
         .then(res => {
-          this.loading = false
           if (res.data.success) {
             this.posts = res.data.posts.map(e => {
               const community = this.communities.find(c => c.id === e.communityId)
