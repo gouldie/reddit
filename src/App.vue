@@ -47,7 +47,7 @@ export default {
     font-weight: 500;
     font-size: 16px;
   }
-  .v-card__text {
+  .v-card__text, a {
     font-size: 14px;
   }
   .v-input {
@@ -70,7 +70,7 @@ export default {
     .v-card__subtitle {
       font-size: 14px;
     }
-    .v-card__text {
+    .v-card__text, a {
       font-size: 12px;
     }
     .v-input {

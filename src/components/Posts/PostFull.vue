@@ -1,53 +1,53 @@
 <template>
-<div>
-  <div class='post-container'>
-    <VotePanel :post='post' v-on="$listeners" />
-    <div class='post-content-container'>
-      <div>
-        <v-card-text class='post-header'>
-          <Avatar v-if='showCommunity && $vuetify.breakpoint.smAndUp' />
-          <span v-if='showCommunity'><a @click.stop='$router.push("/r/" + post.communityName)'><span class='post-community'>{{ `r/${post.communityName}` }}</span></a></span>
-          <span class='post-user'>Posted by u/{{ post.user.username }}</span>
-          <span class='post-time'>{{ formattedTime(post.createdAt) }}</span>
-        </v-card-text>
-        <v-card-title>
-          {{ post.title }}
-        </v-card-title>
-        <v-card-text v-if='post.text && !isEditing' class='post-text'>
-          {{ post.text }}
-        </v-card-text>
+  <div>
+    <div class='post-container'>
+      <VotePanel :post='post' v-on="$listeners" />
+      <div class='post-content-container'>
+        <div>
+          <v-card-text class='post-header'>
+            <Avatar v-if='showCommunity && $vuetify.breakpoint.smAndUp' />
+            <span v-if='showCommunity'><a @click.stop='$router.push("/r/" + post.communityName)'><span class='post-community'>{{ `r/${post.communityName}` }}</span></a></span>
+            <span class='post-user'>Posted by u/{{ post.user.username }}</span>
+            <span class='post-time'>{{ formattedTime(post.createdAt) }}</span>
+          </v-card-text>
+          <v-card-title>
+            {{ post.title }}
+          </v-card-title>
+          <v-card-text v-if='post.text && !isEditing' class='post-text'>
+            {{ post.text }}
+          </v-card-text>
 
-        <div v-if='post.image && !isEditing' class='post-image'>
-          <img :src='post.image' />
+          <div v-if='post.image && !isEditing' class='post-image'>
+            <img :src='post.image' />
+          </div>
+
+          <a :href='createLink' target='_blank' v-if='post.link && !isEditing'>
+            {{ post.link }}
+          </a>
+
+          <div :class='isEditing && "editing-container"'>
+            <TextField v-if='post.text && isEditing' :value='editing' @onChange='editOnChange' placeholder='Text (optional)' :area='true' />
+            <DropZone v-if='post.image && isEditing' @addImage='addImage' :initialImage='post.image' />
+            <TextField v-if='post.link && isEditing' :value='editing' @onChange='editOnChange' placeholder='Url' />
+          </div>
+
         </div>
-
-        <v-card-text v-if='post.link && !isEditing' class='post-link' @click.stop='clickLink(post.link)'>
-          {{ post.link }}
-        </v-card-text>
-
-        <div :class='isEditing && "editing-container"'>
-          <TextField v-if='post.text && isEditing' :value='editing' @onChange='editOnChange' placeholder='Text (optional)' :area='true' />
-          <DropZone v-if='post.image && isEditing' @addImage='addImage' :initialImage='post.image' />
-          <TextField v-if='post.link && isEditing' :value='editing' @onChange='editOnChange' placeholder='Url' />
-        </div>
-
+        <LinkPreview v-if='post.link' :link='createLink' :preview='post.linkPreview' />
       </div>
-      <LinkPreview v-if='post.link' :post='post' @clickLink='clickLink' />
-    </div>
 
-    <DeletePost :postId='post._id' />
+      <DeletePost :postId='post._id' />
+    </div>
+    <v-card-actions v-if='canEdit' class='post-actions-container'>
+      <div>
+        <VotePanel :post='post' :mobile='true' v-on="$listeners" />
+        <v-card-text :class='isEditing && "selected"' @click='toggleEdit'><v-icon small>edit</v-icon> Edit</v-card-text>
+        <v-card-text @click.stop="$store.commit('setModal', 'delete-post')"><v-icon small>delete</v-icon> Delete</v-card-text>
+      </div>
+      <div>
+        <v-card-text v-if='isEditing' @click='editPost'><v-icon small>save</v-icon> Save</v-card-text>
+      </div>
+    </v-card-actions>
   </div>
-  <v-card-actions v-if='canEdit' class='post-actions-container'>
-          <div>
-            <VotePanel :post='post' :mobile='true' v-on="$listeners" />
-            <v-card-text :class='isEditing && "selected"' @click='toggleEdit'><v-icon small>edit</v-icon> Edit</v-card-text>
-            <v-card-text @click.stop="$store.commit('setModal', 'delete-post')"><v-icon small>delete</v-icon> Delete</v-card-text>
-          </div>
-          <div>
-            <v-card-text v-if='isEditing' @click='editPost'><v-icon small>save</v-icon> Save</v-card-text>
-          </div>
-        </v-card-actions>
-        </div>
 </template>
 
 <script>
@@ -97,18 +97,18 @@ export default {
       reader.onload = (event) => {
         this.$emit('editOnChange', event.target.result)
       }
-    },
-    clickLink (url) {
-      if (!url.startsWith('http')) {
-        window.open('http://' + url)
-      } else {
-        window.open(url)
-      }
     }
   },
   computed: {
     isEditing () {
       return this.editing || this.editing === ''
+    },
+    createLink () {
+      if (!this.post.link.startsWith('http')) {
+        return 'http://' + this.post.link
+      } else {
+        return this.post.link
+      }
     }
   }
 }
@@ -139,10 +139,11 @@ export default {
   .post-text {
     white-space: pre-line;
   }
-  .post-link {
-    cursor: pointer;
-    padding-top: 0;
+  a {
+    display: inline-block;
+    padding: 0 16px;
     color: #65ade4;
+    text-decoration: none;
     word-break: break-all;
     &:hover {
       text-decoration: underline;
@@ -163,11 +164,6 @@ export default {
   }
   i {
     cursor: pointer;
-  }
-  a {
-    text-decoration: none;
-    color: black !important;
-    z-index: 99999;
   }
   .editing-container {
     padding: 5px 16px 10px 16px;

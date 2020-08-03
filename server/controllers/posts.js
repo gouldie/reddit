@@ -2,10 +2,11 @@ import cuid from 'cuid'
 import Post from '../models/Post'
 import { CreateTextPost, CreateImagePost, CreateLinkPost, GetPost, GetPosts, Vote, EditPost, DeletePost } from '../validators/posts'
 import sortBy from '../utils/sort'
+import got from 'got'
+
 const metascraper = require('metascraper')([
   require('metascraper-image')()
 ])
-const got = require('got')
 
 export const getPosts = async (req, res) => {
   const { error } = GetPosts.validate(req.query, { abortEarly: true })

@@ -1,14 +1,15 @@
 <template>
-  <div class='link-preview' v-if='post.link' :style='`background-image: url(${post.linkPreview});`' @click.stop='$emit("clickLink", post.link)'>
-    <v-icon class='link-preview-center' color='blue' v-if='!post.linkPreview'>link</v-icon>
+  <a :href='link' target='_blank' :style='`background-image: url(${preview});`' @click.stop>
+    <v-icon class='link-preview-center' color='blue' v-if='!preview'>link</v-icon>
     <v-icon class='link-preview-corner' color='blue' small>link</v-icon>
-  </div>
+  </a>
 </template>
 
 <script>
 export default {
   props: [
-    'post'
+    'link',
+    'preview'
   ]
 }
 </script>
@@ -16,7 +17,7 @@ export default {
 <style lang="scss" scoped>
   @import '~vuetify/src/styles/styles.sass';
 
-  .link-preview {
+  a {
     display: flex;
     justify-content: center;
     min-width: 100px;
@@ -42,7 +43,7 @@ export default {
     }
   }
   @media #{map-get($display-breakpoints, 'xs-only')} {
-    .link-preview {
+    a {
       left: 0;
       margin: 16px;
       min-width: 75px;

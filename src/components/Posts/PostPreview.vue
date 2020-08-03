@@ -18,11 +18,11 @@
         </v-card-text>
         <div v-if='post.image' class='post-image' :style='`background-image: url(${post.image});`'></div>
 
-        <v-card-text v-if='post.link' class='post-link' @click.stop='clickLink(post.link)'>
+        <a class='post-link' :href='createLink' target='_blank' v-if='post.link && !isEditing' @click.stop>
           {{ post.link }}
-        </v-card-text>
+        </a>
       </div>
-      <LinkPreview v-if='post.link' :post='post' @clickLink='clickLink' />
+      <LinkPreview v-if='post.link' :link='createLink' :preview='post.linkPreview' />
     </div>
   </div>
 </template>
@@ -46,13 +46,6 @@ export default {
   methods: {
     formattedTime (timestamp) {
       return timeago.ago(timestamp)
-    },
-    clickLink (url) {
-      if (!url.startsWith('http')) {
-        window.open('http://' + url)
-      } else {
-        window.open(url)
-      }
     }
   },
   computed: {
@@ -62,6 +55,13 @@ export default {
         return this.post.text.slice(0, 250).trim() + '...'
       }
       return this.post.text
+    },
+    createLink () {
+      if (!this.post.link.startsWith('http')) {
+        return 'http://' + this.post.link
+      } else {
+        return this.post.link
+      }
     }
   }
 }
@@ -81,6 +81,7 @@ export default {
   .post-community {
     font-weight: 500;
     margin-right: 10px;
+    color: black;
   }
   .post-user {
     font-weight: lighter;
@@ -93,9 +94,11 @@ export default {
     font-weight: lighter;
   }
   .post-link {
-    padding-top: 0;
+    padding: 0 16px 16px;
+    display: inline-block;
     color: #65ade4;
     word-break: break-all;
+    text-decoration: none;
     &:hover {
       text-decoration: underline;
     }
@@ -112,11 +115,6 @@ export default {
   }
   i {
     cursor: pointer;
-  }
-  a {
-    text-decoration: none;
-    color: black !important;
-    z-index: 99999;
   }
   .post-content-container {
     padding-right: 36px;
