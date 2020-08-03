@@ -1,8 +1,10 @@
 <template>
   <div class='post-list-container'>
-    <v-card v-for='post in posts' :key='post.id' @click.native.stop='$router.push(`/post/${post._id}`)'>
-      <PostPreview :post='post' :showCommunity='showCommunity' v-on="$listeners" />
-    </v-card>
+    <router-link :to='`/post/${post._id}`' v-for='post in posts' :key='post.id' >
+      <v-card>
+        <PostPreview :post='post' :showCommunity='showCommunity' v-on="$listeners" />
+      </v-card>
+    </router-link>
   </div>
 </template>
 
@@ -21,7 +23,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .v-card {
-    cursor: pointer;
+  // .v-card {
+  //   cursor: pointer;
+  // }
+  a {
+    text-decoration: none;
   }
 </style>

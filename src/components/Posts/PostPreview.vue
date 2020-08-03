@@ -18,7 +18,7 @@
         </v-card-text>
         <div v-if='post.image' class='post-image' :style='`background-image: url(${post.image});`'></div>
 
-        <a class='post-link' :href='createLink' target='_blank' v-if='post.link && !isEditing' @click.stop>
+        <a class='post-link' :href='createLink' target='_blank' v-if='post.link' @click.stop>
           {{ post.link }}
         </a>
       </div>
