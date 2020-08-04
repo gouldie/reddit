@@ -42,6 +42,11 @@ export const getPosts = async (req, res) => {
     return e
   })
 
+  // only show posts by the logged in user, or users 'lorem' and 'ipsum'
+  posts = posts.filter(e => {
+    return e.user._id === req.userId || ['lorem', 'ipsum'].includes(e.user.username)
+  })
+
   return res.json({
     success: true,
     posts
@@ -55,9 +60,17 @@ export const getPost = async (req, res) => {
     return res.json({ success: false, message: error.details[0].message })
   }
 
-  const post = await Post.findOne({ _id: req.params.postId }).populate('user').lean()
+  const post = await Post.findOne({ _id: req.params.postId }).populate('user', 'username').lean()
 
   if (!post) {
+    return res.json({
+      success: false,
+      message: 'Post not found'
+    })
+  }
+
+  // only show posts by the logged in user, or users 'lorem' and 'ipsum'
+  if (post.user._id !== req.userId && !['lorem', 'ipsum'].includes(post.user.username)) {
     return res.json({
       success: false,
       message: 'Post not found'

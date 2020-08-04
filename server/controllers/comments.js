@@ -25,6 +25,11 @@ export const getComments = async (req, res) => {
     return e
   })
 
+  // only show comments by the logged in user, or users 'lorem' and 'ipsum'
+  comments = comments.filter(e => {
+    return e.user._id === req.userId || ['lorem', 'ipsum'].includes(e.user.username)
+  })
+
   return res.json({
     success: true,
     comments
