@@ -5,7 +5,7 @@
       <div>
         <v-card-text class='post-header'>
           <Avatar v-if='showCommunity && $vuetify.breakpoint.smAndUp' />
-          <span v-if='showCommunity'><a @click.stop='$router.push("/r/" + post.communityName)'><span class='post-community'>{{ `r/${post.communityName}` }}</span></a></span>
+          <router-link v-if='showCommunity' class='post-community' :to='`r/${post.communityName}`'><span>r/{{post.communityName}}</span></router-link>
           <span class='post-user'>Posted by u/{{ post.user.username }}</span>
           <span class='post-time'>{{ formattedTime(post.createdAt) }}</span>
         </v-card-text>
@@ -82,6 +82,7 @@ export default {
     font-weight: 500;
     margin-right: 10px;
     color: black;
+    text-decoration: none;
   }
   .post-user {
     font-weight: lighter;
