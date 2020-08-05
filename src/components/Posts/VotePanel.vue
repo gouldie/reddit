@@ -3,7 +3,7 @@
     <v-icon
       dense
       :color='post.userVote === 1 ? "green" : ""'
-      @click.stop='vote("upvote")'
+      @click.prevent='vote("upvote")'
     >
       mdi-arrow-up-bold
     </v-icon>
@@ -11,7 +11,7 @@
     <v-icon
       dense
       :color='post.userVote === -1 ? "red" : ""'
-      @click.stop='vote("downvote")'
+      @click.prevent='vote("downvote")'
     >
       mdi-arrow-down-bold
     </v-icon>
