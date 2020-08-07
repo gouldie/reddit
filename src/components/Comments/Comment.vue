@@ -4,14 +4,14 @@
       <v-icon
         dense
         :color='comment.userVote === 1 ? "green" : ""'
-        @click.stop='$emit("vote", { type: "upvote", commentId: comment._id })'
+        @click.stop='vote("upvote")'
       >
         mdi-arrow-up-bold
       </v-icon>
       <v-icon
         dense
         :color='comment.userVote === -1 ? "red" : ""'
-        @click.stop='$emit("vote", { type: "downvote", commentId: comment._id })'
+        @click.stop='vote("downvote")'
       >
         mdi-arrow-down-bold
       </v-icon>
@@ -42,6 +42,14 @@ export default {
   methods: {
     formattedTime (timestamp) {
       return timeago.ago(timestamp)
+    },
+    vote (type) {
+      if (!this.$store.state.isAuthenticated) {
+        this.$store.commit('setModal', 'log-in')
+        return
+      }
+
+      this.$emit('vote', { type, commentId: this.comment._id })
     }
   }
 }
