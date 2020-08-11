@@ -4,7 +4,7 @@
 
 A reddit clone, deployed to https://reddit.hostman.site/
 
-- VueJS, Node, Express, MongoDB
+- Vue.js, Node.js, Express, MongoDB
 - JWT for Auth
 
 ## Installing <a name = "installing"></a>
