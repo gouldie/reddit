@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class='post-container'>
-      <VotePanel :post='post' v-on="$listeners" />
+      <VotePanel :post='post' v-on='$listeners' />
       <div class='post-content-container'>
         <div>
           <v-card-text class='post-header'>
@@ -39,9 +39,9 @@
     </div>
     <v-card-actions v-if='canEdit' class='post-actions-container'>
       <div>
-        <VotePanel :post='post' :mobile='true' v-on="$listeners" />
+        <VotePanel :post='post' :mobile='true' v-on='$listeners' />
         <v-card-text :class='isEditing && "selected"' @click='toggleEdit'><v-icon small>edit</v-icon> Edit</v-card-text>
-        <v-card-text @click.stop="$store.commit('setModal', 'delete-post')"><v-icon small>delete</v-icon> Delete</v-card-text>
+        <v-card-text @click.stop='$store.commit("setModal", "delete-post")'><v-icon small>delete</v-icon> Delete</v-card-text>
       </div>
       <div>
         <v-card-text v-if='isEditing' @click='editPost'><v-icon small>save</v-icon> Save</v-card-text>
@@ -186,10 +186,6 @@ export default {
       padding: 2px 5px;
       cursor: pointer;
       border-radius: 10px;
-
-      &:nth-of-type(2) {
-        // margin-left: 10px;
-      }
 
       &.selected {
         background: #dcdcdc;

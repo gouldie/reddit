@@ -12,7 +12,7 @@
             <CreatePostHeader v-if='isAuthenticated' :community='community.name' />
             <PostFilter :sort='sort' @selectSort='selectSort' />
             <PostList v-if='posts' :posts='posts' @vote='vote' />
-            <Spinner v-if='!posts' />
+            <!-- <Spinner v-if='!posts' /> -->
           </v-col>
           <v-col :md='4' v-if='$vuetify.breakpoint.mdAndUp'>
             <CommunityInfo :community='community' />
@@ -30,7 +30,7 @@ import CommunityHeader from '@/components/Communities/Header.vue'
 import CreatePostHeader from '@/components/Posts/CreatePostHeader.vue'
 import PostFilter from '@/components/Posts/PostFilter.vue'
 import PostList from '@/components/Posts/PostList.vue'
-import Spinner from '@/components/Core/Spinner.vue'
+// import Spinner from '@/components/Core/Spinner.vue'
 import communities from '@/assets/json/communities.json'
 import axios from 'axios'
 import { calculateVote } from '@/utils.js'
@@ -44,14 +44,14 @@ export default {
     PostList,
     CommunityInfo,
     CommunityHeader,
-    NotFound,
-    Spinner
+    NotFound
+    // Spinner
   },
   data: function () {
     return {
       communities,
       sort: 'Best',
-      posts: null
+      posts: [null, null, null, null, null]
     }
   },
   methods: {
@@ -66,7 +66,7 @@ export default {
       })
     },
     getPosts () {
-      this.posts = null
+      this.posts = [null, null, null, null, null]
       axios.get('/api/posts', {
         params: {
           communityId: this.community.id,

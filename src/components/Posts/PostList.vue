@@ -1,15 +1,29 @@
 <template>
   <div class='post-list-container'>
-    <router-link :to='`/post/${post._id}`' v-for='post in posts' :key='post.id' >
-      <v-card>
-        <PostPreview :post='post' :showCommunity='showCommunity' v-on="$listeners" />
-      </v-card>
-    </router-link>
+    <div
+      v-for='(post, i) in posts'
+      :key='post ? post.id : i'
+    >
+      <router-link
+        v-if='post'
+        :to='`/post/${post._id}`'
+      >
+        <v-card>
+          <PostPreview
+            :post='post'
+            :show-community='showCommunity'
+            v-on='$listeners'
+          />
+        </v-card>
+      </router-link>
+      <ContentLoader v-if='!post' />
+    </div>
   </div>
 </template>
 
 <script>
 import PostPreview from '@/components/Posts/PostPreview.vue'
+import ContentLoader from '@/components/Layout/ContentLoader.vue'
 
 export default {
   props: [
@@ -17,7 +31,8 @@ export default {
     'showCommunity'
   ],
   components: {
-    PostPreview
+    PostPreview,
+    ContentLoader
   }
 }
 </script>

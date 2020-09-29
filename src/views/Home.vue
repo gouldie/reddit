@@ -1,13 +1,25 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols='12' :md='8'>
+      <v-col
+        cols='12'
+        :md='8'
+      >
         <CreatePostHeader v-if='isAuthenticated' />
-        <PostFilter :sort='sort' @selectSort='selectSort' />
-        <PostList v-if='posts' :posts='posts' :showCommunity='true' @vote='vote' />
-        <Spinner v-if='!posts' />
+        <PostFilter
+          :sort='sort'
+          @selectSort='selectSort'
+        />
+        <PostList
+          :posts='posts'
+          :show-community='true'
+          @vote='vote'
+        />
       </v-col>
-      <v-col :md='4' v-if='$vuetify.breakpoint.mdAndUp'>
+      <v-col
+        v-if='$vuetify.breakpoint.mdAndUp'
+        :md='4'
+      >
         <TopGrowing :communities='communities' />
       </v-col>
     </v-row>
@@ -20,7 +32,6 @@ import TopGrowing from '@/components/Communities/Top.vue'
 import CreatePostHeader from '@/components/Posts/CreatePostHeader.vue'
 import PostFilter from '@/components/Posts/PostFilter.vue'
 import PostList from '@/components/Posts/PostList.vue'
-import Spinner from '@/components/Core/Spinner.vue'
 import communities from '@/assets/json/communities.json'
 import axios from 'axios'
 import { calculateVote } from '@/utils.js'
@@ -31,15 +42,22 @@ export default {
     CreatePostHeader,
     PostFilter,
     PostList,
-    TopGrowing,
-    Spinner
+    TopGrowing
   },
   data: function () {
     return {
       communities,
       sort: 'Best',
-      posts: null
+      posts: [null, null, null, null, null]
     }
+  },
+  computed: {
+    isAuthenticated () {
+      return this.$store.state.isAuthenticated
+    }
+  },
+  mounted () {
+    this.getPosts()
   },
   methods: {
     selectSort (sort) {
@@ -53,7 +71,7 @@ export default {
       })
     },
     getPosts () {
-      this.posts = null
+      this.posts = [null, null, null, null, null]
       axios.get('/api/posts', {
         params: {
           sort: this.sort
@@ -72,14 +90,6 @@ export default {
           }
         })
     }
-  },
-  computed: {
-    isAuthenticated () {
-      return this.$store.state.isAuthenticated
-    }
-  },
-  mounted () {
-    this.getPosts()
   }
 }
 </script>
