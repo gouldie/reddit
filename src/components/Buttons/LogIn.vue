@@ -1,5 +1,5 @@
 <template>
-  <v-btn class='log-in-button' :small='small' color='white' dark @click.stop='$store.commit(&apos;setModal&apos;, &apos;log-in&apos;)'>
+  <v-btn class='log-in-button' :small='small' color='white' dark @click.stop='$store.commit("setModal", "log-in")'>
     Log In
   </v-btn>
 </template>
