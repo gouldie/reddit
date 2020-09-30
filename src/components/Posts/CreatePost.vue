@@ -3,10 +3,10 @@
     <h3>Create a post</h3>
     <v-divider />
     <v-select
-      :items="prefixedCommunities"
+      :items='prefixedCommunities'
       item-text='name'
       item-value='id'
-      label="Choose a community"
+      label='Choose a community'
       outlined
       dense
       color='grey'
@@ -14,7 +14,7 @@
     ></v-select>
     <v-tabs
       fixed-tabs
-      background-color="indigo"
+      background-color='indigo'
       dark
       v-model='tab'
     >
@@ -69,7 +69,7 @@
             <v-btn width='100' @click='back()'>
               Cancel
             </v-btn>
-            <v-btn color='primary' width='80' @click="submit" :disabled='disabled'>
+            <v-btn color='primary' width='80' @click='submit' :disabled='disabled'>
               Post
             </v-btn>
           </v-card-actions>

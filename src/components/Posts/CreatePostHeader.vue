@@ -9,7 +9,7 @@
       <router-link :to='`/posts/create/${community || ""}`' style='flex: 1'>
         <v-text-field
           color='rgba(150, 150, 150, 55)'
-          placeholder="Create Post"
+          placeholder='Create Post'
           dense
           hide-details
           outlined

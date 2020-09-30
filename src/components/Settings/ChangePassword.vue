@@ -4,7 +4,7 @@
       <v-expansion-panel>
         <v-expansion-panel-header>Change password</v-expansion-panel-header>
         <v-expansion-panel-content>
-          <v-form ref="form" v-model="valid" lazy-validation @submit.prevent='submit'>
+          <v-form ref='form' v-model='valid' lazy-validation @submit.prevent='submit'>
             <v-text-field
               placeholder='Current password'
               v-model='currentPassword'

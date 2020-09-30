@@ -1,6 +1,6 @@
 <template>
   <div class='post-container'>
-    <VotePanel :post='post' v-on="$listeners" :greyBackground='true' />
+    <VotePanel :post='post' v-on='$listeners' :greyBackground='true' />
     <div class='post-content-container'>
       <div>
         <v-card-text class='post-header'>

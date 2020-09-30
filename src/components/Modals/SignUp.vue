@@ -1,11 +1,11 @@
 <template>
-  <div class="text-center">
+  <div class='text-center'>
     <v-dialog
-      v-model="dialog"
-      width="500"
+      v-model='dialog'
+      width='500'
     >
       <v-card>
-        <v-card-title class="headline grey lighten-2" primary-title>
+        <v-card-title class='headline grey lighten-2' primary-title>
           Sign Up
         </v-card-title>
 
@@ -13,27 +13,27 @@
           By having a Reddit account, you can join, vote, and comment on all your favorite Reddit content.
         </v-card-text>
 
-        <v-form ref="form" v-model="valid" lazy-validation @submit.prevent='submit'>
+        <v-form ref='form' v-model='valid' lazy-validation @submit.prevent='submit'>
           <v-text-field
-            label="Email"
-            v-model="email"
-            :rules="emailRules"
+            label='Email'
+            v-model='email'
+            :rules='emailRules'
             color='grey'
             @keydown='error = null'
           >
           </v-text-field>
           <v-text-field
-            label="Username"
-            v-model="username"
-            :rules="usernameRules"
+            label='Username'
+            v-model='username'
+            :rules='usernameRules'
             color='grey'
             @keydown='error = null'
           >
           </v-text-field>
           <v-text-field
-            label="Password"
-            v-model="password"
-            :rules="passwordRules"
+            label='Password'
+            v-model='password'
+            :rules='passwordRules'
             color='grey'
             @keydown='error = null'
             type='password'
@@ -50,10 +50,10 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue" text @click="dialog = false">
+          <v-btn color='blue' text @click='dialog = false'>
             Close
           </v-btn>
-          <v-btn color="blue" text @click="submit">
+          <v-btn color='blue' text @click='submit'>
             Sign Up
           </v-btn>
         </v-card-actions>

@@ -7,7 +7,7 @@
         <!-- <v-btn small @click='back()'>
           Cancel
         </v-btn> -->
-        <v-btn small color='primary' @click="submit" :disabled='!comment'>
+        <v-btn small color='primary' @click='submit' :disabled='!comment'>
           Comment
         </v-btn>
       </div>

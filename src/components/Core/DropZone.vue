@@ -1,5 +1,5 @@
 <template>
-  <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions" @vdropzone-file-added='addImage' ></vue-dropzone>
+  <vue-dropzone ref='myVueDropzone' id='dropzone' :options='dropzoneOptions' @vdropzone-file-added='addImage' ></vue-dropzone>
 </template>
 
 <script>

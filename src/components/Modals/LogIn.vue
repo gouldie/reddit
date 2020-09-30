@@ -1,11 +1,11 @@
 <template>
-  <div class="text-center">
+  <div class='text-center'>
     <v-dialog
       v-model='dialog'
-      width="500"
+      width='500'
     >
       <v-card>
-        <v-card-title class="modal-title headline grey lighten-2" primary-title>
+        <v-card-title class='modal-title headline grey lighten-2' primary-title>
           Log In
         </v-card-title>
 
@@ -13,20 +13,20 @@
           Log in to a Reddit account to join, vote, and comment on all your favorite Reddit content.
         </v-card-text>
 
-        <v-form id='myForm' ref="form" v-model="valid" lazy-validation @submit.prevent='submit'>
+        <v-form id='myForm' ref='form' v-model='valid' lazy-validation @submit.prevent='submit'>
           <v-text-field
-            label="Username"
+            label='Username'
             name='username'
-            v-model="username"
-            :rules="usernameRules"
+            v-model='username'
+            :rules='usernameRules'
             color='grey'
             @keydown='error = null'
           >
           </v-text-field>
           <v-text-field
-            label="Password"
+            label='Password'
             name='password'
-            v-model="password"
+            v-model='password'
             :rules='passwordRules'
             color='grey'
             @keydown='error = null'
@@ -44,10 +44,10 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue" text @click="dialog = false">
+          <v-btn color='blue' text @click='dialog = false'>
             Close
           </v-btn>
-          <v-btn form='myForm' color="blue" text @click="submit">
+          <v-btn form='myForm' color='blue' text @click='submit'>
             Log In
           </v-btn>
         </v-card-actions>

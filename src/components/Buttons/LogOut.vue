@@ -1,5 +1,5 @@
 <template>
-  <v-btn color="blue" dark @click="logout">
+  <v-btn color='blue' dark @click='logout'>
     Log Out
   </v-btn>
 </template>

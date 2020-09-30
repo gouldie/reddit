@@ -4,14 +4,14 @@
 
     <v-spacer></v-spacer>
 
-    <v-menu offset-y min-width="100" v-if='showHamburgerMenu'>
-      <template v-slot:activator="{ on, attrs }">
+    <v-menu offset-y min-width='100' v-if='showHamburgerMenu'>
+      <template v-slot:activator='{ on, attrs }'>
         <v-btn
           data-testid='hamburger-menu'
           dark
           icon
-          v-bind="attrs"
-          v-on="on"
+          v-bind='attrs'
+          v-on='on'
           color='black'
         >
           <v-icon>menu</v-icon>
@@ -20,8 +20,8 @@
 
       <v-list>
         <v-list-item
-          v-for="(item, i) in isAuthenticated ? itemsAuth : itemsNoAuth"
-          :key="i"
+          v-for='(item, i) in isAuthenticated ? itemsAuth : itemsNoAuth'
+          :key='i'
         >
           <v-list-item-title @click='item.action'>{{ item.title }}</v-list-item-title>
         </v-list-item>

@@ -1,11 +1,11 @@
 <template>
-  <div class="text-center">
+  <div class='text-center'>
     <v-dialog
       v-model='dialog'
-      width="500"
+      width='500'
     >
       <v-card>
-        <v-card-title class="modal-title headline grey lighten-2" primary-title>
+        <v-card-title class='modal-title headline grey lighten-2' primary-title>
           Delete post
         </v-card-title>
 
@@ -17,10 +17,10 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="green" text @click="dialog = false">
+          <v-btn color='green' text @click='dialog = false'>
             Cancel
           </v-btn>
-          <v-btn color="red" text @click="submit">
+          <v-btn color='red' text @click='submit'>
             Delete
           </v-btn>
         </v-card-actions>
