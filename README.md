@@ -26,3 +26,12 @@ npm run build
 npm run server
 default port 8080
 ```
+
+## Environment variables (.env) <a name = "env"></a>
+
+```
+MONGODB_URL=*MongoDB connection string*
+SECRET=JWT secret key
+CYPRESS_username=cypress auth testing username
+CYPRESS_password=cypress auth testing password
+```
