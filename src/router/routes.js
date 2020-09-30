@@ -26,7 +26,7 @@ export default [
     beforeEnter: requireAuth
   },
   {
-    path: '/post/:id',
+    path: '/r/:community/:id',
     name: 'View Post',
     component: () => import('@/views/Post.vue')
   },

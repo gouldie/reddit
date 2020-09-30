@@ -6,7 +6,7 @@
     >
       <router-link
         v-if='post'
-        :to='`/post/${post._id}`'
+        :to='`/r/${getCommunityName(post.communityId)}/${post._id}`'
       >
         <v-card>
           <PostPreview
@@ -24,6 +24,7 @@
 <script>
 import PostPreview from '@/components/Posts/PostPreview.vue'
 import ContentLoader from '@/components/Layout/ContentLoader.vue'
+import communitiesJSON from '@/assets/json/communities.json'
 
 export default {
   props: [
@@ -33,14 +34,16 @@ export default {
   components: {
     PostPreview,
     ContentLoader
+  },
+  methods: {
+    getCommunityName (id) {
+      return communitiesJSON.find(c => c.id === id).name
+    }
   }
 }
 </script>
 
 <style scoped lang="scss">
-  // .v-card {
-  //   cursor: pointer;
-  // }
   a {
     text-decoration: none;
   }

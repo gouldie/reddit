@@ -4,31 +4,41 @@
       <div class='ph-col-12'>
         <div class='ph-row'>
           <div class='ph-avatar' />
-          <div
-            class='ph-col-8'
-            style='flex-grow: 1; margin-top: 5px;'
-          >
+          <div class='ph-col-8' style='flex-grow: 1; margin-top: 5px;'>
             <div class='ph-row'>
               <div class='ph-col-12' />
-
               <div class='ph-col-6' />
             </div>
           </div>
 
           <div class='ph-col-12 empty' />
+
           <div class='ph-col-12' />
-
-          <div
-            class='ph-col-12'
-          />
-
+          <div class='ph-col-12'/>
           <div class='ph-col-10' />
-          <p />
+
+          <div v-if='large' class='ph-col-12 empty' />
+
+          <div v-if='large' class='ph-col-12'/>
+          <div v-if='large' class='ph-col-8'/>
+
+          <div v-if='large' class='ph-col-12 empty' />
+
+          <div v-if='large' class='ph-col-12'/>
+          <div v-if='large' class='ph-col-10' />
         </div>
       </div>
     </div>
   </v-card>
 </template>
+
+<script>
+export default {
+  props: [
+    'large'
+  ]
+}
+</script>
 
 <style lang='scss' scoped>
   .v-card {

@@ -1,16 +1,17 @@
 <template>
   <div>
     <NotFound v-if='postNotFound' resource='post' />
-    <div v-if='post'>
+    <div>
       <CommunityHeader
         :border='true'
         :community='community'
+        v-if='community'
       />
       <v-container>
-        <Spinner v-if='loading' />
-        <v-row v-if='!loading'>
+        <v-row>
           <v-col cols='12' :md='8'>
-            <v-card>
+            <ContentLoader :large='true' v-if='!post' />
+            <v-card v-if='post'>
               <PostFull
                 :post='post'
                 :showCommunity='false'
@@ -41,7 +42,7 @@ import Comments from '@/components/Comments/Comments.vue'
 import CommunityInfo from '@/components/Communities/Info.vue'
 import CommunityHeader from '@/components/Communities/Header.vue'
 import NotFound from '@/components/Core/NotFound.vue'
-import Spinner from '@/components/Core/Spinner.vue'
+import ContentLoader from '@/components/Layout/ContentLoader.vue'
 
 import axios from 'axios'
 import communities from '@/assets/json/communities.json'
@@ -55,17 +56,17 @@ export default {
     CommunityInfo,
     CommunityHeader,
     NotFound,
-    Spinner
+    ContentLoader
   },
   data: function () {
     return {
       postNotFound: false,
       post: null,
       error: null,
-      community: {},
+      // community: {},
       comments: [],
       editing: false,
-      loading: true
+      community: communities.find(c => c.name === this.$route.params.community)
     }
   },
   methods: {
@@ -108,7 +109,6 @@ export default {
             return
           }
 
-          this.loading = false
           this.comments = res.data.comments
         })
     },

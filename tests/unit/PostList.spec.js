@@ -21,6 +21,7 @@ describe('PostList.vue', () => {
   it('renders all posts', () => {
     const post = {
       communityName: 'cats',
+      communityId: '1',
       user: {
         username: 'matt'
       },
