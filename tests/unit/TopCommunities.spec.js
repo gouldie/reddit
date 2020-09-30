@@ -67,9 +67,7 @@ describe('Top.vue', () => {
 
     wrapper.find('button').trigger('click')
 
-    await wrapper.vm.$nextTick()
-
-    expect(router.history.current.path).toEqual('/communities')
+    expect(router.history.pending.name).toEqual('Communities')
   })
 
   it('navigates to community route when a community is clicked', async () => {
@@ -86,8 +84,6 @@ describe('Top.vue', () => {
     const button = wrapper.find('a')
     button.trigger('click')
 
-    await wrapper.vm.$nextTick()
-
-    expect(router.history.current.path).toEqual('/' + button.text().split(' ')[2])
+    expect(router.history.pending.path).toEqual('/' + button.text().split(' ')[2])
   })
 })
