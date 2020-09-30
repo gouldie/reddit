@@ -42,7 +42,10 @@ describe('PostList.vue', () => {
         $vuetify: {
           breakpoint: {}
         }
-      }
+      },
+      stubs: [
+        'router-link'
+      ]
     })
 
     expect(wrapper.findAllComponents(PostPreview).length).toEqual(3)

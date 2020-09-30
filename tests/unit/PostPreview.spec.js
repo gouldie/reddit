@@ -39,7 +39,10 @@ describe('PostPreview.vue', () => {
         $vuetify: {
           breakpoint: {}
         }
-      }
+      },
+      stubs: [
+        'router-link'
+      ]
     })
 
     const community = wrapper.find('.post-community')
