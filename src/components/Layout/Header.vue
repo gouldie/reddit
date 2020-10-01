@@ -1,6 +1,6 @@
 <template>
   <v-app-bar app color='#fff'>
-    <img id='logo' @click='redirect' src='https://1000logos.net/wp-content/uploads/2017/05/Reddit-logo.png' />
+    <img id='logo' @click='redirect' src='@/assets/images/reddit.png' />
 
     <v-spacer></v-spacer>
 
@@ -102,7 +102,7 @@ export default {
   @import '~vuetify/src/styles/styles.sass';
 
   #logo {
-    width: 50px;
+    width: 45px;
     cursor: pointer;
   }
   .log-in-button {
