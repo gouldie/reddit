@@ -1,18 +1,27 @@
 <template>
-  <div class='icon'>
-  </div>
+  <img class='icon' :src='src' />
 </template>
 
 <script>
 import randomcolor from 'random-color'
 
 export default {
-  // functionality to add random color / letter to an icon. may use in future
   props: [
     'word',
-    'large'
+    'large',
+    'communityName'
   ],
   computed: {
+    src () {
+      let img
+
+      try {
+        img = require(`@/assets/images/community/${this.communityName}.png`)
+      } catch (e) {
+        img = require('@/assets/images/community/default.png')
+      }
+      return img
+    },
     letter () {
       return this.word.charAt(0).toUpperCase()
     },

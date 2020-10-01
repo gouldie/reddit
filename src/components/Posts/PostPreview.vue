@@ -4,7 +4,7 @@
     <div class='post-content-container'>
       <div>
         <v-card-text class='post-header'>
-          <Avatar v-if='showCommunity && $vuetify.breakpoint.smAndUp' />
+          <Avatar v-if='showCommunity && $vuetify.breakpoint.smAndUp' :communityName='post.communityName' />
           <router-link v-if='showCommunity' class='post-community' :to='`r/${post.communityName}`'><span>r/{{post.communityName}}</span></router-link>
           <span class='post-user'>Posted by u/{{ post.user.username }}</span>
           <span class='post-time'>{{ formattedTime(post.createdAt) }}</span>

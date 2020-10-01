@@ -3,7 +3,7 @@
     <div v-if='border' class='border'></div>
     <div class='main'>
       <v-container>
-        <div class='icon'></div>
+        <img class='icon' :src='src' />
         <v-card>
           <v-card-title>{{ community.title }}</v-card-title>
           <v-card-text>r/{{ community.name }}</v-card-text>
@@ -18,7 +18,18 @@ export default {
   props: [
     'border',
     'community'
-  ]
+  ],
+  computed: {
+    src () {
+      let img
+      try {
+        img = require(`@/assets/images/community/${this.community.name}.png`)
+      } catch (e) {
+        img = require('@/assets/images/community/default.png')
+      }
+      return img
+    }
+  }
 }
 </script>
 
@@ -53,7 +64,7 @@ export default {
   .icon {
     width: 60px;
     height: 60px;
-    background: #928ace;
+    // background: #928ace;
     border-radius: 50%;
     margin-right: 20px;
     flex-shrink: 0;
