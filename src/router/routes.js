@@ -46,6 +46,11 @@ export default [
     component: () => import('@/views/CommunityDirectory.vue')
   },
   {
+    path: '/credits',
+    name: 'Credits',
+    component: () => import('@/views/Credits.vue')
+  },
+  {
     path: '*',
     name: '404',
     component: () => import('@/views/404.vue')
