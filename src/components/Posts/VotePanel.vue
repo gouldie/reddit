@@ -63,6 +63,8 @@ export default {
   .vote-panel-mobile {
     display: none;
     flex-direction: row;
+    align-items: center;
+    margin-right: 5px;
     width: auto;
     padding: 0;
     >* {
@@ -75,10 +77,12 @@ export default {
       display: none;
     }
     .vote-panel-mobile {
-      display: inline-block;
+      display: flex;
     }
     span {
-      font-size: 12px;
+      // font-size: 12px;
+      color: rgb(135, 138, 140);
+      font-weight: bold;
     }
   }
 </style>

@@ -32,7 +32,7 @@
           <LinkPreview v-if='post.link' :link='createLink' :preview='post.linkPreview' />
         </div>
 
-        <PostActions :commentCount='post.commentCount' @onClick='onAction' />
+        <PostActions :commentCount='post.commentCount' @onClick='onAction' :post='post' />
     </div>
   </div>
 </template>
@@ -85,7 +85,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang='scss'>
   @import '~vuetify/src/styles/styles.sass';
   .post-container {
     display: flex;

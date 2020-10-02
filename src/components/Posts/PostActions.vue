@@ -1,6 +1,7 @@
 <template>
   <div class='post-actions-container'>
-    <div v-for='action in actions' :key='action' @click='onClick(action)' @click.prevent>
+    <VotePanel :mobile='true' :post='post' v-on='$listeners' />
+    <div class='post-action' v-for='action in actions' :key='action' @click='onClick(action)' @click.prevent>
       <v-icon small>
         {{ icons[action] }}
       </v-icon>
@@ -10,29 +11,43 @@
 </template>
 
 <script>
+import VotePanel from '@/components/Posts/VotePanel'
+
 export default {
   props: [
     'showEditDelete',
+    'showSave',
     'commentCount',
-    'onClickComments'
+    'onClickComments',
+    'post'
   ],
+  components: {
+    VotePanel
+  },
   data: function () {
     return {
       icons: {
         Comments: 'chat_bubble',
         Share: 'share',
         Edit: 'edit',
-        Delete: 'delete'
+        Delete: 'delete',
+        Save: 'save'
       }
     }
   },
   computed: {
     actions () {
+      let actions = ['Comments', 'Share']
+
       if (this.showEditDelete) {
-        return ['Comments', 'Share', 'Edit', 'Delete']
+        actions = actions.concat(['Edit', 'Delete'])
       }
 
-      return ['Comments', 'Share']
+      if (this.showSave) {
+        actions = actions.concat(['Save'])
+      }
+
+      return actions
     }
   },
   methods: {
@@ -53,9 +68,10 @@ export default {
 <style lang="scss" scoped>
   .post-actions-container {
     display: flex;
+    flex-wrap: wrap;
     padding: 0 16px 8px 12px;
 
-    >div {
+    .post-action {
       margin-right: 4px;
       color: rgb(135, 138, 140);
       padding: 4px;

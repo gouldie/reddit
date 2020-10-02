@@ -31,7 +31,14 @@
             <TextField v-if='post.link && isEditing' :value='editing' @onChange='editOnChange' placeholder='Url' />
           </div>
 
-          <PostActions :showEditDelete='true' :commentCount='commentCount' @onClick='onAction' />
+          <PostActions
+            :showEditDelete='canEdit'
+            :showSave='isEditing'
+            :commentCount='commentCount'
+            @onClick='onAction'
+            :post='post'
+            v-on='$listeners'
+          />
         </div>
         <LinkPreview v-if='post.link' :link='createLink' :preview='post.linkPreview' />
       </div>
@@ -115,6 +122,11 @@ export default {
 
       if (action === 'Delete') {
         this.$store.commit('setModal', 'delete-post')
+        return
+      }
+
+      if (action === 'Save') {
+        this.editPost()
       }
     }
   },
