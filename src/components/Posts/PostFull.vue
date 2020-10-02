@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class='post-container'>
-      <VotePanel :post='post' v-on='$listeners' />
+      <VotePanel :post='post' v-on='$listeners' :extraPadding='true' />
       <div class='post-content-container'>
         <div>
           <v-card-text class='post-header'>
