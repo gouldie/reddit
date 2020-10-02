@@ -1,5 +1,6 @@
 import cuid from 'cuid'
 import Post from '../models/Post'
+import Comment from '../models/Comment'
 import { CreateTextPost, CreateImagePost, CreateLinkPost, GetPost, GetPosts, Vote, EditPost, DeletePost } from '../validators/posts'
 import sortBy from '../utils/sort'
 import got from 'got'
@@ -24,6 +25,10 @@ export const getPosts = async (req, res) => {
 
   let posts = await Post.find(query).populate('user', 'username').lean()
 
+  // get number of comments
+  let comments = await Comment.find({ postId: { $in: posts.map(e => e._id) } }).populate('user', 'username').lean()
+  comments = comments.filter(e => e.user._id === req.userId || ['lorem', 'ipsum'].includes(e.user.username))
+
   // sort
   posts = posts.sort(sortBy[sort])
 
@@ -38,6 +43,7 @@ export const getPosts = async (req, res) => {
     delete e.downvotes
     e.count = count
     e.userVote = userVote
+    e.commentCount = comments.filter(c => c.postId === e._id).length
 
     return e
   })

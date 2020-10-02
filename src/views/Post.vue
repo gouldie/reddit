@@ -21,6 +21,7 @@
                 @editOnChange='editOnChange'
                 :editing='editing'
                 :toggleEdit='toggleEdit'
+                :commentCount='comments.length'
               />
               <LeaveComment />
               <Comments :comments='comments' @vote='vote'/>

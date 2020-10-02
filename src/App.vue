@@ -57,6 +57,10 @@ export default {
     }
   }
 
+  span {
+    font-size: 14px;
+  }
+
   @media #{map-get($display-breakpoints, 'sm-and-up')} {
     .container {
       padding-top: 30px;
@@ -74,6 +78,9 @@ export default {
       font-size: 12px;
     }
     .v-input {
+      font-size: 12px;
+    }
+    span {
       font-size: 12px;
     }
   }

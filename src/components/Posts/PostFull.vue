@@ -31,13 +31,14 @@
             <TextField v-if='post.link && isEditing' :value='editing' @onChange='editOnChange' placeholder='Url' />
           </div>
 
+          <PostActions :showEditDelete='true' :commentCount='commentCount' @onClick='onAction' />
         </div>
         <LinkPreview v-if='post.link' :link='createLink' :preview='post.linkPreview' />
       </div>
 
       <DeletePost :postId='post._id' />
     </div>
-    <v-card-actions v-if='canEdit' class='post-actions-container'>
+    <!-- <v-card-actions v-if='canEdit' class='post-actions-container'>
       <div>
         <VotePanel :post='post' :mobile='true' v-on='$listeners' />
         <v-card-text :class='isEditing && "selected"' @click='toggleEdit'><v-icon small>edit</v-icon> Edit</v-card-text>
@@ -46,7 +47,7 @@
       <div>
         <v-card-text v-if='isEditing' @click='editPost'><v-icon small>save</v-icon> Save</v-card-text>
       </div>
-    </v-card-actions>
+    </v-card-actions> -->
   </div>
 </template>
 
@@ -58,6 +59,7 @@ import VotePanel from '@/components/Posts/VotePanel.vue'
 import DropZone from '@/components/Core/DropZone.vue'
 import DeletePost from '@/components/Modals/DeletePost.vue'
 import LinkPreview from '@/components/Posts/LinkPreview.vue'
+import PostActions from '@/components/Posts/PostActions.vue'
 
 export default {
   components: {
@@ -66,14 +68,16 @@ export default {
     VotePanel,
     DropZone,
     DeletePost,
-    LinkPreview
+    LinkPreview,
+    PostActions
   },
   props: [
     'post',
     'showCommunity',
     'canEdit',
     'toggleEdit',
-    'editing'
+    'editing',
+    'commentCount'
   ],
   data: function () {
     return {
@@ -96,6 +100,21 @@ export default {
 
       reader.onload = (event) => {
         this.$emit('editOnChange', event.target.result)
+      }
+    },
+    onAction (action) {
+      if (action === 'Comments') {
+        document.querySelector('.comments-list').scrollIntoView()
+        return
+      }
+
+      if (action === 'Edit') {
+        if (this.toggleEdit) this.toggleEdit()
+        return
+      }
+
+      if (action === 'Delete') {
+        this.$store.commit('setModal', 'delete-post')
       }
     }
   },
@@ -171,27 +190,27 @@ export default {
   .v-input {
     font-size: 0.875rem !important;
   }
-  .post-actions-container {
-    >div {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    justify-content: space-between;
-    padding: 0 45px;
+  // .post-actions-container {
+  //   >div {
+  //     display: flex;
+  //     align-items: center;
+  //     flex-wrap: wrap;
+  //   }
+  //   justify-content: space-between;
+  //   padding: 0 45px;
 
-    .v-card__text {
-      display: flex;
-      width: inherit;
-      padding: 2px 5px;
-      cursor: pointer;
-      border-radius: 10px;
+  //   .v-card__text {
+  //     display: flex;
+  //     width: inherit;
+  //     padding: 2px 5px;
+  //     cursor: pointer;
+  //     border-radius: 10px;
 
-      &.selected {
-        background: #dcdcdc;
-      }
-    }
-  }
+  //     &.selected {
+  //       background: #dcdcdc;
+  //     }
+  //   }
+  // }
   .post-content-container {
     padding-right: 36px;
     display: flex;
@@ -216,9 +235,9 @@ export default {
     .post-content-container {
       padding-right: 0;
     }
-    .post-actions-container {
-      padding: 0 10px 10px;
-    }
+    // .post-actions-container {
+    //   padding: 0 10px 10px;
+    // }
     // .post-header {
     //   font-size: 12px;
     // }

@@ -15,6 +15,7 @@
       dense
       :value='value'
       @input='onChange'
+      auto-grow
       :placeholder='placeholder || "What are your thoughts?"'
     ></v-textarea>
   </div>
@@ -46,7 +47,7 @@ export default {
       font-size: 14px !important;
     }
     textarea {
-      line-height: 20px !important;
+      line-height: 22px !important;
     }
   }
   .v-text-field__details {

@@ -6,13 +6,14 @@
     >
       <router-link
         v-if='post'
-        :to='`/r/${getCommunityName(post.communityId)}/${post._id}`'
+        :to='postUrl(post.communityId, post._id)'
       >
         <v-card>
           <PostPreview
             :post='post'
             :show-community='showCommunity'
             v-on='$listeners'
+            :postUrl='postUrl(post.communityId, post._id)'
           />
         </v-card>
       </router-link>
@@ -36,8 +37,8 @@ export default {
     ContentLoader
   },
   methods: {
-    getCommunityName (id) {
-      return communitiesJSON.find(c => c.id === id).name
+    postUrl (communityId, postId) {
+      return `/r/${communitiesJSON.find(c => c.id === communityId).name}/${postId}`
     }
   }
 }
