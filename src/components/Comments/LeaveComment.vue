@@ -4,9 +4,6 @@
       <v-card-text class='comment-as'>Comment as {{ $store.state.username }}</v-card-text>
       <TextField :value='comment' @onChange='onChange' />
       <div class='action-buttons'>
-        <!-- <v-btn small @click='back()'>
-          Cancel
-        </v-btn> -->
         <v-btn small color='primary' @click='submit' :disabled='!comment'>
           Comment
         </v-btn>
@@ -59,7 +56,6 @@ export default {
 
 <style lang='scss' scoped>
   @import '~vuetify/src/styles/styles.sass';
-
   .leave-comment-container {
     padding: 0 50px 20px;
 
@@ -75,7 +71,7 @@ export default {
   .action-buttons {
     display: flex;
     justify-content: flex-end;
-    margin-top: 5px;
+    margin-top: 10px;
     button:nth-of-type(2) {
       margin-right: 0;
     }

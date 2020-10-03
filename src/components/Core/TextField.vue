@@ -7,6 +7,7 @@
       :value='value'
       @input='onChange'
       :placeholder='placeholder || "What are your thoughts?"'
+      hide-details
     >
     </v-text-field>
     <v-textarea
@@ -38,14 +39,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  @import '~vuetify/src/styles/styles.sass';
-
   .v-input {
     textarea {
       line-height: 22px !important;
     }
-  }
-  .v-text-field__details {
-    display: none;
   }
 </style>
