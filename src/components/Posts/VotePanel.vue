@@ -46,6 +46,13 @@ export default {
 
 <style lang="scss" scoped>
   @import '~vuetify/src/styles/styles.sass';
+  button {
+    border-radius: 2px;
+
+    &:hover {
+      background: #ebebeb;
+    }
+  }
 
   .vote-panel {
     width: 36px;
@@ -67,8 +74,13 @@ export default {
     margin-right: 5px;
     width: auto;
     padding: 0;
+
     >* {
       padding: 0 1px;
+    }
+
+    button:nth-of-type(2) {
+      top: 1px;
     }
   }
 
