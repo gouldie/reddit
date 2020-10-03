@@ -5,12 +5,12 @@
       width='500'
     >
       <v-card>
-        <v-card-title class='headline grey lighten-2' primary-title>
+        <v-card-title class='modal-title headline grey lighten-2' primary-title>
           Sign Up
         </v-card-title>
 
         <v-card-text>
-          By having a Reddit account, you can join, vote, and comment on all your favorite Reddit content.
+          By having a Reddit account, you can join, vote, and comment on all your favourite Reddit content.
         </v-card-text>
 
         <v-form ref='form' v-model='valid' lazy-validation @submit.prevent='submit'>
@@ -50,10 +50,15 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color='blue' text @click='dialog = false'>
+          <!-- <v-btn color='blue' text @click='dialog = false'>
             Close
-          </v-btn>
-          <v-btn color='blue' text @click='submit'>
+          </v-btn> -->
+          <v-btn color='primary' @click='submit' min-width='90' :loading='loading'>
+            <template v-slot:loader>
+              <span class='custom-loader'>
+                <v-icon dark>mdi-cached</v-icon>
+              </span>
+            </template>
             Sign Up
           </v-btn>
         </v-card-actions>
@@ -85,7 +90,8 @@ export default {
         v => !!v || 'Password is required',
         v => (v && v.length >= 6 && v.length <= 30) || 'Password must be between 6 and 30 characters'
       ],
-      error: null
+      error: null,
+      loading: false
     }
   },
   methods: {
@@ -93,6 +99,9 @@ export default {
       if (!this.$refs.form.validate()) {
         return
       }
+
+      this.loading = true
+
       axios.post('/api/users/register', {
         email: this.email,
         username: this.username,
@@ -101,6 +110,7 @@ export default {
         .then(res => {
           if (!res.data.success) {
             this.error = res.data.message
+            this.loading = false
             return
           }
 

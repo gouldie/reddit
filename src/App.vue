@@ -61,8 +61,42 @@ export default {
     font-size: 14px;
   }
 
-  .modal-title.v-card__title {
-    font-size: 12px !important;
+  .custom-loader {
+    animation: loader 1s infinite;
+    display: flex;
+  }
+
+  @-moz-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @-webkit-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @-o-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 
   @media #{map-get($display-breakpoints, 'sm-and-up')} {
@@ -72,6 +106,9 @@ export default {
   }
 
   @media #{map-get($display-breakpoints, 'xs-only')} {
+    .modal-title.v-card__title {
+      font-size: 20px !important;
+    }
     .v-input__slot {
       min-height: 30px !important;
     }
