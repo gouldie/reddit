@@ -79,6 +79,10 @@ export default {
     }
     .v-input {
       font-size: 12px;
+
+      label {
+        font-size: 12px;
+      }
     }
     span {
       font-size: 12px;
