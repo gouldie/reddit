@@ -13,6 +13,11 @@ export default {
   ],
   components: {
     Comment
+  },
+  mounted () {
+    if (this.$route.query.scroll === 'comments') {
+      document.querySelector('.comments-list').scrollIntoView()
+    }
   }
 }
 </script>

@@ -24,7 +24,7 @@
                 :commentCount='comments.length'
               />
               <LeaveComment />
-              <Comments :comments='comments' @vote='vote'/>
+              <Comments v-if='comments.length > 0' :comments='comments' @vote='vote'/>
             </v-card>
           </v-col>
           <v-col :md='4' v-if='$vuetify.breakpoint.mdAndUp'>

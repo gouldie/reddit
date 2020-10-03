@@ -62,7 +62,7 @@ export default {
     },
     onAction (action) {
       if (action === 'Comments') {
-        this.$router.push(this.postUrl)
+        this.$router.push(this.postUrl + '?scroll=comments')
       }
     }
   },
