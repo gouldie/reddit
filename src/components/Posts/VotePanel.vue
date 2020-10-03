@@ -82,6 +82,10 @@ export default {
       padding: 0 1px;
     }
 
+    button {
+      margin: 0 2px;
+    }
+
     button:nth-of-type(2) {
       top: 1px;
     }

@@ -32,7 +32,7 @@
           <LinkPreview v-if='post.link' :link='createLink' :preview='post.linkPreview' />
         </div>
 
-        <PostActions :commentCount='post.commentCount' @onClick='onAction' :post='post' />
+        <PostActions :commentCount='post.commentCount' @onClick='onAction' :post='post' v-on='$listeners' />
     </div>
   </div>
 </template>
