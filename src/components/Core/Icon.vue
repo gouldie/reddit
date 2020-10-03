@@ -2,7 +2,7 @@
   <v-tooltip bottom open-delay='400'>
     <span>{{ label || 'Icon' }}</span>
     <template v-slot:activator='{ on, attrs }'>
-      <v-icon v-bind='attrs' v-on='on' large>{{ icon }}</v-icon>
+      <v-icon v-bind='attrs' v-on='on' :large='$vuetify.breakpoint.smAndUp'>{{ icon }}</v-icon>
     </template>
   </v-tooltip>
 </template>

@@ -61,6 +61,10 @@ export default {
     font-size: 14px;
   }
 
+  .modal-title.v-card__title {
+    font-size: 12px !important;
+  }
+
   @media #{map-get($display-breakpoints, 'sm-and-up')} {
     .container {
       padding-top: 30px;
@@ -68,6 +72,9 @@ export default {
   }
 
   @media #{map-get($display-breakpoints, 'xs-only')} {
+    .v-input__slot {
+      min-height: 30px !important;
+    }
     .v-card__title {
       font-size: 16px;
     }
