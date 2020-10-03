@@ -8,7 +8,7 @@
     <v-icon
       dense
       :color='post.userVote === 1 ? "green" : ""'
-      @click.prevent=''
+      @click.prevent='vote("upvote")'
     >
       mdi-arrow-up-bold
     </v-icon>
