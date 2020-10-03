@@ -8,7 +8,7 @@
     <v-icon
       dense
       :color='post.userVote === 1 ? "green" : ""'
-      @click.prevent='vote("upvote")'
+      @click.prevent=''
     >
       mdi-arrow-up-bold
     </v-icon>
@@ -51,6 +51,9 @@ export default {
 
     &:hover {
       background: #ebebeb;
+    }
+    &:focus::after {
+      opacity: 0 !important;
     }
   }
 
