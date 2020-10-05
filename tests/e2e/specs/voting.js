@@ -41,6 +41,8 @@ describe('voting on posts functions correctly', () => {
 
       cy.get('.vote-panel').first().find('[data-testid=vote-count]').should('have.text', String(Number($before) - 1))
       cy.get('.vote-panel').first().find('[data-testid=downvote-button]').should('have.class', 'red--text')
+
+      cy.get('.vote-panel').first().find('[data-testid=upvote-button]').click() // set back to +1
     })
   })
 })
