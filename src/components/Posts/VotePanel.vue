@@ -6,14 +6,16 @@
     extraPadding
   }'>
     <v-icon
+      data-testid='upvote-button'
       dense
       :color='post.userVote === 1 ? "green" : ""'
       @click.prevent='vote("upvote")'
     >
       mdi-arrow-up-bold
     </v-icon>
-    <span>{{ post.count }}</span>
+    <span data-testid='vote-count'>{{ post.count }}</span>
     <v-icon
+      data-testid='downvote-button'
       dense
       :color='post.userVote === -1 ? "red" : ""'
       @click.prevent='vote("downvote")'

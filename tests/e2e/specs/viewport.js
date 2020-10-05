@@ -5,8 +5,8 @@ describe('page display on large size screen', () => {
     cy.server()
     cy.route({
       method: 'GET', // Route all GET requests
-      url: '/api/posts?sort=Best', // that have a URL that matches '/users/*'
-      response: 'fixture:posts.json' // and force the response to be: []
+      url: '/api/posts?sort=Best', // that have a URL that matches '/api/posts?sort=Best
+      response: 'fixture:posts.json' // and force the response to be the posts fixture
     })
   })
 

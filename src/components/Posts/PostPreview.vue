@@ -1,5 +1,5 @@
 <template>
-  <div class='post-container'>
+  <div class='post-container' data-testid='post-container'>
     <VotePanel :post='post' v-on='$listeners' :greyBackground='true' />
       <div style='display: flex; flex-grow: 1; flex-direction: column;'>
         <div class='post-content-container'>

@@ -12,8 +12,9 @@
               "username": "lorem"
           },
           "createdAt": 1595948022706,
-          "count": 1,
-          "userVote": 0
+          "count": 0,
+          "userVote": 0,
+          "commentCount": 2
       },
       {
           "_id": "ckd63m1gh0000r8pg14uc9twc",
@@ -26,7 +27,8 @@
           },
           "createdAt": 1595950316513,
           "count": 0,
-          "userVote": 0
+          "userVote": 0,
+          "commentCount": 1
       },
       {
           "_id": "ckd63tilm0000yopg6yur5pqk",
@@ -39,7 +41,8 @@
           },
           "createdAt": 1595950665322,
           "count": 0,
-          "userVote": 0
+          "userVote": 0,
+          "commentCount": 0
       },
       {
           "_id": "ckd64073g00010vpgbz9rcwgk",
@@ -53,7 +56,8 @@
           },
           "createdAt": 1595950977004,
           "count": 0,
-          "userVote": 0
+          "userVote": 0,
+          "commentCount": 1
       },
       {
           "_id": "ckd60s6y00004q0pg21gq6tz3",
@@ -66,7 +70,8 @@
           },
           "createdAt": 1595945564712,
           "count": 0,
-          "userVote": 0
+          "userVote": 0,
+          "commentCount": 5
       },
       {
           "_id": "ckd62bjmv0006q0pg3y2nd1fm",
@@ -79,7 +84,8 @@
           },
           "createdAt": 1595948147239,
           "count": 0,
-          "userVote": 0
+          "userVote": 0,
+          "commentCount": 2
       },
       {
           "_id": "ckd63xy3900000vpgfh17dwk1",
@@ -92,7 +98,8 @@
           },
           "createdAt": 1595950872021,
           "count": 0,
-          "userVote": 0
+          "userVote": 0,
+          "commentCount": 1
       }
   ]
 }
