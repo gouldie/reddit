@@ -11,6 +11,20 @@ export const getComments = async (req, res) => {
 
   let comments = await Comment.find({ postId: req.params.postId }).populate('user', 'username').lean()
 
+  // order by points
+  comments = comments.sort((a, b) => {
+    const upvotesA = a.upvotes ? a.upvotes.length : 0
+    const downvotesA = a.downvotes ? a.downvotes.length : 0
+    const countA = upvotesA - downvotesA
+
+    const upvotesB = b.upvotes ? b.upvotes.length : 0
+    const downvotesB = b.downvotes ? b.downvotes.length : 0
+    const countB = upvotesB - downvotesB
+
+    return countA < countB ? 1 : -1
+  })
+
+  // calculate count and user vote
   comments = comments.map(e => {
     const upvotes = e.upvotes ? e.upvotes.length : 0
     const downvotes = e.downvotes ? e.downvotes.length : 0
