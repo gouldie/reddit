@@ -24,11 +24,6 @@ const factory = (values = {}) => {
     propsData: {
       posts
     },
-    mocks: {
-      $vuetify: {
-        breakpoint: {}
-      }
-    },
     stubs: [
       'router-view'
     ]

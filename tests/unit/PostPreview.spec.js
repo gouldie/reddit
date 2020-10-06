@@ -1,50 +1,39 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import VueRouter from 'vue-router'
+
+import { mount, createLocalVue } from '@vue/test-utils'
+
 import routes from '@/router/routes'
-
-import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
-
 import PostPreview from '@/components/Posts/PostPreview.vue'
+import posts from './fixtures/posts.json'
 
 const router = new VueRouter({ routes })
 
 Vue.use(Vuetify)
 
 const localVue = createLocalVue()
-localVue.use(Vuetify)
+
 localVue.use(VueRouter)
 
-describe('PostPreview.vue', () => {
-  let vuetify
-
-  beforeEach(() => {
-    vuetify = new Vuetify()
-  })
-
-  const post = {
-    communityName: 'cats',
-    user: {
-      username: 'matt'
+const factory = (values = {}) => {
+  return mount(PostPreview, {
+    localVue,
+    vuetify: new Vuetify(),
+    router,
+    propsData: {
+      showCommunity: true,
+      post
     },
-    createdAt: Date.now(),
-    title: 'test title',
-    text: 'test text'
-  }
+    ...values
+  })
+}
 
+const post = posts[0]
+
+describe('PostPreview.vue', () => {
   it('renders community name', () => {
-    const wrapper = shallowMount(PostPreview, {
-      localVue,
-      vuetify,
-      propsData: {
-        post,
-        showCommunity: true
-      },
-      mocks: {
-        $vuetify: {
-          breakpoint: {}
-        }
-      },
+    const wrapper = factory({
       stubs: [
         'router-link'
       ]
@@ -56,26 +45,7 @@ describe('PostPreview.vue', () => {
   })
 
   it('navigates to community page on click of community name', () => {
-    const post = {
-      communityName: 'cats',
-      communityId: '1',
-      user: {
-        username: 'matt'
-      },
-      createdAt: Date.now(),
-      title: 'test title',
-      text: 'test text'
-    }
-
-    const wrapper = mount(PostPreview, {
-      localVue,
-      vuetify,
-      router,
-      propsData: {
-        showCommunity: true,
-        post
-      }
-    })
+    const wrapper = factory()
 
     wrapper.find('.post-community').trigger('click')
 
