@@ -1,33 +1,36 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import VueRouter from 'vue-router'
-import routes from '@/router/routes'
 
 import { mount, createLocalVue } from '@vue/test-utils'
 
+import routes from '@/router/routes'
 import communities from '@/assets/json/communities.json'
 import Top from '@/components/Communities/Top.vue'
 
 Vue.use(Vuetify)
 
 const localVue = createLocalVue()
-localVue.use(Vuetify)
+
 localVue.use(VueRouter)
 
 const router = new VueRouter({ routes })
 
-describe('Top.vue', () => {
-  let vuetify
-
-  beforeEach(() => {
-    vuetify = new Vuetify()
+const factory = (values = {}) => {
+  return mount(Top, {
+    localVue,
+    vuetify: new Vuetify(),
+    router,
+    propsData: {
+      communities
+    },
+    ...values
   })
+}
 
+describe('Top.vue', () => {
   it('renders all communities given a category', async () => {
-    const wrapper = mount(Top, {
-      localVue,
-      vuetify,
-      router,
+    const wrapper = factory({
       propsData: {
         communities,
         category: 'Science'
@@ -40,10 +43,7 @@ describe('Top.vue', () => {
   })
 
   it('renders all communities in alt view', async () => {
-    const wrapper = mount(Top, {
-      localVue,
-      vuetify,
-      router,
+    const wrapper = factory({
       propsData: {
         alt: true,
         communities
@@ -56,14 +56,7 @@ describe('Top.vue', () => {
   })
 
   it('navigates to communities route when view all is clicked', async () => {
-    const wrapper = mount(Top, {
-      localVue,
-      vuetify,
-      router,
-      propsData: {
-        communities
-      }
-    })
+    const wrapper = factory()
 
     wrapper.find('button').trigger('click')
 
@@ -71,10 +64,7 @@ describe('Top.vue', () => {
   })
 
   it('navigates to community route when a community is clicked', async () => {
-    const wrapper = mount(Top, {
-      localVue,
-      vuetify,
-      router,
+    const wrapper = factory({
       propsData: {
         category: 'Science',
         communities
