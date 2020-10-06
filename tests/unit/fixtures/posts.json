@@ -1,0 +1,35 @@
+[
+  {
+    "_id": "001",
+    "communityName": "cats",
+    "communityId": "1",
+    "user": {
+      "username": "matt"
+    },
+    "createdAt": 1601998954229,
+    "title": "test title 1",
+    "text": "test text 1"
+  },
+  {
+    "_id": "002",
+    "communityName": "cats",
+    "communityId": "1",
+    "user": {
+      "username": "matt"
+    },
+    "createdAt": 1601998991358,
+    "title": "test title 2",
+    "text": "test text 2"
+  },
+  {
+    "_id": "003",
+    "communityName": "cats",
+    "communityId": "1",
+    "user": {
+      "username": "matt"
+    },
+    "createdAt": 1601999012753,
+    "title": "test title 3",
+    "text": "test text 3"
+  }
+]
