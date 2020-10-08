@@ -13,8 +13,9 @@
           Log in to a Reddit account to join, vote, and comment on all your favourite Reddit content.
         </v-card-text>
 
-        <v-form id='myForm' ref='form' v-model='valid' lazy-validation @submit.prevent='submit'>
+        <v-form ref='form' v-model='valid' lazy-validation @submit.prevent='submit'>
           <v-text-field
+            class='input-username'
             label='Username'
             name='username'
             v-model='username'
@@ -24,6 +25,7 @@
           >
           </v-text-field>
           <v-text-field
+            class='input-password'
             label='Password'
             name='password'
             v-model='password'
