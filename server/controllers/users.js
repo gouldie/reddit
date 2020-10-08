@@ -41,7 +41,7 @@ export const login = async (req, res) => {
     return res.json({ success: false, message: error.details[0].message })
   }
 
-  const user = await User.findOne({ username: req.body.username })
+  const user = await User.findOne({ username: req.body.username.toLowerCase() })
 
   if (!user) return res.json({ success: false, message: 'No user found' })
   if (!user.matchesPassword(req.body.password)) return res.json({ success: false, message: 'Incorrect password' })
