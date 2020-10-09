@@ -15,7 +15,7 @@
 
         <v-form ref='form' v-model='valid' lazy-validation @submit.prevent='submit'>
           <v-text-field
-            class='input-username'
+            class='login-username'
             label='Username'
             name='username'
             v-model='username'
@@ -25,7 +25,7 @@
           >
           </v-text-field>
           <v-text-field
-            class='input-password'
+            class='login-password'
             label='Password'
             name='password'
             v-model='password'

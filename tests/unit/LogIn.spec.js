@@ -4,11 +4,7 @@ import VueRouter from 'vue-router'
 
 import { mount, createLocalVue } from '@vue/test-utils'
 
-// import routes from '@/router/routes'
 import LogIn from '@/components/Modals/LogIn.vue'
-// import posts from './fixtures/posts.json'
-
-// const router = new VueRouter({ routes })
 
 Vue.use(Vuetify)
 
@@ -38,27 +34,27 @@ describe('LogIn.vue', () => {
     const wrapper = factory()
 
     // should not allow for 'username' less than 3 characters
-    wrapper.setData({ username: 'a' })
+    await wrapper.setData({ username: 'a' })
     await Vue.nextTick()
-    expect(wrapper.find('.input-username .v-messages.error--text').exists()).toBe(true)
+    expect(wrapper.find('.login-username .v-messages.error--text').exists()).toBe(true)
 
     // assert the error has gone away
-    wrapper.setData({ username: 'aaa' })
+    await wrapper.setData({ username: 'aaa' })
     await Vue.nextTick()
-    expect(wrapper.find('.input-username .v-messages.error--text').exists()).toBe(false)
+    expect(wrapper.find('.login-username .v-messages.error--text').exists()).toBe(false)
   })
 
   it('displays password errors correctly', async () => {
     const wrapper = factory()
 
     // should not allow for 'password' less than 6 characters
-    wrapper.setData({ password: 'a' })
+    await wrapper.setData({ password: 'a' })
     await Vue.nextTick()
-    expect(wrapper.find('.input-password .v-messages.error--text').exists()).toBe(true)
+    expect(wrapper.find('.login-password .v-messages.error--text').exists()).toBe(true)
 
     // assert the error has gone away
-    wrapper.setData({ password: 'aaaaaa' })
+    await wrapper.setData({ password: 'aaaaaa' })
     await Vue.nextTick()
-    expect(wrapper.find('.input-password .v-messages.error--text').exists()).toBe(false)
+    expect(wrapper.find('.login-password .v-messages.error--text').exists()).toBe(false)
   })
 })
