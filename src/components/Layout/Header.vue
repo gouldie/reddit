@@ -102,7 +102,7 @@ export default {
   @import '~vuetify/src/styles/styles.sass';
 
   #logo {
-    width: 45px;
+    width: 40px;
     cursor: pointer;
   }
   .log-in-button {
@@ -116,6 +116,12 @@ export default {
     cursor: pointer;
     &:hover {
       background: rgb(246, 246, 246);
+    }
+  }
+
+  @media #{map-get($display-breakpoints, 'xs-only')} {
+    #logo {
+      width: 35px;
     }
   }
 </style>
