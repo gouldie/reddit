@@ -15,6 +15,7 @@
 
         <v-form ref='form' v-model='valid' lazy-validation @submit.prevent='submit'>
           <v-text-field
+            class='signup-email'
             label='Email'
             v-model='email'
             :rules='emailRules'
@@ -23,6 +24,7 @@
           >
           </v-text-field>
           <v-text-field
+            class='signup-username'
             label='Username'
             v-model='username'
             :rules='usernameRules'
@@ -31,6 +33,7 @@
           >
           </v-text-field>
           <v-text-field
+            class='signup-password'
             label='Password'
             v-model='password'
             :rules='passwordRules'

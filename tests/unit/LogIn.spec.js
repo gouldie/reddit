@@ -33,7 +33,7 @@ describe('LogIn.vue', () => {
   it('displays username errors correctly', async () => {
     const wrapper = factory()
 
-    // should not allow for 'username' less than 3 characters
+    // should not allow less than 3 characters
     await wrapper.setData({ username: 'a' })
     await Vue.nextTick()
     expect(wrapper.find('.login-username .v-messages.error--text').exists()).toBe(true)
@@ -47,7 +47,7 @@ describe('LogIn.vue', () => {
   it('displays password errors correctly', async () => {
     const wrapper = factory()
 
-    // should not allow for 'password' less than 6 characters
+    // should not allow less than 6 characters
     await wrapper.setData({ password: 'a' })
     await Vue.nextTick()
     expect(wrapper.find('.login-password .v-messages.error--text').exists()).toBe(true)
