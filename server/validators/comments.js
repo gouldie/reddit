@@ -27,3 +27,8 @@ export const CreateComment = Joi.object().keys({
 export const Vote = Joi.object().keys({
   commentId
 })
+
+export const EditComment = Joi.object().keys({
+  commentId,
+  text
+})

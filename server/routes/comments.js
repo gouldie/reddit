@@ -1,4 +1,4 @@
-import { createComment, getComments, upvote, downvote } from '../controllers/comments'
+import { createComment, getComments, upvote, downvote, editComment } from '../controllers/comments'
 import { verifyToken, optionalToken } from '../middleware/auth'
 
 const root = '/api/comments'
@@ -8,4 +8,5 @@ export default (app) => {
   app.post(`${root}`, verifyToken, createComment)
   app.post(`${root}/upvote`, verifyToken, upvote)
   app.post(`${root}/downvote`, verifyToken, downvote)
+  app.post(`${root}/edit`, verifyToken, editComment)
 }

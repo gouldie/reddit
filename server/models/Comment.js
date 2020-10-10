@@ -1,5 +1,17 @@
 import { model, Schema } from 'mongoose'
 
+const replySchema = new Schema({
+  _id: false,
+  user: {
+    type: String,
+    ref: 'User'
+  }
+})
+
+replySchema.add({
+  replies: [replySchema]
+})
+
 var CommentSchema = new Schema({
   _id: String,
   text: String,
@@ -15,7 +27,8 @@ var CommentSchema = new Schema({
   }],
   postId: String,
   createdAt: Number,
-  updatedAt: Number
+  updatedAt: Number,
+  replies: [replySchema]
 }, { versionKey: false })
 
 var Comment = model('Comment', CommentSchema)

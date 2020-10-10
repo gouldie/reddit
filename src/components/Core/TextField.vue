@@ -26,7 +26,6 @@
 export default {
   props: [
     'value',
-    'dense',
     'placeholder',
     'area'
   ],

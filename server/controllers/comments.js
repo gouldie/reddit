@@ -1,6 +1,6 @@
 import cuid from 'cuid'
 import Comment from '../models/Comment'
-import { GetComments, CreateComment, Vote } from '../validators/comments'
+import { GetComments, CreateComment, EditComment, Vote } from '../validators/comments'
 
 export const getComments = async (req, res) => {
   const { error } = GetComments.validate(req.params, { abortEarly: true })
@@ -10,6 +10,11 @@ export const getComments = async (req, res) => {
   }
 
   let comments = await Comment.find({ postId: req.params.postId }).populate('user', 'username').lean()
+
+  // only show comments by the logged in user, or users 'lorem' and 'ipsum'
+  comments = comments.filter(e => {
+    return e.user._id === req.userId || ['lorem', 'ipsum'].includes(e.user.username)
+  })
 
   // order by points
   comments = comments.sort((a, b) => {
@@ -39,9 +44,13 @@ export const getComments = async (req, res) => {
     return e
   })
 
-  // only show comments by the logged in user, or users 'lorem' and 'ipsum'
-  comments = comments.filter(e => {
-    return e.user._id === req.userId || ['lorem', 'ipsum'].includes(e.user.username)
+  // add canEdit tag
+  comments = comments.map(e => {
+    if (e.user._id === req.userId) {
+      e.canEdit = true
+    }
+
+    return e
   })
 
   return res.json({
@@ -70,6 +79,30 @@ export const createComment = async (req, res) => {
   return res.json({
     success: true
   })
+}
+
+export const editComment = async (req, res) => {
+  const { error } = EditComment.validate(req.body, { abortEarly: true })
+
+  if (error) {
+    return res.json({ success: false, message: error.details[0].message })
+  }
+
+  const { commentId, text } = req.body
+
+  // validate the userId with the commentId
+  const comment = await Comment.findOne({ _id: commentId })
+
+  if (req.userId !== comment.user) {
+    return res.json({
+      success: false,
+      message: 'Unauthorized'
+    })
+  }
+
+  const newComment = await Comment.findByIdAndUpdate({ _id: commentId }, { $set: { text } }, { new: true }).populate('user')
+
+  return res.json({ success: true, comment: newComment })
 }
 
 export const upvote = async (req, res) => {
