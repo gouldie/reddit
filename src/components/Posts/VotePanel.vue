@@ -65,6 +65,8 @@ export default {
     flex-direction: column;
     align-items: center;
     padding: 12px 8px;
+    border-radius: 4px;
+
     &.greyBackground {
       background-color: #f8f9fa;
     }
