@@ -39,6 +39,10 @@ export default {
     background: linear-gradient(#484848, #252525);
   }
 
+  textarea {
+    line-height: 22px !important;
+  }
+
   .v-card__title {
     font-size: 18px;
     line-height: 22px;

@@ -37,11 +37,3 @@ export default {
   }
 }
 </script>
-
-<style scoped lang="scss">
-  .v-input {
-    textarea {
-      line-height: 22px !important;
-    }
-  }
-</style>

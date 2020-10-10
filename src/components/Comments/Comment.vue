@@ -17,15 +17,13 @@
       </v-icon>
     </div>
     <div>
-      <v-card-text class='post-header'>
-        <span class='post-user'>{{ comment.user.username }}</span>
-        <span class='post-points'>{{ comment.count }} points</span>
-        <span class='post-time'>{{ formattedTime(comment.createdAt) }}</span>
+      <v-card-text class='comment-header'>
+        <span class='comment-user'>{{ comment.user.username }}</span>
+        <span class='comment-points'>{{ comment.count }} points</span>
+        <span class='comment-separator'>·</span>
+        <span class='comment-time'>{{ formattedTime(comment.createdAt) }}</span>
       </v-card-text>
-      <!-- <v-card-title class='post-title'>
-        {{ comment.title }}
-      </v-card-title> -->
-      <v-card-text class='post-text'>
+      <v-card-text class='comment-text'>
         {{ comment.text }}
       </v-card-text>
     </div>
@@ -64,25 +62,26 @@ export default {
     width: 36px;
     padding: 16px 0 16px 16px;
   }
-  .post-header {
+  .comment-header {
     padding-bottom: 0;
   }
-  .post-user {
+  .comment-user {
     font-weight: 300;
-    margin-right: 10px;
+    margin-right: 8px;
   }
-  .post-points {
+  .comment-points {
     font-weight: lighter;
-    margin-right: 10px;
+    margin-right: 5px;
   }
-  .post-time {
+  .comment-separator {
+    // font-weight: lighter;
+    color: grey;
+    margin-right: 5px;
+  }
+  .comment-time {
     font-weight: lighter;
   }
-  .post-title {
-    padding-top: 5px;
-    padding-bottom: 10px;
-  }
-  .post-text {
+  .comment-text {
     padding: 5px 16px;
   }
   i {
