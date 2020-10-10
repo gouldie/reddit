@@ -24,7 +24,7 @@
                 :commentCount='comments.length'
               />
               <LeaveComment />
-              <Comments v-if='comments.length > 0' :comments='comments' @vote='vote'/>
+              <Comments v-if='comments.length > 0' :comments='comments' @vote='vote' @deleteComment='deleteComment' />
             </v-card>
           </v-col>
           <v-col :md='4' v-if='$vuetify.breakpoint.mdAndUp'>
@@ -142,6 +142,9 @@ export default {
         return
       }
       this.editing = this.post.text || this.post.image || this.post.link
+    },
+    deleteComment (id) {
+      this.comments = this.comments.filter(e => e._id !== id)
     }
   },
   computed: {

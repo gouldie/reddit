@@ -38,6 +38,8 @@
         :showSave='isEditing'
         @onClick='onAction'
       />
+
+      <DeleteComment v-if='modal' :commentId='comment._id' v-on='$listeners' @closeModal='modal = false' />
     </div>
   </div>
 </template>
@@ -46,6 +48,7 @@
 import timeago from 'time-ago'
 import CommentActions from '@/components/Comments/CommentActions.vue'
 import TextField from '@/components/Core/TextField.vue'
+import DeleteComment from '@/components/Modals/DeleteComment.vue'
 import axios from 'axios'
 
 export default {
@@ -54,12 +57,14 @@ export default {
   ],
   components: {
     CommentActions,
-    TextField
+    TextField,
+    DeleteComment
   },
   data: function () {
     return {
       editing: false,
-      error: null
+      error: null,
+      modal: false // without a local modal variable, every comment will display a modal
     }
   },
   computed: {
@@ -90,6 +95,7 @@ export default {
       }
 
       if (action === 'Delete') {
+        this.modal = true
         this.$store.commit('setModal', 'delete-comment')
         return
       }

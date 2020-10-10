@@ -32,3 +32,7 @@ export const EditComment = Joi.object().keys({
   commentId,
   text
 })
+
+export const DeleteComment = Joi.object().keys({
+  commentId
+})

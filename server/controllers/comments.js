@@ -1,6 +1,6 @@
 import cuid from 'cuid'
 import Comment from '../models/Comment'
-import { GetComments, CreateComment, EditComment, Vote } from '../validators/comments'
+import { GetComments, CreateComment, EditComment, Vote, DeleteComment } from '../validators/comments'
 
 export const getComments = async (req, res) => {
   const { error } = GetComments.validate(req.params, { abortEarly: true })
@@ -103,6 +103,30 @@ export const editComment = async (req, res) => {
   const newComment = await Comment.findByIdAndUpdate({ _id: commentId }, { $set: { text } }, { new: true }).populate('user')
 
   return res.json({ success: true, comment: newComment })
+}
+
+export const deleteComment = async (req, res) => {
+  const { error } = DeleteComment.validate(req.body, { abortEarly: true })
+
+  if (error) {
+    return res.json({ success: false, message: error.details[0].message })
+  }
+
+  const { commentId } = req.body
+
+  // validate the userId with the commentId
+  const comment = await Comment.findOne({ _id: commentId })
+
+  if (req.userId !== comment.user) {
+    return res.json({
+      success: false,
+      message: 'Unauthorized'
+    })
+  }
+
+  await Comment.deleteOne({ _id: commentId })
+
+  return res.json({ success: true })
 }
 
 export const upvote = async (req, res) => {
