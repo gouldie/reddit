@@ -1,8 +1,11 @@
 <template>
   <div class='post-container' data-testid='post-container'>
     <VotePanel :post='post' v-on='$listeners' :greyBackground='true' />
-      <div style='display: flex; flex-grow: 1; flex-direction: column;'>
-        <div class='post-content-container'>
+      <div class='post-content-wrapper'>
+        <div :class='{
+          "post-content-container": true,
+          "link": !!post.link
+          }'>
           <div>
             <v-card-text class='post-header'>
               <Avatar v-if='showCommunity && $vuetify.breakpoint.smAndUp' :communityName='post.communityName' />
@@ -136,11 +139,19 @@ export default {
   i {
     cursor: pointer;
   }
+  .post-content-wrapper {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+  }
   .post-content-container {
-    padding-right: 36px;
+    padding-right: 8px;
     display: flex;
     justify-content: space-between;
     flex-grow: 1;
+    &.link {
+      padding-right: 36px;
+    }
     >div:nth-of-type(1) {
       flex-grow: 1
     }
@@ -157,7 +168,7 @@ export default {
 
   @media #{map-get($display-breakpoints, 'xs-only')} {
     .post-content-container {
-      padding-right: 0;
+      padding-right: 0 !important;
     }
   }
 </style>
