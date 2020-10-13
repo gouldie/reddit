@@ -1,11 +1,14 @@
 import { model, Schema } from 'mongoose'
 
 const replySchema = new Schema({
-  _id: false,
   user: {
-    type: String,
-    ref: 'User'
-  }
+    _id: String,
+    username: String
+  },
+  upvotes: [String],
+  downvotes: [String],
+  createdAt: Number,
+  text: String
 })
 
 replySchema.add({
@@ -19,12 +22,8 @@ var CommentSchema = new Schema({
     type: String,
     ref: 'User'
   },
-  upvotes: [{
-    type: String
-  }],
-  downvotes: [{
-    type: String
-  }],
+  upvotes: [String],
+  downvotes: [String],
   postId: String,
   createdAt: Number,
   updatedAt: Number,

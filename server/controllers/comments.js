@@ -1,6 +1,7 @@
 import cuid from 'cuid'
 import Comment from '../models/Comment'
 import { GetComments, CreateComment, EditComment, Vote, DeleteComment } from '../validators/comments'
+import calculateVotes from '../utils/calculateVotes'
 
 export const getComments = async (req, res) => {
   const { error } = GetComments.validate(req.params, { abortEarly: true })
@@ -30,19 +31,7 @@ export const getComments = async (req, res) => {
   })
 
   // calculate count and user vote
-  comments = comments.map(e => {
-    const upvotes = e.upvotes ? e.upvotes.length : 0
-    const downvotes = e.downvotes ? e.downvotes.length : 0
-    const count = upvotes - downvotes
-    const userVote = e.upvotes && e.upvotes.includes(req.userId) ? 1 : e.downvotes && e.downvotes.includes(req.userId) ? -1 : 0
-
-    delete e.upvotes
-    delete e.downvotes
-    e.count = count
-    e.userVote = userVote
-
-    return e
-  })
+  comments = comments.map(e => calculateVotes(req.userId, e))
 
   // add canEdit tag
   comments = comments.map(e => {

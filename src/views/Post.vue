@@ -21,7 +21,7 @@
                 @editOnChange='editOnChange'
                 :editing='editing'
                 :toggleEdit='toggleEdit'
-                :commentCount='comments.length'
+                :commentCount='commentCount'
               />
               <LeaveComment />
               <Comments v-if='comments.length > 0' :comments='comments' @vote='vote' @deleteComment='deleteComment' />
@@ -39,7 +39,7 @@
 <script>
 import PostFull from '@/components/Posts/PostFull.vue'
 import LeaveComment from '@/components/Comments/LeaveComment.vue'
-import Comments from '@/components/Comments/Comments.vue'
+import Comments from '@/components/Comments/CommentList.vue'
 import CommunityInfo from '@/components/Communities/Info.vue'
 import CommunityHeader from '@/components/Communities/Header.vue'
 import NotFound from '@/components/Core/NotFound.vue'
@@ -150,6 +150,15 @@ export default {
   computed: {
     isEditing () {
       return this.editing || this.editing === ''
+    },
+    commentCount () {
+      const flat = (doc) => {
+        return doc.reduce((acc, val) => {
+          return acc + 1 + (val.replies ? flat(val.replies) : 0)
+        }, 0)
+      }
+
+      return flat(this.comments)
     }
   },
   watch: {

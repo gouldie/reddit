@@ -1,6 +1,11 @@
 <template>
   <div class='comments-list'>
-    <Comment v-for='comment in comments' :key='comment.id' :comment='comment'  v-on='$listeners' />
+    <Comment
+      v-for='comment in comments'
+      :key='comment.id'
+      :comment='comment'
+      v-on='$listeners'
+    />
   </div>
 </template>
 

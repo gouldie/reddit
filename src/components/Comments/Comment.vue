@@ -15,6 +15,7 @@
       >
         mdi-arrow-down-bold
       </v-icon>
+      <div class='threadline' />
     </div>
     <div class='comment-container'>
       <v-card-text class='comment-header'>
@@ -39,6 +40,18 @@
         @onClick='onAction'
       />
 
+      <TextField
+        v-if='isReplying'
+        @onChange='replyOnChange'
+        placeholder='Reply'
+      />
+
+      <Comment
+        v-for='reply in comment.replies'
+        :key='reply._id'
+        :comment='reply'
+      />
+
       <DeleteComment v-if='modal' :commentId='comment._id' v-on='$listeners' @closeModal='modal = false' />
     </div>
   </div>
@@ -52,6 +65,7 @@ import DeleteComment from '@/components/Modals/DeleteComment.vue'
 import axios from 'axios'
 
 export default {
+  name: 'Comment',
   props: [
     'comment'
   ],
@@ -63,6 +77,7 @@ export default {
   data: function () {
     return {
       editing: false,
+      replying: false,
       error: null,
       modal: false // without a local modal variable, every comment will display a modal
     }
@@ -70,6 +85,9 @@ export default {
   computed: {
     isEditing () {
       return this.editing || this.editing === ''
+    },
+    isReplying () {
+      return this.replying || this.replying === ''
     }
   },
   methods: {
@@ -86,6 +104,7 @@ export default {
     },
     onAction (action) {
       if (action === 'Reply') {
+        this.toggleReply()
         return
       }
 
@@ -105,14 +124,24 @@ export default {
       }
     },
     toggleEdit () {
-      if (this.editing || this.editing === '') {
+      if (this.isEditing) {
         this.editing = false
         return
       }
       this.editing = this.comment.text
     },
+    toggleReply () {
+      if (this.isReplying) {
+        this.replying = false
+        return
+      }
+      this.replying = ''
+    },
     editOnChange (e) {
       this.editing = e
+    },
+    replyOnChange (e) {
+      this.replying = e
     },
     editPost () {
       axios.post('/api/comments/edit', {
@@ -143,6 +172,9 @@ export default {
   .vote-panel {
     width: 36px;
     padding: 16px 0 16px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .comment-header {
     padding-bottom: 0;
@@ -170,5 +202,19 @@ export default {
   }
   .editing-container {
     padding: 5px 16px 10px 16px;
+  }
+  .v-icon {
+    z-index: 1;
+  }
+  .threadline {
+    height: 100%;
+    width: 2px;
+    background: #edeff1;
+    position: relative;
+    cursor: pointer;
+
+    &:hover {
+      background: #d45757;
+    }
   }
 </style>

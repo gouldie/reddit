@@ -3,6 +3,8 @@ import Post from '../models/Post'
 import Comment from '../models/Comment'
 import { CreateTextPost, CreateImagePost, CreateLinkPost, GetPost, GetPosts, Vote, EditPost, DeletePost } from '../validators/posts'
 import sortBy from '../utils/sort'
+import calculateVotes from '../utils/calculateVotes'
+import commentCount from '../utils/commentCount'
 import got from 'got'
 
 const metascraper = require('metascraper')([
@@ -34,18 +36,10 @@ export const getPosts = async (req, res) => {
 
   // votes
   posts = posts.map(e => {
-    const upvotes = e.upvotes ? e.upvotes.length : 0
-    const downvotes = e.downvotes ? e.downvotes.length : 0
-    const count = upvotes - downvotes
-    const userVote = e.upvotes && e.upvotes.includes(req.userId) ? 1 : e.downvotes && e.downvotes.includes(req.userId) ? -1 : 0
-
-    delete e.upvotes
-    delete e.downvotes
-    e.count = count
-    e.userVote = userVote
-    e.commentCount = comments.filter(c => c.postId === e._id).length
-
-    return e
+    return {
+      ...calculateVotes(req.userId, e),
+      commentCount: commentCount(comments.filter(c => c.postId === e._id))
+    }
   })
 
   // only show posts by the logged in user, or users 'lorem' and 'ipsum'
@@ -66,7 +60,7 @@ export const getPost = async (req, res) => {
     return res.json({ success: false, message: error.details[0].message })
   }
 
-  const post = await Post.findOne({ _id: req.params.postId }).populate('user', 'username').lean()
+  let post = await Post.findOne({ _id: req.params.postId }).populate('user', 'username').lean()
 
   if (!post) {
     return res.json({
@@ -87,15 +81,7 @@ export const getPost = async (req, res) => {
     post.canEdit = true
   }
 
-  const upvotes = post.upvotes ? post.upvotes.length : 0
-  const downvotes = post.downvotes ? post.downvotes.length : 0
-  const count = upvotes - downvotes
-  const userVote = post.upvotes && post.upvotes.includes(req.userId) ? 1 : post.downvotes && post.downvotes.includes(req.userId) ? -1 : 0
-
-  delete post.upvotes
-  delete post.downvotes
-  post.count = count
-  post.userVote = userVote
+  post = calculateVotes(req.userId, post)
 
   return res.json({
     success: true,
