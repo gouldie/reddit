@@ -1,6 +1,7 @@
 import { model, Schema } from 'mongoose'
 
 const replySchema = new Schema({
+  _id: String,
   user: {
     _id: String,
     username: String

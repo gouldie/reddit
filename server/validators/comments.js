@@ -36,3 +36,14 @@ export const EditComment = Joi.object().keys({
 export const DeleteComment = Joi.object().keys({
   commentId
 })
+
+export const Reply = Joi.object().keys({
+  commentId,
+  rootId: commentId,
+  text
+})
+
+export const ReplyVote = Joi.object().keys({
+  commentId,
+  rootId: commentId
+})

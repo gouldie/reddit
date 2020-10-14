@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :style='containerStyle'>
     <v-text-field
       v-if='!area'
       outlined
@@ -27,7 +27,8 @@ export default {
   props: [
     'value',
     'placeholder',
-    'area'
+    'area',
+    'containerStyle'
   ],
   methods: {
     onChange (e) {

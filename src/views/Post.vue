@@ -24,7 +24,13 @@
                 :commentCount='commentCount'
               />
               <LeaveComment />
-              <Comments v-if='comments.length > 0' :comments='comments' @vote='vote' @deleteComment='deleteComment' />
+              <CommentList
+                v-if='comments.length > 0'
+                :comments='comments'
+                @vote='vote'
+                @deleteComment='deleteComment'
+                @updateComment='updateComment'
+              />
             </v-card>
           </v-col>
           <v-col :md='4' v-if='$vuetify.breakpoint.mdAndUp'>
@@ -39,7 +45,7 @@
 <script>
 import PostFull from '@/components/Posts/PostFull.vue'
 import LeaveComment from '@/components/Comments/LeaveComment.vue'
-import Comments from '@/components/Comments/CommentList.vue'
+import CommentList from '@/components/Comments/CommentList.vue'
 import CommunityInfo from '@/components/Communities/Info.vue'
 import CommunityHeader from '@/components/Communities/Header.vue'
 import NotFound from '@/components/Core/NotFound.vue'
@@ -53,7 +59,7 @@ export default {
   components: {
     PostFull,
     LeaveComment,
-    Comments,
+    CommentList,
     CommunityInfo,
     CommunityHeader,
     NotFound,
@@ -73,10 +79,30 @@ export default {
   methods: {
     vote (data) {
       if (data.commentId) {
-        calculateVote(this.comments.find(e => e._id === data.commentId), data.type)
-        axios.post(`/api/comments/${data.type}`, {
-          commentId: data.commentId
-        })
+        if (data.rootId && (data.rootId !== data.commentId)) {
+          const findReply = (arr, id) => {
+            return arr.reduce((acc, e) => {
+              if (e._id === id) return e
+              const result = findReply(e.replies, id)
+              if (result) return result
+              return acc
+            }, 0)
+          }
+
+          const rootReplies = this.comments.find(e => e._id === data.rootId).replies
+          const reply = findReply(rootReplies, data.commentId)
+
+          calculateVote(reply, data.type)
+          axios.post(`/api/comments/reply/${data.type}`, {
+            commentId: data.commentId,
+            rootId: data.rootId
+          })
+        } else {
+          calculateVote(this.comments.find(e => e._id === data.commentId), data.type)
+          axios.post(`/api/comments/${data.type}`, {
+            commentId: data.commentId
+          })
+        }
       } else {
         calculateVote(this.post, data.type)
         axios.post(`/api/posts/${data.type}`, {
@@ -145,6 +171,10 @@ export default {
     },
     deleteComment (id) {
       this.comments = this.comments.filter(e => e._id !== id)
+    },
+    updateComment (comment) {
+      const index = this.comments.findIndex(e => e._id === comment._id)
+      this.comments.splice(index, 1, comment)
     }
   },
   computed: {

@@ -1,6 +1,6 @@
 <template>
   <div class='comment-wrapper'>
-    <div class='vote-panel' v-if='$vuetify.breakpoint.smAndUp'>
+    <div class='vote-panel'>
       <v-icon
         dense
         :color='comment.userVote === 1 ? "green" : ""'
@@ -40,16 +40,24 @@
         @onClick='onAction'
       />
 
-      <TextField
-        v-if='isReplying'
-        @onChange='replyOnChange'
-        placeholder='Reply'
-      />
+      <div class='reply-container' v-if='isReplying'>
+        <TextField
+          @onChange='replyOnChange'
+          placeholder='Reply'
+        />
+        <div class='d-flex justify-end mt-2'>
+          <v-btn :small='true' color='blue' dark @click.stop='submitReply'>
+            Reply
+          </v-btn>
+        </div>
+      </div>
 
       <Comment
         v-for='reply in comment.replies'
         :key='reply._id'
         :comment='reply'
+        :rootId='rootId'
+        v-on='$listeners'
       />
 
       <DeleteComment v-if='modal' :commentId='comment._id' v-on='$listeners' @closeModal='modal = false' />
@@ -67,7 +75,8 @@ import axios from 'axios'
 export default {
   name: 'Comment',
   props: [
-    'comment'
+    'comment',
+    'rootId'
   ],
   components: {
     CommentActions,
@@ -100,7 +109,7 @@ export default {
         return
       }
 
-      this.$emit('vote', { type, commentId: this.comment._id })
+      this.$emit('vote', { type, rootId: this.rootId, commentId: this.comment._id })
     },
     onAction (action) {
       if (action === 'Reply') {
@@ -120,7 +129,7 @@ export default {
       }
 
       if (action === 'Save') {
-        this.editPost()
+        this.editComment()
       }
     },
     toggleEdit () {
@@ -135,6 +144,12 @@ export default {
         this.replying = false
         return
       }
+
+      if (!this.$store.state.isAuthenticated) {
+        this.$store.commit('setModal', 'log-in')
+        return
+      }
+
       this.replying = ''
     },
     editOnChange (e) {
@@ -143,7 +158,7 @@ export default {
     replyOnChange (e) {
       this.replying = e
     },
-    editPost () {
+    editComment () {
       axios.post('/api/comments/edit', {
         commentId: this.comment._id,
         text: this.comment.text && this.editing
@@ -154,8 +169,23 @@ export default {
             return
           }
 
-          this.comment.text = res.data.comment.text
+          this.$emit('updateComment', res.data.comment)
           this.editing = false
+        })
+    },
+    submitReply () {
+      axios.post('/api/comments/reply', {
+        rootId: this.rootId,
+        commentId: this.comment._id,
+        text: this.replying
+      })
+        .then(res => {
+          this.$emit('updateComment', res.data.comment)
+          this.replying = false
+        })
+        .catch(err => {
+          // TODO: do something with err e.g. snackbar
+          console.log(err)
         })
     }
   }
@@ -163,6 +193,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  @import '~vuetify/src/styles/styles.sass';
+
   .comment-wrapper {
     display: flex;
   }
@@ -171,7 +203,7 @@ export default {
   }
   .vote-panel {
     width: 36px;
-    padding: 16px 0 16px 16px;
+    padding: 18px 0 16px 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -215,6 +247,15 @@ export default {
 
     &:hover {
       background: #d45757;
+    }
+  }
+  .reply-container {
+    padding: 0 16px 0 12px;
+  }
+
+  @media #{map-get($display-breakpoints, 'xs-only')} {
+    .vote-panel, .comment-text, .comment-header, .comment-actions-container {
+      padding-left: 0;
     }
   }
 </style>
