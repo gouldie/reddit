@@ -40,6 +40,15 @@ app.use(express.static('dist'))
 app.use(express.static('public'))
 app.use(cookieParser())
 
+app.get('/api/test', (req, res) => {
+  console.log('test get')
+  return res.send('success')
+})
+app.post('/api/test', (req, res) => {
+  console.log('test post')
+  return res.send('success')
+})
+
 // Routes
 routes(app)
 
