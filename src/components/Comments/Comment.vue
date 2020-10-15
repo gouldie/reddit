@@ -46,7 +46,12 @@
           placeholder='Reply'
         />
         <div class='d-flex justify-end mt-2'>
-          <v-btn :small='true' color='blue' dark @click.stop='submitReply'>
+          <v-btn :small='true' color='blue' dark @click.stop='submitReply' :loading='submittingReply'>
+            <template v-slot:loader>
+              <span class='custom-loader'>
+                <v-icon dark>mdi-cached</v-icon>
+              </span>
+            </template>
             Reply
           </v-btn>
         </div>
@@ -92,6 +97,7 @@ export default {
     return {
       editing: false,
       replying: false,
+      submittingReply: false,
       error: null,
       modal: false // without a local modal variable, every comment will display a modal
     }
@@ -180,6 +186,8 @@ export default {
       })
     },
     submitReply () {
+      this.submittingReply = true
+
       axios.post('/api/comments/reply', {
         rootId: this.rootId,
         commentId: this.comment._id,
@@ -187,6 +195,8 @@ export default {
       })
         .then(res => {
           this.replying = false
+          this.submittingReply = false
+
           if (res.data.success) {
             this.$emit('updateComment', res.data.comment)
           }

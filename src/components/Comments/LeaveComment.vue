@@ -4,7 +4,12 @@
       <v-card-text class='comment-as'>Comment as {{ $store.state.username }}</v-card-text>
       <TextField :value='comment' @onChange='onChange' />
       <div class='action-buttons'>
-        <v-btn small color='primary' @click='submit' :disabled='!comment'>
+        <v-btn small color='primary' @click='submit' :disabled='!comment' :loading='submitting'>
+          <template v-slot:loader>
+            <span class='custom-loader'>
+              <v-icon dark>mdi-cached</v-icon>
+            </span>
+            </template>
           Comment
         </v-btn>
       </div>
@@ -34,17 +39,21 @@ export default {
   },
   data: function () {
     return {
-      comment: ''
+      comment: '',
+      submitting: false
     }
   },
   methods: {
     submit () {
+      this.submitting = true
+
       axios.post('/api/comments', {
         postId: this.$route.params.id,
         text: this.comment
       })
         .then(res => {
-          // window.location.reload()
+          this.submitting = false
+          this.comment = ''
           this.$emit('addComment', res.data.comment)
         })
     },
