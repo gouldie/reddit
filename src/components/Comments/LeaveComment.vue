@@ -44,7 +44,8 @@ export default {
         text: this.comment
       })
         .then(res => {
-          window.location.reload()
+          // window.location.reload()
+          this.$emit('addComment', res.data.comment)
         })
     },
     onChange (e) {

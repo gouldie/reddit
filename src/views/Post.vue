@@ -23,7 +23,7 @@
                 :toggleEdit='toggleEdit'
                 :commentCount='commentCount'
               />
-              <LeaveComment />
+              <LeaveComment @addComment='addComment' />
               <CommentList
                 v-if='comments.length > 0'
                 :comments='comments'
@@ -175,6 +175,9 @@ export default {
     updateComment (comment) {
       const index = this.comments.findIndex(e => e._id === comment._id)
       this.comments.splice(index, 1, comment)
+    },
+    addComment (comment) {
+      this.comments.unshift(comment)
     }
   },
   computed: {

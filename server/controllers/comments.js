@@ -90,7 +90,7 @@ export const createComment = async (req, res) => {
 
   const { postId, text } = req.body
 
-  await Comment.create({
+  let comment = await Comment.create({
     _id: cuid(),
     text,
     postId,
@@ -98,8 +98,16 @@ export const createComment = async (req, res) => {
     createdAt: Date.now()
   })
 
+  comment = await comment.populate('user', 'username').execPopulate()
+
   return res.json({
-    success: true
+    success: true,
+    comment: {
+      ...comment._doc,
+      canEdit: true,
+      count: 0,
+      userVote: 0
+    }
   })
 }
 
