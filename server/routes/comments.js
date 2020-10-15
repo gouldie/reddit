@@ -11,7 +11,10 @@ export default (app) => {
   app.post(`${root}`, verifyToken, createComment)
   app.post(`${root}/upvote`, verifyToken, upvote)
   app.post(`${root}/downvote`, verifyToken, downvote)
-  app.post(`${root}/edit`, verifyToken, editComment)
+  app.post(`${root}/edit`, (req, res) => {
+    console.log('fn')
+    return res.json({ success: false })
+  })
   app.post(`${root}/delete`, verifyToken, deleteComment)
   app.post(`${root}/reply`, verifyToken, reply)
   app.post(`${root}/reply/upvote`, verifyToken, upvoteReply)
