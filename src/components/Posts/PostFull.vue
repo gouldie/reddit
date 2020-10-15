@@ -8,7 +8,8 @@
             <Avatar v-if='showCommunity && $vuetify.breakpoint.smAndUp' :communityName='post.communityName' />
             <span v-if='showCommunity'><a @click.stop='$router.push("/r/" + post.communityName)'><span class='post-community'>{{ `r/${post.communityName}` }}</span></a></span>
             <span class='post-user'>Posted by u/{{ post.user.username }}</span>
-            <span class='post-time'>{{ formattedTime(post.createdAt) }}</span>
+            <span class='post-separator'>·</span>
+            <span class='post-time'><TimeAgo :datetime='post.createdAt' /></span>
           </v-card-text>
           <v-card-title>
             {{ post.title }}
@@ -49,7 +50,6 @@
 </template>
 
 <script>
-import timeago from 'time-ago'
 import Avatar from '@/components/Communities/Avatar.vue'
 import TextField from '@/components/Core/TextField.vue'
 import VotePanel from '@/components/Posts/VotePanel.vue'
@@ -82,9 +82,6 @@ export default {
     }
   },
   methods: {
-    formattedTime (timestamp) {
-      return timeago.ago(timestamp)
-    },
     editOnChange (e) {
       this.$emit('editOnChange', e)
     },
@@ -152,7 +149,11 @@ export default {
   }
   .post-user {
     font-weight: lighter;
-    margin-right: 10px;
+    margin-right: 5px;
+  }
+  .post-separator {
+    color: grey;
+    margin-right: 5px;
   }
   .post-time {
     font-weight: lighter;

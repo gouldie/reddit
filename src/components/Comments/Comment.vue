@@ -22,7 +22,7 @@
         <span class='comment-user'>{{ comment.user.username }}</span>
         <span class='comment-points'>{{ comment.count }} points</span>
         <span class='comment-separator'>·</span>
-        <span class='comment-time'>{{ formattedTime(comment.createdAt) }}</span>
+        <span class='comment-time'><TimeAgo :datetime='comment.createdAt' /></span>
       </v-card-text>
       <v-card-text class='comment-text' v-if='!isEditing'>
         {{ comment.text }}
@@ -72,7 +72,6 @@
 </template>
 
 <script>
-import timeago from 'time-ago'
 import CommentActions from '@/components/Comments/CommentActions.vue'
 import TextField from '@/components/Core/TextField.vue'
 import DeleteComment from '@/components/Modals/DeleteComment.vue'
@@ -106,9 +105,6 @@ export default {
     }
   },
   methods: {
-    formattedTime (timestamp) {
-      return timeago.ago(timestamp)
-    },
     vote (type) {
       if (!this.$store.state.isAuthenticated) {
         this.$store.commit('setModal', 'log-in')

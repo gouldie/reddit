@@ -17,7 +17,8 @@
                 <span>r/{{post.communityName}}</span>
               </router-link>
               <span class='post-user'>Posted by u/{{ post.user.username }}</span>
-              <span class='post-time'>{{ formattedTime(post.createdAt) }}</span>
+              <span class='post-separator'>·</span>
+              <span class='post-time'><TimeAgo :datetime='post.createdAt' /></span>
             </v-card-text>
             <v-card-title>
               {{ post.title }}
@@ -41,7 +42,6 @@
 </template>
 
 <script>
-import timeago from 'time-ago'
 import Avatar from '@/components/Communities/Avatar.vue'
 import VotePanel from '@/components/Posts/VotePanel.vue'
 import LinkPreview from '@/components/Posts/LinkPreview.vue'
@@ -60,9 +60,6 @@ export default {
     'postUrl'
   ],
   methods: {
-    formattedTime (timestamp) {
-      return timeago.ago(timestamp)
-    },
     onAction (action) {
       if (action === 'Comments') {
         this.$router.push(this.postUrl + '?scroll=comments')
@@ -108,13 +105,17 @@ export default {
   }
   .post-user {
     font-weight: lighter;
-    margin-right: 10px;
+    margin-right: 5px;
   }
   .post-text {
     white-space: pre-line;
   }
   .post-time {
     font-weight: lighter;
+  }
+  .post-separator {
+    color: grey;
+    margin-right: 5px;
   }
   .post-link {
     padding: 0 16px 16px;
