@@ -12,4 +12,12 @@ export default (app) => {
   users(app)
   posts(app)
   comments(app)
+  app.get('/api/test', (req, res) => {
+    console.log('test get')
+    return res.send('success')
+  })
+  app.post('/api/test', (req, res) => {
+    console.log('test post')
+    return res.send('success')
+  })
 }
