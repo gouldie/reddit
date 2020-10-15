@@ -112,16 +112,19 @@ export const createComment = async (req, res) => {
 }
 
 export const editComment = async (req, res) => {
+  console.log('start of fn')
   const { error } = EditComment.validate(req.body, { abortEarly: true })
 
   if (error) {
     return res.json({ success: false, message: error.details[0].message })
   }
+  console.log('1')
 
   const { commentId, text } = req.body
 
   // validate the userId with the commentId
   const comment = await Comment.findOne({ _id: commentId })
+  console.log('2')
 
   if (req.userId !== comment.user) {
     return res.json({
@@ -129,14 +132,18 @@ export const editComment = async (req, res) => {
       message: 'Unauthorized'
     })
   }
+  console.log('3')
 
   let newComment = await Comment.findByIdAndUpdate({ _id: commentId }, { $set: { text } }, { new: true }).populate('user').lean()
+  console.log('4')
 
   // filter out non-demo users in the replies
   newComment = onlyDemo.single(req.userId, newComment)
+  console.log('5')
 
   // add userVote, count and canEdit
   newComment = addFields(req.userId, newComment)
+  console.log('6')
 
   return res.json({ success: true, comment: newComment })
 }
