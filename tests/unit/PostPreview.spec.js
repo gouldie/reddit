@@ -35,7 +35,8 @@ describe('PostPreview.vue', () => {
   it('renders community name', () => {
     const wrapper = factory({
       stubs: [
-        'router-link'
+        'router-link',
+        'TimeAgo'
       ]
     })
 
@@ -45,7 +46,11 @@ describe('PostPreview.vue', () => {
   })
 
   it('navigates to community page on click of community name', () => {
-    const wrapper = factory()
+    const wrapper = factory({
+      stubs: [
+        'TimeAgo'
+      ]
+    })
 
     wrapper.find('.post-community').trigger('click')
 

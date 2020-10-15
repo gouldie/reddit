@@ -25,7 +25,8 @@ const factory = (values = {}) => {
       posts
     },
     stubs: [
-      'router-view'
+      'router-view',
+      'TimeAgo'
     ]
   })
 }
