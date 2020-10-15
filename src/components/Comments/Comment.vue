@@ -268,8 +268,11 @@ export default {
   }
 
   @media #{map-get($display-breakpoints, 'xs-only')} {
-    .vote-panel, .comment-text, .comment-header, .comment-actions-container {
+    .vote-panel, .comment-header, .comment-actions-container, .reply-container {
       padding-left: 0;
+    }
+    .editing-container, .comment-text, .comment-header {
+      padding-left: 4px;
     }
   }
 </style>
