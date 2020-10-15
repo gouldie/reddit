@@ -47,3 +47,14 @@ export const ReplyVote = Joi.object().keys({
   commentId,
   rootId: commentId
 })
+
+export const ReplyEdit = Joi.object().keys({
+  commentId,
+  rootId: commentId,
+  text
+})
+
+export const ReplyDelete = Joi.object().keys({
+  commentId,
+  rootId: commentId
+})

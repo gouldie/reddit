@@ -3,7 +3,7 @@ import Post from '../models/Post'
 import Comment from '../models/Comment'
 import { CreateTextPost, CreateImagePost, CreateLinkPost, GetPost, GetPosts, Vote, EditPost, DeletePost } from '../validators/posts'
 import sortBy from '../utils/sort'
-import calculateVotes from '../utils/calculateVotes'
+import addFields from '../utils/addFields'
 import commentCount from '../utils/commentCount'
 import got from 'got'
 
@@ -37,7 +37,7 @@ export const getPosts = async (req, res) => {
   // votes
   posts = posts.map(e => {
     return {
-      ...calculateVotes(req.userId, e),
+      ...addFields(req.userId, e),
       commentCount: commentCount(comments.filter(c => c.postId === e._id))
     }
   })
@@ -77,11 +77,7 @@ export const getPost = async (req, res) => {
     })
   }
 
-  if (req.userId === post.user._id) {
-    post.canEdit = true
-  }
-
-  post = calculateVotes(req.userId, post)
+  post = addFields(req.userId, post)
 
   return res.json({
     success: true,

@@ -60,7 +60,13 @@
         v-on='$listeners'
       />
 
-      <DeleteComment v-if='modal' :commentId='comment._id' v-on='$listeners' @closeModal='modal = false' />
+      <DeleteComment
+        v-if='modal'
+        :commentId='comment._id'
+        :rootId='rootId'
+        v-on='$listeners'
+        @closeModal='modal = false'
+      />
     </div>
   </div>
 </template>
@@ -159,19 +165,23 @@ export default {
       this.replying = e
     },
     editComment () {
-      axios.post('/api/comments/edit', {
-        commentId: this.comment._id,
-        text: this.comment.text && this.editing
-      })
-        .then(res => {
-          if (!res.data.success) {
-            this.error = res.data.message
-            return
-          }
-
-          this.$emit('updateComment', res.data.comment)
-          this.editing = false
+      const request = this.rootId === this.comment._id
+        ? axios.post('/api/comments/edit', {
+          commentId: this.comment._id,
+          text: this.comment.text && this.editing
         })
+        : axios.post('/api/comments/reply/edit', {
+          commentId: this.comment._id,
+          rootId: this.rootId,
+          text: this.comment.text && this.editing
+        })
+
+      request.then(res => {
+        this.editing = false
+        if (res.data.success) {
+          this.$emit('updateComment', res.data.comment)
+        }
+      })
     },
     submitReply () {
       axios.post('/api/comments/reply', {
@@ -180,12 +190,10 @@ export default {
         text: this.replying
       })
         .then(res => {
-          this.$emit('updateComment', res.data.comment)
           this.replying = false
-        })
-        .catch(err => {
-          // TODO: do something with err e.g. snackbar
-          console.log(err)
+          if (res.data.success) {
+            this.$emit('updateComment', res.data.comment)
+          }
         })
     }
   }

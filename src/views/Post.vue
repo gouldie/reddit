@@ -28,8 +28,8 @@
                 v-if='comments.length > 0'
                 :comments='comments'
                 @vote='vote'
-                @deleteComment='deleteComment'
                 @updateComment='updateComment'
+                @deleteComment='deleteComment'
               />
             </v-card>
           </v-col>

@@ -1,4 +1,6 @@
-const calculateVotes = (userId, document) => {
+// loop through post/comment and all nested replies
+// sets userVote, count and canEdit
+const addFields = (userId, document, recursive = true) => {
   const clone = Object.assign({}, document)
 
   const upvotes = clone.upvotes ? clone.upvotes.length : 0
@@ -12,11 +14,15 @@ const calculateVotes = (userId, document) => {
   clone.count = count
   clone.userVote = userVote
 
-  if (clone.replies) {
-    clone.replies = clone.replies.map(e => calculateVotes(userId, e))
+  if (clone.user && (clone.user._id === userId)) {
+    clone.canEdit = true
+  }
+
+  if (recursive && clone.replies) {
+    clone.replies = clone.replies.map(e => addFields(userId, e))
   }
 
   return clone
 }
 
-export default calculateVotes
+export default addFields

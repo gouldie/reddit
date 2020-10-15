@@ -34,17 +34,28 @@ import axios from 'axios'
 
 export default {
   props: [
-    'commentId'
+    'commentId',
+    'rootId'
   ],
   methods: {
     submit () {
-      axios.post('/api/comments/delete', {
-        commentId: this.commentId
-      })
+      const request = this.rootId === this.commentId
+        ? axios.post('/api/comments/delete', {
+          commentId: this.commentId
+        })
+        : axios.post('/api/comments/reply/delete', {
+          commentId: this.commentId,
+          rootId: this.rootId
+        })
+
+      request
         .then(res => {
-          // window.location.reload()
           this.$emit('closeModal')
-          this.$emit('deleteComment', this.commentId)
+          if (res.data.comment) {
+            this.$emit('updateComment', res.data.comment)
+          } else {
+            this.$emit('deleteComment', this.rootId)
+          }
           this.$store.commit('setModal', null)
         })
     }

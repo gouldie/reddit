@@ -1,8 +1,42 @@
 import cuid from 'cuid'
 import Comment from '../models/Comment'
 import User from '../models/User'
-import { GetComments, CreateComment, EditComment, Vote, DeleteComment, Reply, ReplyVote } from '../validators/comments'
-import calculateVotes from '../utils/calculateVotes'
+import {
+  GetComments, CreateComment, EditComment, Vote, DeleteComment,
+  Reply, ReplyVote, ReplyEdit, ReplyDelete
+} from '../validators/comments'
+import addFields from '../utils/addFields'
+import onlyDemo from '../utils/onlyDemo'
+
+const findReply = (arr, id) => {
+  return arr.reduce((acc, e) => {
+    if (e._id === id) return e
+    const result = findReply(e.replies, id)
+    if (result) return result
+    return acc
+  }, 0)
+}
+
+const deleteReplyArr = (replies, commentId, userId) => {
+  let unauthorized = false
+
+  const loop = (replies) => {
+    replies.forEach((r, i) => {
+      if (r._id === commentId) {
+        if (userId !== r.user._id) {
+          unauthorized = true
+        }
+        replies.splice(i, 1)
+      }
+
+      loop(r.replies)
+    })
+  }
+
+  loop(replies)
+
+  return unauthorized
+}
 
 export const getComments = async (req, res) => {
   const { error } = GetComments.validate(req.params, { abortEarly: true })
@@ -14,9 +48,7 @@ export const getComments = async (req, res) => {
   let comments = await Comment.find({ postId: req.params.postId }).populate('user', 'username').lean()
 
   // only show comments by the logged in user, or users 'lorem' and 'ipsum'
-  comments = comments.filter(e => {
-    return e.user._id === req.userId || ['lorem', 'ipsum'].includes(e.user.username)
-  })
+  comments = onlyDemo.multiple(req.userId, comments)
 
   // order by points
   comments = comments.sort((a, b) => {
@@ -32,7 +64,7 @@ export const getComments = async (req, res) => {
   })
 
   // calculate count and user vote
-  comments = comments.map(e => calculateVotes(req.userId, e))
+  comments = comments.map(e => addFields(req.userId, e))
 
   // add canEdit tag
   comments = comments.map(e => {
@@ -90,7 +122,13 @@ export const editComment = async (req, res) => {
     })
   }
 
-  const newComment = await Comment.findByIdAndUpdate({ _id: commentId }, { $set: { text } }, { new: true }).populate('user')
+  let newComment = await Comment.findByIdAndUpdate({ _id: commentId }, { $set: { text } }, { new: true }).populate('user').lean()
+
+  // filter out non-demo users in the replies
+  newComment = onlyDemo.single(req.userId, newComment)
+
+  // add userVote, count and canEdit
+  newComment = addFields(req.userId, newComment)
 
   return res.json({ success: true, comment: newComment })
 }
@@ -178,7 +216,13 @@ export const reply = async (req, res) => {
 
   // if root comment is the comment we are replying to
   if (rootComment._id === commentId) {
-    const comment = await Comment.findOneAndUpdate({ _id: rootId }, { $push: { replies: reply } }, { new: true })
+    let comment = await Comment.findOneAndUpdate({ _id: rootId }, { $push: { replies: reply } }, { new: true }).populate('user', 'username').lean()
+
+    // filter out non-demo users in the replies
+    comment = onlyDemo.single(req.userId, comment)
+
+    // add userVote, count and canEdit
+    comment = addFields(req.userId, comment)
 
     return res.json({
       success: true,
@@ -200,22 +244,19 @@ export const reply = async (req, res) => {
 
     const newReplies = updateReplies(rootComment.replies)
 
-    const comment = await Comment.findOneAndUpdate({ _id: rootId }, { $set: { replies: newReplies } }, { new: true })
+    let comment = await Comment.findOneAndUpdate({ _id: rootId }, { $set: { replies: newReplies } }, { new: true }).populate('user', 'username').lean()
+
+    // filter out non-demo users in the replies
+    comment = onlyDemo.single(req.userId, comment)
+
+    // add userVote, count and canEdit
+    comment = addFields(req.userId, comment)
 
     return res.json({
       success: true,
       comment
     })
   }
-}
-
-const findReply = (arr, id) => {
-  return arr.reduce((acc, e) => {
-    if (e._id === id) return e
-    const result = findReply(e.replies, id)
-    if (result) return result
-    return acc
-  }, 0)
 }
 
 export const upvoteReply = async (req, res) => {
@@ -289,5 +330,82 @@ export const downvoteReply = async (req, res) => {
 
   return res.json({
     success: true
+  })
+}
+
+export const editReply = async (req, res) => {
+  const { error } = ReplyEdit.validate(req.body, { abortEarly: true })
+
+  if (error) {
+    return res.json({ success: false, message: error.details[0].message })
+  }
+
+  const { commentId, rootId, text } = req.body
+
+  let comment = await Comment.findOne({ _id: rootId }).populate('user', 'username').lean()
+
+  const reply = findReply(comment.replies, commentId)
+
+  if (req.userId !== reply.user._id) {
+    return res.json({
+      success: false,
+      message: 'Unauthorized'
+    })
+  }
+
+  reply.text = text
+
+  await Comment.updateOne({ _id: rootId }, { $set: { replies: comment.replies } })
+
+  // filter out non-demo users in the replies
+  comment = onlyDemo.single(req.userId, comment)
+
+  // add userVote, count and canEdit
+  comment = addFields(req.userId, comment)
+
+  return res.json({
+    success: true,
+    comment
+  })
+}
+
+export const deleteReply = async (req, res) => {
+  const { error } = ReplyDelete.validate(req.body, { abortEarly: true })
+
+  if (error) {
+    return res.json({ success: false, message: error.details[0].message })
+  }
+
+  const { commentId, rootId } = req.body
+
+  let comment = await Comment.findOne({ _id: rootId }).populate('user', 'username').lean()
+
+  if (!comment) {
+    return res.json({
+      success: false,
+      message: 'Comment not found'
+    })
+  }
+
+  const isUnauthorized = deleteReplyArr(comment.replies, commentId, req.userId)
+
+  if (isUnauthorized) {
+    return res.json({
+      success: false,
+      message: 'Unauthorized'
+    })
+  }
+
+  await Comment.updateOne({ _id: rootId }, { $set: { replies: comment.replies } })
+
+  // filter out non-demo users in the replies
+  comment = onlyDemo.single(req.userId, comment)
+
+  // add userVote, count and canEdit
+  comment = addFields(req.userId, comment)
+
+  return res.json({
+    success: true,
+    comment
   })
 }
