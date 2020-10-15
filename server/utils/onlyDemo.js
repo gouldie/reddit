@@ -2,7 +2,6 @@
 const display = (document, userId) => ['lorem', 'ipsum'].includes(document.user.username) || (userId === document.user._id)
 
 const loop = (arr, userId) => {
-  console.log('Running loop', arr)
   return arr.reduce((acc, val) => {
     if (display(val, userId)) {
       acc.push({

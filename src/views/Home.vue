@@ -5,12 +5,6 @@
         cols='12'
         :md='8'
       >
-        <v-btn @click='testGet'>
-          test get
-        </v-btn>
-         <v-btn @click='testPost'>
-          test post
-        </v-btn>
         <CreatePostHeader v-if='isAuthenticated' />
         <PostFilter
           :sort='sort'
@@ -66,12 +60,6 @@ export default {
     this.getPosts()
   },
   methods: {
-    testGet () {
-      axios.get('/api/test')
-    },
-    testPost () {
-      axios.post('/api/test')
-    },
     selectSort (sort) {
       this.sort = sort
       this.getPosts()

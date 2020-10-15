@@ -28,26 +28,17 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useFindAndMod
 const app = express()
 
 if (IN_PROD) {
-  // app.use(helmet())
-  // app.use(rateLimit({
-  //   windowMs: 1 * 60 * 1000, // 1 minute
-  //   max: 100 // limit each IP to 100 requests per windowMs
-  // }))
+  app.use(helmet())
+  app.use(rateLimit({
+    windowMs: 1 * 60 * 1000, // 1 minute
+    max: 100 // limit each IP to 100 requests per windowMs
+  }))
 }
 
-// app.use(express.json({ limit: '30mb', type: 'application/json' }))
+app.use(express.json({ limit: '3mb', type: 'application/json' }))
 app.use(express.static('dist'))
 app.use(express.static('public'))
-// app.use(cookieParser())
-
-app.get('/api/test', (req, res) => {
-  console.log('test get')
-  return res.send('success')
-})
-app.post('/api/test', (req, res) => {
-  console.log('test post')
-  return res.send('success')
-})
+app.use(cookieParser())
 
 // Routes
 routes(app)
