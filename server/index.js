@@ -4,7 +4,7 @@ import express from 'express'
 import path from 'path'
 import cookieParser from 'cookie-parser'
 import routes from './routes'
-import helmet from 'helmet'
+import helmet, { hidePoweredBy } from 'helmet'
 import rateLimit from 'express-rate-limit'
 
 if (!process.env.SECRET) {
@@ -26,9 +26,14 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useFindAndMod
 
 // Set up Express
 const app = express()
+app.use(helmet())
+app.use(hidePoweredBy())
 
 if (IN_PROD) {
-  app.use(helmet())
+  // app.use(helmet.hidePoweredBy({
+  //   setTo:
+  //   'test'
+  // }))
   app.use(rateLimit({
     windowMs: 1 * 60 * 1000, // 1 minute
     max: 100 // limit each IP to 100 requests per windowMs
