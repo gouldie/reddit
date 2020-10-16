@@ -26,14 +26,10 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useFindAndMod
 
 // Set up Express
 const app = express()
-app.use(helmet())
-app.use(hidePoweredBy())
 
 if (IN_PROD) {
-  // app.use(helmet.hidePoweredBy({
-  //   setTo:
-  //   'test'
-  // }))
+  app.use(helmet())
+  app.use(hidePoweredBy())
   app.use(rateLimit({
     windowMs: 1 * 60 * 1000, // 1 minute
     max: 100 // limit each IP to 100 requests per windowMs
