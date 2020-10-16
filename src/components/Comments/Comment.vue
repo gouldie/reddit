@@ -1,6 +1,6 @@
 <template>
   <div class='comment-wrapper'>
-    <div class='vote-panel'>
+    <div class='vote-panel' v-if='!hidden'>
       <v-icon
         dense
         :color='comment.userVote === 1 ? "green" : ""'
@@ -15,7 +15,17 @@
       >
         mdi-arrow-down-bold
       </v-icon>
-      <div class='threadline' />
+      <div class='threadline-container' @click='hidden = true'>
+        <div class='threadline' />
+      </div>
+    </div>
+    <div class='vote-panel hidden' v-else>
+      <v-icon
+        small
+        @click='hidden = false'
+      >
+        mdi-plus-circle
+      </v-icon>
     </div>
     <div class='comment-container'>
       <v-card-text class='comment-header'>
@@ -24,54 +34,56 @@
         <span class='comment-separator'>·</span>
         <span class='comment-time'><TimeAgo :datetime='comment.createdAt' /></span>
       </v-card-text>
-      <v-card-text class='comment-text' v-if='!isEditing'>
-        {{ comment.text }}
-      </v-card-text>
-      <div class='editing-container' v-if='isEditing'>
-        <TextField
-          :value='editing'
-          @onChange='editOnChange'
-          placeholder='Text (optional)'
-        />
-      </div>
-      <CommentActions
-        :showEditDelete='comment.canEdit'
-        :showSave='isEditing'
-        @onClick='onAction'
-      />
-
-      <div class='reply-container' v-if='isReplying'>
-        <TextField
-          @onChange='replyOnChange'
-          placeholder='Reply'
-        />
-        <div class='d-flex justify-end mt-2'>
-          <v-btn :small='true' color='blue' dark @click.stop='submitReply' :loading='submittingReply'>
-            <template v-slot:loader>
-              <span class='custom-loader'>
-                <v-icon dark>mdi-cached</v-icon>
-              </span>
-            </template>
-            Reply
-          </v-btn>
+      <div v-if='!hidden'>
+        <v-card-text class='comment-text' v-if='!isEditing'>
+          {{ comment.text }}
+        </v-card-text>
+        <div class='editing-container' v-if='isEditing'>
+          <TextField
+            :value='editing'
+            @onChange='editOnChange'
+            placeholder='Text (optional)'
+          />
         </div>
+        <CommentActions
+          :showEditDelete='comment.canEdit'
+          :showSave='isEditing'
+          @onClick='onAction'
+        />
+
+        <div class='reply-container' v-if='isReplying'>
+          <TextField
+            @onChange='replyOnChange'
+            placeholder='Reply'
+          />
+          <div class='d-flex justify-end mt-2'>
+            <v-btn :small='true' color='blue' dark @click.stop='submitReply' :loading='submittingReply'>
+              <template v-slot:loader>
+                <span class='custom-loader'>
+                  <v-icon dark>mdi-cached</v-icon>
+                </span>
+              </template>
+              Reply
+            </v-btn>
+          </div>
+        </div>
+
+        <Comment
+          v-for='reply in comment.replies'
+          :key='reply._id'
+          :comment='reply'
+          :rootId='rootId'
+          v-on='$listeners'
+        />
+
+        <DeleteComment
+          v-if='modal'
+          :commentId='comment._id'
+          :rootId='rootId'
+          v-on='$listeners'
+          @closeModal='modal = false'
+        />
       </div>
-
-      <Comment
-        v-for='reply in comment.replies'
-        :key='reply._id'
-        :comment='reply'
-        :rootId='rootId'
-        v-on='$listeners'
-      />
-
-      <DeleteComment
-        v-if='modal'
-        :commentId='comment._id'
-        :rootId='rootId'
-        v-on='$listeners'
-        @closeModal='modal = false'
-      />
     </div>
   </div>
 </template>
@@ -99,7 +111,8 @@ export default {
       replying: false,
       submittingReply: false,
       error: null,
-      modal: false // without a local modal variable, every comment will display a modal
+      modal: false, // without a local modal variable, every comment will display a modal
+      hidden: false
     }
   },
   computed: {
@@ -221,6 +234,10 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    &.hidden {
+      margin-top: 2px;
+    }
   }
   .comment-header {
     padding-bottom: 0;
@@ -252,17 +269,26 @@ export default {
   .v-icon {
     z-index: 1;
   }
-  .threadline {
+  .threadline-container {
     height: 100%;
-    width: 2px;
-    background: #edeff1;
-    position: relative;
+    display: flex;
+    justify-content: center;
     cursor: pointer;
+    width: 10px;
+
+    .threadline {
+      height: 100%;
+      width: 2px;
+      background: #edeff1;
+    }
 
     &:hover {
-      background: #d45757;
+      .threadline {
+        background: #d45757;
+      }
     }
   }
+
   .reply-container {
     padding: 0 16px 0 12px;
   }
@@ -273,6 +299,9 @@ export default {
     }
     .editing-container, .comment-text, .comment-header {
       padding-left: 4px;
+    }
+    .threadline-container {
+      margin-top: 5px;
     }
   }
 </style>
