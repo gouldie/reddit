@@ -1,6 +1,9 @@
 <template>
   <div class='comment-actions-container'>
-    <div class='comment-action' v-for='action in actions' :key='action' @click='onClick(action)' @click.prevent>
+    <div :class='{
+        "comment-action": true,
+        "selected": action === "Edit" && showSave
+      }' v-for='action in actions' :key='action' @click='onClick(action)' @click.prevent>
       <v-icon small>
         {{ icons[action] }}
       </v-icon>
@@ -58,7 +61,7 @@ export default {
     .comment-action {
       margin-right: 4px;
       color: rgb(135, 138, 140);
-      padding: 4px;
+      padding: 2px 4px;
       border-radius: 2px;
       cursor: pointer;
 
@@ -72,6 +75,10 @@ export default {
       }
 
       &:hover {
+        background: #ebebeb;
+      }
+
+      &.selected {
         background: #ebebeb;
       }
     }

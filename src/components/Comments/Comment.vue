@@ -258,7 +258,7 @@ export default {
     font-weight: lighter;
   }
   .comment-text {
-    padding: 5px 16px 2px;
+    padding: 5px 16px 4px;
   }
   i {
     cursor: pointer;
