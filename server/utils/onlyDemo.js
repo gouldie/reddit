@@ -4,10 +4,14 @@ const display = (document, userId) => ['lorem', 'ipsum'].includes(document.user.
 const loop = (arr, userId) => {
   return arr.reduce((acc, val) => {
     if (display(val, userId)) {
-      acc.push({
-        ...val,
-        replies: loop(val.replies, userId)
-      })
+      const element = {
+        ...val
+      }
+      if (val.replies) {
+        element.replies = loop(val.replies, userId)
+      }
+
+      acc.push(element)
     }
 
     return acc
