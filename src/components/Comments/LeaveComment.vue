@@ -2,7 +2,7 @@
   <div class='leave-comment-container'>
     <div v-if='$store.state.isAuthenticated' >
       <v-card-text class='comment-as'>Comment as {{ $store.state.username }}</v-card-text>
-      <TextField :value='comment' @onChange='onChange' />
+      <TextField :value='comment' @onChange='onChange' :area='true' />
       <div class='action-buttons'>
         <v-btn small color='primary' @click='submit' :disabled='!comment' :loading='submitting'>
           <template v-slot:loader>

@@ -43,6 +43,7 @@
             :value='editing'
             @onChange='editOnChange'
             placeholder='Text (optional)'
+            :area='true'
           />
         </div>
         <CommentActions
@@ -258,6 +259,7 @@ export default {
     font-weight: lighter;
   }
   .comment-text {
+    white-space: pre-line;
     padding: 5px 16px 4px;
   }
   i {

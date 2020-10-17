@@ -17,6 +17,8 @@
       :value='value'
       @input='onChange'
       auto-grow
+      :rows='2'
+      hide-details
       :placeholder='placeholder || "What are your thoughts?"'
     ></v-textarea>
   </div>

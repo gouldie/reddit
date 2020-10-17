@@ -42,6 +42,9 @@ export default {
   textarea {
     line-height: 22px !important;
   }
+  .v-textarea .v-text-field__slot {
+    padding-bottom: 8px;
+  }
 
   .v-card__title {
     font-size: 18px;

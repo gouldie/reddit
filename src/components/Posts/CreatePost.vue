@@ -212,6 +212,7 @@ export default {
   .action-buttons {
     display: flex;
     justify-content: flex-end;
+    margin-top: 10px;
     button {
       margin-left: 15px !important;
     }
