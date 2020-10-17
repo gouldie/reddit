@@ -81,9 +81,9 @@ export default {
     padding: 0 16px 8px 12px;
 
     .post-action {
-      margin-right: 4px;
+      margin-right: 2px;
       color: rgb(135, 138, 140);
-      padding: 2px 4px;
+      padding: 2px 6px;
       border-radius: 2px;
       cursor: pointer;
 
