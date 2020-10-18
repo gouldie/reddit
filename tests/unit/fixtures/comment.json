@@ -1,0 +1,39 @@
+{
+  "_id": "ckgaeyoyt0003z3pg60sm6c3q",
+  "upvotes": [],
+  "downvotes": [],
+  "text": "It's important to learn about at least one code repository tool. In the workplace you will definitely be using something. You won't necessarily get to choose which tool you use but you will be expected to understand general concepts such as pulling, updating, committing, pushing, branching and tagging. Each of those terms may mean different specific things in each tool but as a whole if you understand the principle it doesn't matter. When I've interviewed people I generally just ensure they know what a source repository is.  As to specifically using git, use whatever you want. Git is a common one but if you don't think it suits your needs that's fine, just use something!",
+  "postId": "ckddc3ojs0004lzpgekxw9cnz",
+  "user": "ckd60rujv0003q0pg115i0h1j",
+  "createdAt": 1602741594341,
+  "replies": [
+    {
+      "upvotes": [
+        "ckd60rujv0003q0pg115i0h1j"
+      ],
+      "downvotes": [],
+      "_id": "ckgaf24kk000bz3pghwbq7vvn",
+      "user": {
+        "_id": "ckd60rujv0003q0pg115i0h1j",
+        "username": "lorem"
+      },
+      "text": "The term is \"version control\". In Git's case, \"distributed version control\".",
+      "createdAt": 1602741754533,
+      "replies": []
+    },
+    {
+      "upvotes": [
+        "ckd60rujv0003q0pg115i0h1j"
+      ],
+      "downvotes": [],
+      "_id": "ckgb10udc00000hpj3rzhbgnx",
+      "user": {
+        "_id": "ckddc1k190002lzpg0wqo15la",
+        "username": "ipsum"
+      },
+      "text": "As a hobby programmer I used to use mercurial with Google Code, but then everyone was using github. So I just moved to Git.",
+      "createdAt": 1602778646208,
+      "replies": []
+    }
+  ]
+}
