@@ -49,7 +49,7 @@
           <!-- <v-btn color='blue' small @click='dialog = false'>
             Close
           </v-btn> -->
-          <v-btn color='primary' @click='submit' min-width='90' :loading='loading'>
+          <v-btn color='primary' @click='submit' min-width='80' :loading='loading'>
             <template v-slot:loader>
               <span class='custom-loader'>
                 <v-icon dark>mdi-cached</v-icon>

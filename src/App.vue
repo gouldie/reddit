@@ -32,6 +32,9 @@ export default {
   .container {
     max-width: 1185px;
   }
+  .v-dialog {
+    margin: 24px 12px;
+  }
   .v-content {
     background-color: #dae0e7;
   }
