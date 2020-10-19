@@ -2,24 +2,24 @@
   <div class='post-container' data-testid='post-container'>
     <VotePanel :post='post' v-on='$listeners' :greyBackground='true' />
       <div class='post-content-wrapper'>
+        <v-card-text class='post-header'>
+          <Avatar v-if='showCommunity && $vuetify.breakpoint.smAndUp' :communityName='post.communityName' />
+          <router-link
+            v-if='showCommunity'
+            class='post-community'
+            :to='`r/${post.communityName}`'
+          >
+            <span>r/{{post.communityName}}</span>
+          </router-link>
+          <span class='post-user'>Posted by u/{{ post.user.username }}</span>
+          <span class='post-separator'>·</span>
+          <span class='post-time'><TimeAgo :datetime='post.createdAt' /></span>
+        </v-card-text>
         <div :class='{
           "post-content-container": true,
           "link": !!post.link
           }'>
           <div>
-            <v-card-text class='post-header'>
-              <Avatar v-if='showCommunity && $vuetify.breakpoint.smAndUp' :communityName='post.communityName' />
-              <router-link
-                v-if='showCommunity'
-                class='post-community'
-                :to='`r/${post.communityName}`'
-              >
-                <span>r/{{post.communityName}}</span>
-              </router-link>
-              <span class='post-user'>Posted by u/{{ post.user.username }}</span>
-              <span class='post-separator'>·</span>
-              <span class='post-time'><TimeAgo :datetime='post.createdAt' /></span>
-            </v-card-text>
             <v-card-title>
               {{ post.title }}
             </v-card-title>
