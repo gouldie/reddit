@@ -1,12 +1,14 @@
 <template>
   <div class='comments-list'>
-    <Comment
-      v-for='comment in comments'
-      :key='comment.id'
-      :comment='comment'
-      :rootId='comment._id'
-      v-on='$listeners'
-    />
+    <transition-group name='comments-list' tag='div'>
+      <Comment
+        v-for='comment in comments'
+        :key='comment._id'
+        :comment='comment'
+        :rootId='comment._id'
+        v-on='$listeners'
+      />
+    </transition-group>
   </div>
 </template>
 
@@ -31,5 +33,11 @@ export default {
 <style scoped lang="scss">
   .comments-list {
     padding-bottom: 10px;
+  }
+  .comments-list-enter-active, .comments-list-leave-active {
+    transition: all 0.7s;
+  }
+  .comments-list-enter, .comments-list-leave-to {
+    opacity: 0;
   }
 </style>

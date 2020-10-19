@@ -69,13 +69,15 @@
           </div>
         </div>
 
-        <Comment
-          v-for='reply in comment.replies'
-          :key='reply._id'
-          :comment='reply'
-          :rootId='rootId'
-          v-on='$listeners'
-        />
+        <transition-group name='reply-list' tag='div'>
+          <Comment
+            v-for='reply in comment.replies'
+            :key='reply._id'
+            :comment='reply'
+            :rootId='rootId'
+            v-on='$listeners'
+          />
+        </transition-group>
 
         <DeleteComment
           v-if='modal'
@@ -293,6 +295,13 @@ export default {
 
   .reply-container {
     padding: 0 16px 0 12px;
+  }
+
+  .reply-list-enter-active, .reply-list-leave-active {
+    transition: all 0.7s;
+  }
+  .reply-list-enter, .reply-list-leave-to {
+    opacity: 0;
   }
 
   @media #{map-get($display-breakpoints, 'xs-only')} {
