@@ -22,7 +22,7 @@ export default {
     justify-content: center;
     min-width: 100px;
     height: 100px;
-    margin: 25px 0;
+    // margin: 25px 0;
     background-size: cover;
     position: relative;
     left: 10px;
@@ -45,7 +45,7 @@ export default {
   @media #{map-get($display-breakpoints, 'xs-only')} {
     a {
       left: 0;
-      margin: 16px;
+      margin: 16px 16px 0 0;
       min-width: 75px;
       height: 75px;
     }
