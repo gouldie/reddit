@@ -1,6 +1,6 @@
 <template>
   <v-app-bar app color='#fff'>
-    <img id='logo' @click='redirect' src='@/assets/images/reddit.png' />
+    <a href='/'><img id='logo' src='@/assets/images/reddit.png' /></a>
 
     <v-spacer></v-spacer>
 
@@ -77,9 +77,6 @@ export default {
     }
   },
   methods: {
-    redirect () {
-      window.location.href = '/'
-    },
     logout () {
       axios.get('/api/users/logout')
         .then(() => {
@@ -101,6 +98,9 @@ export default {
 <style scoped lang="scss">
   @import '~vuetify/src/styles/styles.sass';
 
+  a {
+    display: flex;
+  }
   #logo {
     width: 40px;
     cursor: pointer;
