@@ -173,7 +173,7 @@ export default {
   }
   .post-image {
     width: 90%;
-    margin: 10px auto 0;
+    margin: 10px auto 10px;
     border-radius: 3px;
     img {
       max-width: 100%;
