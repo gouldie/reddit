@@ -32,7 +32,7 @@
         <span class='comment-user'>{{ comment.user.username }}</span>
         <span class='comment-points'>{{ comment.count }} points</span>
         <span class='comment-separator'>·</span>
-        <span class='comment-time'><TimeAgo :datetime='comment.createdAt' /></span>
+        <span class='comment-time'><CustomTimeAgo :datetime='comment.createdAt' /></span>
       </v-card-text>
       <div v-if='!hidden'>
         <v-card-text class='comment-text' v-if='!isEditing'>
@@ -95,6 +95,7 @@
 import CommentActions from '@/components/Comments/CommentActions.vue'
 import TextField from '@/components/Core/TextField.vue'
 import DeleteComment from '@/components/Modals/DeleteComment.vue'
+import CustomTimeAgo from '@/components/Core/TimeAgo.vue'
 import axios from 'axios'
 
 export default {
@@ -106,7 +107,8 @@ export default {
   components: {
     CommentActions,
     TextField,
-    DeleteComment
+    DeleteComment,
+    CustomTimeAgo
   },
   data: function () {
     return {

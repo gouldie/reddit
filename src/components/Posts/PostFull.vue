@@ -9,7 +9,7 @@
             <span v-if='showCommunity'><a @click.stop='$router.push("/r/" + post.communityName)'><span class='post-community'>{{ `r/${post.communityName}` }}</span></a></span>
             <span class='post-user'>Posted by u/{{ post.user.username }}</span>
             <span class='post-separator'>·</span>
-            <span class='post-time'><TimeAgo :datetime='post.createdAt' /></span>
+            <span class='post-time'><CustomTimeAgo :datetime='post.createdAt' /></span>
           </v-card-text>
           <v-card-title>
             {{ post.title }}
@@ -57,6 +57,7 @@ import DropZone from '@/components/Core/DropZone.vue'
 import DeletePost from '@/components/Modals/DeletePost.vue'
 import LinkPreview from '@/components/Posts/LinkPreview.vue'
 import PostActions from '@/components/Posts/PostActions.vue'
+import CustomTimeAgo from '@/components/Core/TimeAgo.vue'
 
 export default {
   components: {
@@ -66,7 +67,8 @@ export default {
     DropZone,
     DeletePost,
     LinkPreview,
-    PostActions
+    PostActions,
+    CustomTimeAgo
   },
   props: [
     'post',

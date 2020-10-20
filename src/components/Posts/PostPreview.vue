@@ -13,7 +13,7 @@
           </router-link>
           <span class='post-user'>Posted by u/{{ post.user.username }}</span>
           <span class='post-separator'>·</span>
-          <span class='post-time'><TimeAgo :datetime='post.createdAt' /></span>
+          <span class='post-time'><CustomTimeAgo :datetime='post.createdAt' /></span>
         </v-card-text>
         <div :class='{
           "post-content-container": true,
@@ -46,13 +46,15 @@ import Avatar from '@/components/Communities/Avatar.vue'
 import VotePanel from '@/components/Posts/VotePanel.vue'
 import LinkPreview from '@/components/Posts/LinkPreview.vue'
 import PostActions from '@/components/Posts/PostActions.vue'
+import CustomTimeAgo from '@/components/Core/TimeAgo.vue'
 
 export default {
   components: {
     Avatar,
     VotePanel,
     LinkPreview,
-    PostActions
+    PostActions,
+    CustomTimeAgo
   },
   props: [
     'post',
