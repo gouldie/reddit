@@ -163,7 +163,7 @@ export default {
   }
   a {
     display: inline-block;
-    padding: 0 16px;
+    padding: 0 16px 16px;
     color: #65ade4;
     text-decoration: none;
     word-break: break-all;
