@@ -1,5 +1,5 @@
 <template>
-  <a :href='link' target='_blank' :style='`background-image: url(${preview});`' @click.stop>
+  <a :class='extraMargin && "extraMargin"' :href='link' target='_blank' :style='`background-image: url(${preview});`' @click.stop>
     <v-icon class='link-preview-center' color='blue' v-if='!preview'>link</v-icon>
     <v-icon class='link-preview-corner' color='blue' small>link</v-icon>
   </a>
@@ -9,7 +9,8 @@
 export default {
   props: [
     'link',
-    'preview'
+    'preview',
+    'extraMargin'
   ]
 }
 </script>
@@ -22,13 +23,16 @@ export default {
     justify-content: center;
     min-width: 100px;
     height: 100px;
-    // margin: 25px 0;
     background-size: cover;
     position: relative;
     left: 10px;
     border: 1px solid var(--v-blue-base);
     border-radius: 4px;
     cursor: pointer;
+
+    &.extraMargin {
+      margin: 25px 0;
+    }
     img {
       width: 100%;
     }
@@ -48,6 +52,10 @@ export default {
       margin: 16px 16px 0 0;
       min-width: 75px;
       height: 75px;
+
+      &.extraMargin {
+        margin: 16px;
+      }
     }
   }
 </style>

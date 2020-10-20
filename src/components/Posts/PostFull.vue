@@ -41,7 +41,7 @@
             v-on='$listeners'
           />
         </div>
-        <LinkPreview v-if='post.link' :link='createLink' :preview='post.linkPreview' />
+        <LinkPreview v-if='post.link' :link='createLink' :preview='post.linkPreview' :extraMargin='true' />
       </div>
 
       <DeletePost :postId='post._id' />
