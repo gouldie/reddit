@@ -2,9 +2,7 @@ import cuid from 'cuid'
 import Post from '../models/Post'
 import Comment from '../models/Comment'
 import { CreateTextPost, CreateImagePost, CreateLinkPost, GetPost, GetPosts, Vote, EditPost, DeletePost } from '../validators/posts'
-import sortBy from '../utils/sort'
-import addFields from '../utils/addFields'
-import commentCount from '../utils/commentCount'
+import { addFields, commentCount, sortBy } from '../utils'
 import got from 'got'
 
 const metascraper = require('metascraper')([

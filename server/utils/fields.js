@@ -1,6 +1,6 @@
 // loop through post/comment and all nested replies
 // sets userVote, count and canEdit
-const addFields = (userId, document, recursive = true) => {
+export const addFields = (userId, document, recursive = true) => {
   const clone = Object.assign({}, document)
 
   const upvotes = clone.upvotes ? clone.upvotes.length : 0
@@ -25,4 +25,9 @@ const addFields = (userId, document, recursive = true) => {
   return clone
 }
 
-export default addFields
+// returns the number of comments and replies for a post
+export const commentCount = (doc) => {
+  return doc.reduce((acc, val) => {
+    return acc + 1 + (val.replies ? commentCount(val.replies) : 0)
+  }, 0)
+}

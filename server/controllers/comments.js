@@ -5,8 +5,7 @@ import {
   GetComments, CreateComment, EditComment, Vote, DeleteComment,
   Reply, ReplyVote, ReplyEdit, ReplyDelete
 } from '../validators/comments'
-import addFields from '../utils/addFields'
-import onlyDemo from '../utils/onlyDemo'
+import { addFields, onlyDemo } from '../utils'
 
 const findReply = (arr, id) => {
   return arr.reduce((acc, e) => {

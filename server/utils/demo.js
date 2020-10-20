@@ -42,6 +42,6 @@ const single = (userId, document) => {
 }
 
 export default {
-  multiple,
-  single
+  single,
+  multiple
 }
