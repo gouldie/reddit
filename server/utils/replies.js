@@ -1,0 +1,29 @@
+export const findReply = (arr, id) => {
+  return arr.reduce((acc, e) => {
+    if (e._id === id) return e
+    const result = findReply(e.replies, id)
+    if (result) return result
+    return acc
+  }, 0)
+}
+
+export const deleteReply = (replies, commentId, userId) => {
+  let unauthorized = false
+
+  const loop = (replies) => {
+    replies.forEach((r, i) => {
+      if (r._id === commentId) {
+        if (userId !== r.user._id) {
+          unauthorized = true
+        }
+        replies.splice(i, 1)
+      }
+
+      loop(r.replies)
+    })
+  }
+
+  loop(replies)
+
+  return unauthorized
+}

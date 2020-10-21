@@ -5,37 +5,7 @@ import {
   GetComments, CreateComment, EditComment, Vote, DeleteComment,
   Reply, ReplyVote, ReplyEdit, ReplyDelete
 } from '../validators/comments'
-import { addFields, onlyDemo } from '../utils'
-
-const findReply = (arr, id) => {
-  return arr.reduce((acc, e) => {
-    if (e._id === id) return e
-    const result = findReply(e.replies, id)
-    if (result) return result
-    return acc
-  }, 0)
-}
-
-const deleteReplyArr = (replies, commentId, userId) => {
-  let unauthorized = false
-
-  const loop = (replies) => {
-    replies.forEach((r, i) => {
-      if (r._id === commentId) {
-        if (userId !== r.user._id) {
-          unauthorized = true
-        }
-        replies.splice(i, 1)
-      }
-
-      loop(r.replies)
-    })
-  }
-
-  loop(replies)
-
-  return unauthorized
-}
+import { addFields, onlyDemo, findReply, deleteReplyArr } from '../utils'
 
 export const getComments = async (req, res) => {
   const { error } = GetComments.validate(req.params, { abortEarly: true })
