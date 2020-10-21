@@ -5,7 +5,7 @@ import {
   GetComments, CreateComment, EditComment, Vote, DeleteComment,
   Reply, ReplyVote, ReplyEdit, ReplyDelete
 } from '../validators/comments'
-import { addFields, onlyDemo, findReply, deleteReplyArr } from '../utils'
+import { addFields, onlyDemo, findReply, deleteReplyArr, updateReplies } from '../utils'
 
 export const getComments = async (req, res) => {
   const { error } = GetComments.validate(req.params, { abortEarly: true })
@@ -191,49 +191,27 @@ export const reply = async (req, res) => {
     replies: []
   }
 
+  let comment
+
   // if root comment is the comment we are replying to
   if (rootComment._id === commentId) {
-    let comment = await Comment.findOneAndUpdate({ _id: rootId }, { $push: { replies: reply } }, { new: true }).populate('user', 'username').lean()
-
-    // filter out non-demo users in the replies
-    comment = onlyDemo.single(req.userId, comment)
-
-    // add userVote, count and canEdit
-    comment = addFields(req.userId, comment)
-
-    return res.json({
-      success: true,
-      comment
-    })
+    comment = await Comment.findOneAndUpdate({ _id: rootId }, { $push: { replies: reply } }, { new: true }).populate('user', 'username').lean()
   } else {
-    const updateReplies = (replies) => {
-      return replies.map(r => {
-        if (r._id === commentId) {
-          r.replies.push(reply)
-        }
+    const newReplies = updateReplies(rootComment.replies, commentId, reply)
 
-        return {
-          ...r,
-          replies: updateReplies(r.replies)
-        }
-      })
-    }
-
-    const newReplies = updateReplies(rootComment.replies)
-
-    let comment = await Comment.findOneAndUpdate({ _id: rootId }, { $set: { replies: newReplies } }, { new: true }).populate('user', 'username').lean()
-
-    // filter out non-demo users in the replies
-    comment = onlyDemo.single(req.userId, comment)
-
-    // add userVote, count and canEdit
-    comment = addFields(req.userId, comment)
-
-    return res.json({
-      success: true,
-      comment
-    })
+    comment = await Comment.findOneAndUpdate({ _id: rootId }, { $set: { replies: newReplies } }, { new: true }).populate('user', 'username').lean()
   }
+
+  // filter out non-demo users in the replies
+  comment = onlyDemo.single(req.userId, comment)
+
+  // add userVote, count and canEdit
+  comment = addFields(req.userId, comment)
+
+  return res.json({
+    success: true,
+    comment
+  })
 }
 
 export const upvoteReply = async (req, res) => {

@@ -27,3 +27,16 @@ export const deleteReply = (replies, commentId, userId) => {
 
   return unauthorized
 }
+
+export const updateReplies = (replies, commentId, reply) => {
+  return replies.map(r => {
+    if (r._id === commentId) {
+      r.replies.push(reply)
+    }
+
+    return {
+      ...r,
+      replies: updateReplies(r.replies, commentId, reply)
+    }
+  })
+}
