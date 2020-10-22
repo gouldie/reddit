@@ -40,3 +40,13 @@ export const updateReplies = (replies, commentId, reply) => {
     }
   })
 }
+
+export const sortReplies = (replies, sortBy) => {
+  return replies.sort(sortBy).map(e => {
+    if (e.replies.length > 1) {
+      e.replies = sortReplies(e.replies, sortBy)
+    }
+
+    return e
+  })
+}

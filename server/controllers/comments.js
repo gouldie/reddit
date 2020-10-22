@@ -5,7 +5,7 @@ import {
   GetComments, CreateComment, EditComment, Vote, DeleteComment,
   Reply, ReplyVote, ReplyEdit, ReplyDelete
 } from '../validators/comments'
-import { addFields, onlyDemo, findReply, deleteReplyArr, updateReplies } from '../utils'
+import { addFields, onlyDemo, findReply, deleteReplyArr, updateReplies, sortReplies, sortBy } from '../utils'
 
 export const getComments = async (req, res) => {
   const { error } = GetComments.validate(req.params, { abortEarly: true })
@@ -20,17 +20,7 @@ export const getComments = async (req, res) => {
   comments = onlyDemo.multiple(req.userId, comments)
 
   // order by points
-  comments = comments.sort((a, b) => {
-    const upvotesA = a.upvotes ? a.upvotes.length : 0
-    const downvotesA = a.downvotes ? a.downvotes.length : 0
-    const countA = upvotesA - downvotesA
-
-    const upvotesB = b.upvotes ? b.upvotes.length : 0
-    const downvotesB = b.downvotes ? b.downvotes.length : 0
-    const countB = upvotesB - downvotesB
-
-    return countA < countB ? 1 : -1
-  })
+  comments = sortReplies(comments, sortBy.Best)
 
   // calculate count and user vote
   comments = comments.map(e => addFields(req.userId, e))
