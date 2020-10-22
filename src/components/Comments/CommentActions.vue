@@ -31,7 +31,7 @@ export default {
   },
   computed: {
     actions () {
-      let actions = ['Reply', 'Share']
+      let actions = ['Reply']
 
       if (this.showEditDelete) {
         actions = actions.concat(['Edit', 'Delete'])
