@@ -1,5 +1,7 @@
 import Joi from '@hapi/joi'
 
+const validSorts = ['Best', 'Hot', 'Top', 'New']
+
 const postId = Joi.string()
   .required()
   .max(300)
@@ -15,8 +17,13 @@ const text = Joi.string()
   .required()
   .label('Text')
 
+const sort = Joi.string()
+  .allow(...validSorts)
+  .only()
+
 export const GetComments = Joi.object().keys({
-  postId
+  postId,
+  sort
 })
 
 export const CreateComment = Joi.object().keys({

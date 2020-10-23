@@ -8,19 +8,24 @@ import {
 import { addFields, onlyDemo, findReply, deleteReplyArr, updateReplies, sortReplies, sortBy } from '../utils'
 
 export const getComments = async (req, res) => {
-  const { error } = GetComments.validate(req.params, { abortEarly: true })
+  const { error } = GetComments.validate({ ...req.params, ...req.query }, { abortEarly: true })
 
   if (error) {
     return res.json({ success: false, message: error.details[0].message })
   }
+
+  const { sort } = req.query
 
   let comments = await Comment.find({ postId: req.params.postId }).populate('user', 'username').lean()
 
   // only show comments by the logged in user, or users 'lorem' and 'ipsum'
   comments = onlyDemo.multiple(req.userId, comments)
 
-  // order by points
-  comments = sortReplies(comments, sortBy.Best)
+  // order comments by req.query.sort
+  comments = comments.sort(sortBy[sort])
+
+  // order replies by points
+  comments.replies = sortReplies(comments.replies, sortBy.Best)
 
   // calculate count and user vote
   comments = comments.map(e => addFields(req.userId, e))

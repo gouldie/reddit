@@ -153,7 +153,7 @@ export default {
     justify-content: space-between;
     flex-grow: 1;
     &.link {
-      padding-right: 36px;
+      padding-right: 34px;
     }
     >div:nth-of-type(1) {
       flex-grow: 1

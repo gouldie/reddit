@@ -30,6 +30,7 @@
                 @vote='vote'
                 @updateComment='updateComment'
                 @deleteComment='deleteComment'
+                @sort='sortComments'
               />
             </v-card>
           </v-col>
@@ -128,8 +129,12 @@ export default {
           this.getComments()
         })
     },
-    getComments () {
-      axios.get(`/api/comments/${this.$route.params.id}`)
+    getComments (sort = 'Top') {
+      axios.get(`/api/comments/${this.$route.params.id}`, {
+        params: {
+          sort
+        }
+      })
         .then(res => {
           if (!res.data.success) {
             this.error = res.data.message
@@ -178,6 +183,9 @@ export default {
     },
     addComment (comment) {
       this.comments.unshift(comment)
+    },
+    sortComments (sort) {
+      this.getComments(sort)
     }
   },
   computed: {

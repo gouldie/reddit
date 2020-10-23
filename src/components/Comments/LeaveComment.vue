@@ -96,7 +96,7 @@ export default {
 
   @media #{map-get($display-breakpoints, 'xs-only')} {
     .leave-comment-container {
-      padding: 0 10px 10px;
+      padding: 0 10px 15px;
     }
   }
 </style>

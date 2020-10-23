@@ -166,26 +166,4 @@ export default {
     }
   }
 
-  .v-list {
-    padding: 0;
-
-    .v-list-item {
-      cursor: pointer;
-      min-height: 38px;
-      padding: 0 10px;
-
-      &:hover {
-        background: rgb(246, 246, 246);
-      }
-    }
-
-    .v-icon {
-      transform: rotate(45deg);
-      margin-right: 5px;
-    }
-
-    .v-list-item__title {
-      font-size: 12px;
-    }
-  }
 </style>

@@ -196,7 +196,7 @@ export default {
     font-size: 0.875rem !important;
   }
   .post-content-container {
-    padding-right: 36px;
+    padding-right: 34px;
     display: flex;
     justify-content: space-between;
     flex-grow: 1;

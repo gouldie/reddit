@@ -62,8 +62,30 @@ export default {
   }
   .v-input {
     font-size: 14px;
+
     label {
       font-size: 14px;
+    }
+
+    &.borderless {
+      .v-input__slot {
+        box-shadow: none !important;
+      }
+
+      .v-select__selection {
+        color: #37423c !important;
+      }
+
+      .v-input__control {
+        display: flex;
+        justify-content: center;
+        position: relative;
+        top: -1.5px;
+      }
+
+      i {
+        color: #878a8c !important;
+      }
     }
   }
 
@@ -74,6 +96,29 @@ export default {
   .custom-loader {
     animation: loader 1s infinite;
     display: flex;
+  }
+
+  .v-menu__content .v-list {
+    padding: 0;
+
+    .v-list-item {
+      cursor: pointer;
+      min-height: 38px;
+      padding: 0 10px;
+
+      &:hover {
+        background: rgb(246, 246, 246);
+      }
+    }
+
+    .v-icon {
+      transform: rotate(45deg);
+      margin-right: 5px;
+    }
+
+    .v-list-item__title {
+      font-size: 12px;
+    }
   }
 
   @-moz-keyframes loader {
@@ -130,6 +175,7 @@ export default {
     }
     .v-card__text, a {
       font-size: 12px;
+      line-height: 20px;
     }
     .v-input {
       font-size: 12px;
