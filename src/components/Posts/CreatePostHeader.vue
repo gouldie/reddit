@@ -60,6 +60,9 @@ export default {
   a {
     text-decoration: none;
   }
+  .v-input {
+    background: #f6f7f8;
+  }
   // v-text-field outline
   // .v-application div.primary--text {
   //   color: rgba(150, 150, 150, 55) !important;

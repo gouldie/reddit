@@ -4,7 +4,7 @@
 
     <v-spacer></v-spacer>
 
-    <v-menu offset-y min-width='100' v-if='showHamburgerMenu'>
+    <v-menu offset-y min-width='110' v-if='showHamburgerMenu'>
       <template v-slot:activator='{ on, attrs }'>
         <v-btn
           data-testid='hamburger-menu'
@@ -97,7 +97,6 @@ export default {
 
 <style scoped lang="scss">
   @import '~vuetify/src/styles/styles.sass';
-
   a {
     display: flex;
   }
@@ -116,6 +115,16 @@ export default {
     cursor: pointer;
     &:hover {
       background: rgb(246, 246, 246);
+    }
+  }
+
+  @media #{map-get($display-breakpoints, 'sm-and-up')} {
+    .v-list {
+      color: red;
+    }
+
+    .v-list-item__title {
+      font-size: 14px !important;
     }
   }
 
