@@ -93,6 +93,11 @@ export default {
     font-size: 14px;
   }
 
+  // required for issue: https://github.com/vuetifyjs/vuetify/issues/11781
+  div.v-snack:not(.v-snack--absolute) {
+    height: 100%;
+  }
+
   .custom-loader {
     animation: loader 1s infinite;
     display: flex;
