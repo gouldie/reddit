@@ -18,8 +18,10 @@
         </div>
         <div>
           By
-          <a href='https://www.flaticon.com/authors/freepik' title='Freepik'>Freepik</a> and
-          <a href='https://www.flaticon.com/authors/eucalyp' title='Eucalyp'>Eucalyp</a> from
+          <a href='https://www.flaticon.com/authors/freepik' title='Freepik'>Freepik</a>,
+          <a href='https://www.flaticon.com/authors/eucalyp' title='Eucalyp'>Eucalyp</a>,
+          <a href='https://www.flaticon.com/authors/good-ware' title='Good Ware'>Good Ware</a> and
+          <a href='https://www.flaticon.com/authors/dinosoftlabs' title='DinosoftLabs'>DinosoftLabs</a> from
           <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a>
         </div>
       </v-card-text>

@@ -3,9 +3,9 @@
     <v-row>
       <v-col v-if='$vuetify.breakpoint.smAndUp' :md='2' :sm='3'>
         <v-card class='categories'>
-          <v-card-title class='blue-grey lighten-5'>
+          <v-card-subtitle class='blue-grey lighten-5'>
             Categories
-          </v-card-title>
+          </v-card-subtitle>
           <v-divider />
           <v-card-text
             :class='!category && "blue-grey lighten-5"'
@@ -14,7 +14,7 @@
             All Communities
           </v-card-text>
           <v-card-text
-            v-for='c in categories'
+            v-for='c in categories.sort((a, b) => a < b ? -1 : 1)'
             :key='c'
             :class='c === category && "blue-grey lighten-5"'
             @click='selectCategory(c)'
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import communities from '@/assets/json/communities.json'
+import communitiesJSON from '@/assets/json/communities.json'
 import TopCommunities from '@/components/Communities/Top.vue'
 import BrowseAZ from '@/components/Communities/BrowseAZ.vue'
 
@@ -47,20 +47,19 @@ export default {
   },
   data: function () {
     return {
-      communities,
+      communities: communitiesJSON,
       category: null
     }
   },
   computed: {
     categories () {
-      return communities.reduce((accumulator, currentValue) => {
+      return this.communities.reduce((accumulator, currentValue) => {
         if (!accumulator.includes(currentValue.category)) accumulator.push(currentValue.category)
         return accumulator
-      }, []).sort((a, b) => a < b ? -1 : 1)
+      }, [])
     },
     // two random categories
     randomCategory (n) {
-      // return this.categories[Math.floor(Math.random() * this.categories.length)]
       const cat = this.categories
       return cat.sort(() => Math.random() - Math.random()).slice(0, 2)
     }
@@ -74,12 +73,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .v-card__subtitle {
+    padding: 7px 10px;
+    color: black !important;
+  }
   .v-card {
     margin-bottom: 20px;
   }
   .col>div {
     min-height: 100px;
-    border: 1px solid black;
+    border: 1px solid #c5c5c5;
   }
   .categories {
     .v-card__title {
