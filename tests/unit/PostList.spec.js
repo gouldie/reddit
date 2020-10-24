@@ -26,7 +26,8 @@ const factory = (values = {}) => {
     },
     stubs: [
       'router-view',
-      'TimeAgo'
+      'TimeAgo',
+      'v-snackbar'
     ]
   })
 }
