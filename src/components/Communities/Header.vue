@@ -41,6 +41,7 @@ export default {
   .v-card__title {
     font-size: 24px;
     padding: 0;
+    word-break: break-word;
   }
   .v-card__text {
     padding: 0;
