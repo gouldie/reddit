@@ -39,6 +39,7 @@ if (IN_PROD) {
 app.use(express.json({ limit: '3mb', type: 'application/json' }))
 app.use(express.static('dist'))
 app.use(express.static('public'))
+// app.use(express.static('src/assets/images/community'))
 app.use(cookieParser())
 
 // Routes

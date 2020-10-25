@@ -4,62 +4,71 @@
     "name": "space",
     "title": "/r/space: news, articles, images, videos and discussion",
     "description": "Share & discuss informative content on: * Astrophysics * Cosmology * Space Exploration * Planetary Science * Astrobiology",
-    "category": "Science"
+    "category": "Science",
+    "members": "17,559,649"
   },
   {
     "id": "2",
     "name": "environment",
     "title": "environment",
     "description": "Current news, information and issues related to the environment.",
-    "category": "Science"
+    "category": "Science",
+    "members": "704,952"
   },
   {
     "id": "3",
     "name": "biology",
     "title": "Biology",
     "description": "Welcome to biology",
-    "category": "Science"
+    "category": "Science",
+    "members": "2,044,372"
   },
   {
     "id": "4",
     "name": "learnprogramming",
     "title": "learn programming",
     "description": "A subreddit for all questions related to programming in any language.",
-    "category": "Tech"
+    "category": "Tech",
+    "members": "1,801,289"
   },
   {
     "id": "5",
     "name": "vuejs",
     "title": "Vue.js - The progressive Javascript framework",
     "description": "Vue.js is a library for building interactive web interfaces. It provides data-reactive components with a simple and flexible API.",
-    "category": "Tech"
+    "category": "Tech",
+    "members": "61,560"
   },
   {
     "id": "6",
     "name": "reactjs",
     "title": "/r/ReactJS - The Front Page of React",
     "description": "A community for learning and developing web applications using React by Facebook.",
-    "category": "Tech"
+    "category": "Tech",
+    "members": "219,816"
   },
   {
     "id": "7",
     "name": "bodybuilding",
     "title": "Bodybuilding - everybody wants to be a bodybuilder",
     "description": "News, articles, personal pictures, videos & advice on everything related to bodybuilding - nutrition, supplementation, training, contest preparation, and more.",
-    "category": "Health & Fitness"
+    "category": "Health & Fitness",
+    "members": "1,260,285"
   },
   {
     "id": "8",
     "name": "fasting",
     "title": "willingly abstaining for a period of time",
     "description": "The great comedian, Ed Wynn said, \"Without your health, riches, possessions and fame are all mud.\" With the high costs of health care, how can we *afford* not to keep ourselves well? Most fast for health, self-discipline and preparation and not for religious reasons. Perhaps no subject is less understood by the public and the \"healing\" professions than this oldest of means of caring for the sick body.",
-    "category": "Health & Fitness"
+    "category": "Health & Fitness",
+    "members": "351,172"
   },
   {
     "id": "9",
     "name": "backpacking",
     "title": "World Travel Backpacking",
     "description": "A subreddit for traveling backpacking and wilderness backpacking, not restricted to one or the other. All posts must be flaired \"Travel\" or \"Wilderness\"",
-    "category": "Health & Fitness"
+    "category": "Health & Fitness",
+    "members": "2,109,752"
   }
 ]

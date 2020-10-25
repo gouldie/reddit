@@ -7,7 +7,7 @@ import axios from 'axios'
 import TimeAgo from 'vue-timeago'
 
 // Importing the global css file
-import '@/assets/global.css'
+import '@/assets/global.scss'
 
 Vue.use(TimeAgo, {
   name: 'TimeAgo'

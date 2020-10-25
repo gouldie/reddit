@@ -3,6 +3,8 @@
     <a href='/'><img id='logo' src='@/assets/images/reddit.png' /></a>
 
     <v-spacer></v-spacer>
+    <GlobalSearch />
+    <v-spacer></v-spacer>
 
     <v-menu offset-y min-width='110' v-if='showHamburgerMenu'>
       <template v-slot:activator='{ on, attrs }'>
@@ -43,6 +45,7 @@ import LogInModal from '@/components/Modals/LogIn.vue'
 import SignUpModal from '@/components/Modals/SignUp.vue'
 import LogInButton from '@/components/Buttons/LogIn.vue'
 import SignUpButton from '@/components/Buttons/SignUp.vue'
+import GlobalSearch from '@/components/Core/GlobalSearch.vue'
 import axios from 'axios'
 
 export default {
@@ -50,7 +53,8 @@ export default {
     LogInModal,
     SignUpModal,
     LogInButton,
-    SignUpButton
+    SignUpButton,
+    GlobalSearch
   },
   data: function () {
     return {
@@ -119,10 +123,6 @@ export default {
   }
 
   @media #{map-get($display-breakpoints, 'sm-and-up')} {
-    .v-list {
-      color: red;
-    }
-
     .v-list-item__title {
       font-size: 14px !important;
     }

@@ -95,6 +95,11 @@ export default {
       return communities.find(e => e.name === this.$route.params.community)
     }
   },
+  watch: {
+    community () {
+      this.getPosts()
+    }
+  },
   mounted () {
     if (this.community) {
       this.getPosts()
