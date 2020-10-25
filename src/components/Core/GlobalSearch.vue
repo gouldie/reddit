@@ -67,6 +67,9 @@ export default {
 
 <style lang="scss" scoped>
   @import '~vuetify/src/styles/styles.sass';
+  .v-autocomplete {
+    max-width: 400px;
+  }
 
   .v-list-item__subtitle {
     font-size: 11px !important;
