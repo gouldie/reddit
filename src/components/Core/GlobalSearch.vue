@@ -11,9 +11,10 @@
     item-text='name'
     item-value='name'
     :menu-props='{ maxHeight: 38 * 5, closeOnContentClick: true }'
+    @change='select'
   >
     <template v-slot:item='data'>
-      <div class='menuitem' @click='select(data.item.name)'>
+      <div class='menuitem'>
         <v-list-item-avatar size='20'>
           <img :src='src(data.item.name)'>
         </v-list-item-avatar>
