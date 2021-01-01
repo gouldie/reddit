@@ -12,6 +12,9 @@
     "server-dev": "NODE_ENV=development nodemon --watch server server/start.js",
     "start": "NODE_ENV=production node server/start.js"
   },
+  "engines": {
+    "node": "14.8.0"
+  },
   "dependencies": {
     "@babel/polyfill": "^7.10.1",
     "@hapi/joi": "^17.1.1",

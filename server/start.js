@@ -6,4 +6,5 @@ require('@babel/register')({
 })
 
 // Import the rest of our application.
+console.log('test log')
 module.exports = require('./index.js')
