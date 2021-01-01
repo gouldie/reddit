@@ -1,3 +1,4 @@
+console.log('test log')
 require('regenerator-runtime/runtime')
 
 // Transpile all code following this line with babel and use '@babel/preset-env' (aka ES6) preset.
@@ -6,5 +7,4 @@ require('@babel/register')({
 })
 
 // Import the rest of our application.
-console.log('test log')
 module.exports = require('./index.js')
