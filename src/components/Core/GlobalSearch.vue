@@ -1,26 +1,28 @@
 <template>
- <v-autocomplete
+  <v-autocomplete
     dense
-    label='Search'
+    label="Search"
     solo
     flat
     hide-details
     hide-no-data
-    prepend-inner-icon='search'
-    :items='communities'
-    item-text='name'
-    item-value='name'
-    :menu-props='{ maxHeight: 38 * 5, closeOnContentClick: true }'
-    @change='select'
+    prepend-inner-icon="search"
+    :items="communities"
+    item-text="name"
+    item-value="name"
+    :menu-props="{ maxHeight: 38 * 5, closeOnContentClick: true }"
+    @change="select"
   >
-    <template v-slot:item='data'>
-      <div class='menuitem'>
-        <v-list-item-avatar size='20'>
-          <img :src='src(data.item.name)'>
+    <template v-slot:item="data">
+      <div class="menuitem">
+        <v-list-item-avatar size="20">
+          <img :src="src(data.item.name)" />
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title html='data.item.name'>{{ data.item.name }}</v-list-item-title>
-          <v-list-item-subtitle html='data.item.group'>{{ data.item.members }} members</v-list-item-subtitle>
+          <v-list-item-title html="data.item.name">{{ data.item.name }}</v-list-item-title>
+          <v-list-item-subtitle html="data.item.group"
+            >{{ data.item.members }} members</v-list-item-subtitle
+          >
         </v-list-item-content>
       </div>
     </template>
@@ -37,53 +39,49 @@ export default {
     }
   },
   computed: {
-    communityNames () {
+    communityNames() {
       return communities.map(e => e.name)
     }
   },
   methods: {
-    select (name) {
+    select(name) {
       this.$router.push(`/r/${name}`).catch(err => {
         // Ignore the err regarding navigating to the page they are already on
-        if (err.name !== 'NavigationDuplicated' && !err.message.includes('Avoided redundant navigation to current location')) {
+        if (
+          err.name !== 'NavigationDuplicated' &&
+          !err.message.includes('Avoided redundant navigation to current location')
+        ) {
           console.error(err)
         }
       })
       document.querySelector('.v-autocomplete input').blur() // unfocus the autocomplete element
     },
-    src (name) {
-      let img
-
-      try {
-        img = require(`@/assets/images/community/${name}.png`)
-      } catch (e) {
-        img = require('@/assets/images/community/default.png')
-      }
-      return img
+    src(name) {
+      return new URL(`../../assets/images/community/${name}.png`, import.meta.url).href
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  @import '~vuetify/src/styles/styles.sass';
-  .v-autocomplete {
-    max-width: 400px;
-  }
+@import '~vuetify/src/styles/styles.sass';
+.v-autocomplete {
+  max-width: 400px;
+}
 
-  .v-list-item__subtitle {
-    font-size: 11px !important;
-  }
+.v-list-item__subtitle {
+  font-size: 11px !important;
+}
 
-  .menuitem {
-    display: flex;
-  }
+.menuitem {
+  display: flex;
+}
 
-  @media #{map-get($display-breakpoints, 'xs-only')} {
-    .v-input {
-      max-width: 200px;
-      position: relative;
-      top: 4px;
-    }
+@media #{map-get($display-breakpoints, 'xs-only')} {
+  .v-input {
+    max-width: 200px;
+    position: relative;
+    top: 4px;
   }
+}
 </style>
