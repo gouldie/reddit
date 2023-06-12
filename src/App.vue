@@ -1,14 +1,14 @@
 <template>
-  <v-app light color='blue'>
+  <v-app light color="blue">
     <Header />
-    <v-content color='blue'>
+    <v-content color="blue">
       <router-view></router-view>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import Header from '@/components/Layout/Header'
+import Header from '@/components/Layout/Header.vue'
 
 export default {
   name: 'App',

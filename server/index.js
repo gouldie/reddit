@@ -18,11 +18,21 @@ console.log('Running in', IN_PROD ? 'production' : 'development')
 
 // Use native promises
 mongoose.Promise = global.Promise
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true, useUnifiedTopology: true }).then(() => {
-  console.log('Connected to database')
-}, err => {
-  console.log('err', err)
-})
+mongoose
+  .connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+  })
+  .then(
+    () => {
+      console.log('Connected to database')
+    },
+    err => {
+      console.log('err', err)
+    }
+  )
 
 // Set up Express
 const app = express()
@@ -30,10 +40,12 @@ const app = express()
 if (IN_PROD) {
   app.use(helmet())
   app.use(hidePoweredBy())
-  app.use(rateLimit({
-    windowMs: 1 * 60 * 1000, // 1 minute
-    max: 100 // limit each IP to 100 requests per windowMs
-  }))
+  app.use(
+    rateLimit({
+      windowMs: 1 * 60 * 1000, // 1 minute
+      max: 100 // limit each IP to 100 requests per windowMs
+    })
+  )
 }
 
 app.use(express.json({ limit: '3mb', type: 'application/json' }))

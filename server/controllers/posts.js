@@ -1,13 +1,20 @@
 import cuid from 'cuid'
 import Post from '../models/Post'
 import Comment from '../models/Comment'
-import { CreateTextPost, CreateImagePost, CreateLinkPost, GetPost, GetPosts, Vote, EditPost, DeletePost } from '../validators/posts'
+import {
+  CreateTextPost,
+  CreateImagePost,
+  CreateLinkPost,
+  GetPost,
+  GetPosts,
+  Vote,
+  EditPost,
+  DeletePost
+} from '../validators/posts'
 import { addFields, commentCount, sortBy } from '../utils'
 import got from 'got'
 
-const metascraper = require('metascraper')([
-  require('metascraper-image')()
-])
+const metascraper = require('metascraper')([require('metascraper-image')()])
 
 export const getPosts = async (req, res) => {
   const { error } = GetPosts.validate(req.query, { abortEarly: true })
@@ -26,8 +33,12 @@ export const getPosts = async (req, res) => {
   let posts = await Post.find(query).populate('user', 'username').lean()
 
   // get number of comments
-  let comments = await Comment.find({ postId: { $in: posts.map(e => e._id) } }).populate('user', 'username').lean()
-  comments = comments.filter(e => e.user._id === req.userId || ['lorem', 'ipsum'].includes(e.user.username))
+  let comments = await Comment.find({ postId: { $in: posts.map(e => e._id) } })
+    .populate('user', 'username')
+    .lean()
+  comments = comments.filter(
+    e => e.user._id === req.userId || ['lorem', 'ipsum'].includes(e.user.username)
+  )
 
   // sort
   posts = posts.sort(sortBy[sort])
@@ -169,7 +180,10 @@ export const upvote = async (req, res) => {
     return res.json({ success: false, message: error.details[0].message })
   }
 
-  await Post.updateOne({ _id: req.body.postId }, { $addToSet: { upvotes: req.userId }, $pull: { downvotes: req.userId } })
+  await Post.updateOne(
+    { _id: req.body.postId },
+    { $addToSet: { upvotes: req.userId }, $pull: { downvotes: req.userId } }
+  )
 
   return res.json({ success: true })
 }
@@ -181,7 +195,10 @@ export const downvote = async (req, res) => {
     return res.json({ success: false, message: error.details[0].message })
   }
 
-  await Post.updateOne({ _id: req.body.postId }, { $addToSet: { downvotes: req.userId }, $pull: { upvotes: req.userId } })
+  await Post.updateOne(
+    { _id: req.body.postId },
+    { $addToSet: { downvotes: req.userId }, $pull: { upvotes: req.userId } }
+  )
 
   return res.json({ success: true })
 }
@@ -233,12 +250,14 @@ export const editPost = async (req, res) => {
       })
       const metadata = await metascraper({ html, url })
       $set.linkPreview = metadata.image
-    } catch (e) {
-
-    }
+    } catch (e) {}
   }
 
-  const newPost = await Post.findByIdAndUpdate({ _id: postId }, { $set, $unset }, { new: true }).populate('user')
+  const newPost = await Post.findByIdAndUpdate(
+    { _id: postId },
+    { $set, $unset },
+    { new: true }
+  ).populate('user')
 
   return res.json({ success: true, post: newPost })
 }
