@@ -34,7 +34,7 @@
     "jsonwebtoken": "^8.5.1",
     "metascraper": "^5.14.12",
     "metascraper-image": "^5.14.12",
-    "mongoose": "^5.10.7",
+    "mongoose": "^5.13.20",
     "random-color": "^1.0.1",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
